@@ -1,0 +1,163 @@
+body
+{
+    font-size: 14px;
+}
+
+#option
+{
+    margin-left: 5%
+		     height: 68vh;
+}
+
+#list
+{
+    height: 68vh;
+/*	border: 1px black solid;
+	box-shadow: 1px 1px 1px;*/
+
+}
+
+#diag
+{
+    margin-left: 1vw;
+    margin-bottom: 1.5vh;
+    font-size: 1.2vw;
+}
+
+#liste
+{
+    height: 100%;
+    overflow: auto;
+}
+
+.container-fluid
+{
+    margin-right: 5%;
+    height: 32%;
+}
+
+.section
+{
+    background-color: #abbecf;
+    margin-top: 1vh;
+}
+
+.siret
+{
+    width: 11em;
+    height: 30%;
+    font-size: 1.0em;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    margin-left: 1vw;
+}
+
+.newmet
+{
+    background-color: #f4f4f4;
+    margin-top: 0.5vh;
+}
+
+#deroul_bottom
+{
+    float: right;
+}
+
+span
+{
+    font-size: 1.8vw;
+    font-weight: bold;
+    margin-left: 1vw;
+    color: #003c74;
+}
+
+p
+{
+    margin-left: 1vw;
+}
+
+.button
+{
+    background-color: #003c74;
+    border: 1px black solid;
+    box-shadow: 1px 1px 1px black;
+    margin-left: 10%;
+    margin-bottom: 3%;
+
+    text-align: right;
+    font-weight: bold;
+    color: white;
+}
+
+#meetings
+{
+    height: 20%;
+    overflow: auto;
+    font-size: 1vw;
+    font-family: Roboto;
+}
+
+#diag
+{
+    width: 70%;
+}
+
+#searchinput
+{
+    width: 70%;
+}
+
+
+
+
+div[role="dialog"]{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background-color: rgba(0,0,0,0.6);
+}
+
+div[role="document"]{
+    position: fixed;
+    left:50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    max-width:85%;
+    max-height:85%;
+    overflow:auto;
+    padding:10px;
+    background-color: white;
+    border:15px solid white;
+    border-radius:15px;
+    padding-top:10px;
+}
+
+div[role="dialog"] .cross {
+    position:absolute;
+    top: 2px;
+    right: 2px;
+    border:none;
+    padding:0;
+    background: white;
+    cursor:pointer;
+}
+
+.focus
+{
+    color: black;
+    font-size: 1.4em;
+    border: 5px solid black;
+}
+
+tr th
+{
+    font-size: 1.2em;
+}
+
+tr td
+{
+    font-size: 0.9em;
+}

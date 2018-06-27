@@ -1,0 +1,19 @@
+COEE_INSEE;CODE_POSTAL;VILLE
+
+(VILLE Optionnel si CODE_INSE : XX000 XX -> correspond aux 2 premiers du CODE_POSTAL)
+
+===================================================================
+
+API Entreprise direct côté client
+
+===================================================================
+
+Fct check required in send_questionnaire
+
+===================================================================
+
+Rules global
+
+===================================================================
+
+Chiffrement password

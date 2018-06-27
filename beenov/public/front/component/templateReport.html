@@ -1,0 +1,51 @@
+<link rel="import" href="templateSection.html">
+<template id="template">
+  <div id="sections">
+    <!-- templateReport.sections -->
+  </div>
+</template>
+
+<script>
+  var TemplateReportComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var templateReportPrototype = Object.create(HTMLElement.prototype);
+    var deferred = new $.Deferred();
+
+    templateReportPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    };
+
+    templateReportPrototype.appendSections = function(){
+      var sections = TemplateReportComponent.reportTemplate.sections;
+      var l = sections ? sections.length : 0;
+      var elt = this.querySelector("#sections");
+
+      for(var i=0; i<l; i++){
+        var s = new TemplateSectionComponent();
+        s.setAttribute("index", i);
+
+        elt.appendChild(s);
+      }
+    };
+
+    templateReportPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "name")
+        TemplateReportComponent.reportTemplate = ReportTemplate.getByName(newV);
+
+      else if(attr == "existing")
+        TemplateReportComponent.reportTemplate = ReportComponent.report;
+
+      this.appendSections();
+    };
+
+
+    TemplateReportComponent = document.registerElement(
+      'beenov-template-report', {
+      prototype : templateReportPrototype
+    });
+  })();
+</script>

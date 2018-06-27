@@ -1,0 +1,55 @@
+<template id="template">
+  <div class="col-md-10">
+
+      <h4 class="title" id="title">
+        <!-- on affiche le titre -->
+      </h4>
+
+      <span style="font-style: italic" id="variableValueLabel">
+        <!-- variableValuesItem.testvaleur -->
+     </span>
+     <span> / </span>
+     <span style="font-style: italic" id="maxValue">
+            <!-- valeur max -->
+     </span>
+</div>
+</template>
+
+
+<script>
+  var VariableValueItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var variableValueItemPrototype = Object.create(HTMLElement.prototype);
+
+    variableValueItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    variableValueItemPrototype.setVariableValue = function(){
+      this.variableValueItem.setVariableValue().done(()=>{
+        this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue ;
+      });
+    };
+
+    variableValueItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.variableValueItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#title").innerHTML = this.variableValueItem.name ;
+        this.setVariableValue();
+        this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue ;
+
+      }
+    }
+
+    VariableValueItemComponent = document.registerElement('beenov-variable-value-item', {
+      prototype : variableValueItemPrototype
+    });
+})();
+</script>

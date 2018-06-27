@@ -1,0 +1,293 @@
+<link rel="import" href="appendixCompanyInfoItem.html">
+<link rel="import" href="chartItem.html">
+<link rel="import" href="commentGroupItem.html">
+<link rel="import" href="commentItem.html">
+<link rel="import" href="imageItem.html">
+<link rel="import" href="infoSheetsItem.html">
+<link rel="import" href="namedCommentItem.html">
+<link rel="import" href="pageJumpItem.html">
+<link rel="import" href="questionAnswerItem.html">
+<link rel="import" href="smileyRankItem.html">
+<link rel="import" href="staticImageItem.html">
+<link rel="import" href="subsectionTitleItem.html">
+<link rel="import" href="variableValueItem.html">
+<link rel="import" href="lineJumpItem.html">
+<link rel="import" href="sectionActionsItem.html">
+<link rel="import" href="sectionHeaderItem.html">
+
+
+<template id="template">
+<div class="col-md-9">
+    <div id="item" class="col-md-12">
+      <!-- item -->
+    </div>
+
+   <div class="col-md-9" id="text" style="display:none">
+        <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
+        <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
+        <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
+        <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
+        <div id="editeur" contentEditable></div>
+  </div>
+<div class="col-md-9" id="textcomment" > </div>
+</div>
+
+
+</br>
+<div class="col-md-3" id="button">
+  </br>
+    <button type="button" id="masquer" class="btn active btn-sm btn-block">Masquer</button>
+    <button type="button" id="afficher" style="display:none" class="btn active btn-sm btn-block">Afficher</button>
+    <button type="button" id="commentaire" class="btn active btn-sm btn-block">Ajouter un commentaire</button>
+    <button type="button" id="modifier" style="display:none" class="btn active btn-sm btn-block">Modifier le commentaire</button>
+    <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Terminer</button>
+    <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
+</div>
+</br>
+</template>
+
+<script>
+  var ItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var itemPrototype = Object.create(HTMLElement.prototype);
+    var deferred = new $.Deferred();
+
+    itemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    }
+
+    function createItemComponent(type, index){
+      var component = null;
+      switch (type){
+        case CONST.itemType.comment :
+        component = new CommentItemComponent();
+        break;
+
+        case CONST.itemType.questionAnswer :
+        component = new QuestionAnswerItemComponent();
+        break;
+
+        // case CONST.itemType.chart :
+        // component = new ChartItemComponent();
+        // break;
+
+        case CONST.itemType.subsectionTitle :
+        component = new SubsectionTitleItemComponent();
+        break;
+
+        case CONST.itemType.namedComment :
+        component = new NamedCommentItemComponent();
+        break;
+
+        case CONST.itemType.infoSheets :
+        component = new InfoSheetsItemComponent();
+        break;
+
+        case CONST.itemType.variableValue :
+        component = new VariableValueItemComponent();
+        break;
+
+        case CONST.itemType.commentGroup :
+        component = new CommentGroupItemComponent();
+        break;
+
+        case CONST.itemType.staticImage :
+        component = new StaticImageItemComponent();
+        break;
+
+        case CONST.itemType.image :
+        component = new ImageItemComponent();
+        break;
+
+        case CONST.itemType.smileyRank :
+        component = new SmileyRankItemComponent();
+        break;
+
+        case CONST.itemType.pageJump :
+        component = new PageJumpItemComponent();
+        break;
+
+        case CONST.itemType.appendixCompanyInfo :
+        component = new AppendixCompanyInfoItemComponent();
+        break;
+
+        case CONST.itemType.lineJump :
+        component = new LineJumpItemComponent();
+        break;
+
+        case CONST.itemType.sectionActions :
+        component = new SectionActionsItemComponent();
+        break;
+
+        case CONST.itemType.sectionHeader :
+        component = new SectionHeaderItemComponent();
+        break;
+      }
+
+      if(component){
+        component.setAttribute("index", index);
+        return component;
+      }
+
+    }
+
+    var afficher = function(elt) {
+      if (elt.item.visible) {
+        elt.querySelector('#item').setAttribute("class","col-md-12 darken");
+        elt.querySelector("#masquer").setAttribute("style", "display:none");
+        elt.querySelector("#afficher").removeAttribute("style", "display:none");
+        elt.querySelector("#commentaire").setAttribute("style", "display:none");
+        elt.querySelector("#textcomment").setAttribute("class", "col-md-9 darken");
+        elt.querySelector("#modifier").setAttribute("style", "display:none");
+        elt.item.visible=false;
+      }
+      else {
+        elt.item.visible=true;
+        elt.querySelector('#item').setAttribute("class","col-md-12");
+        elt.querySelector("#afficher").setAttribute("style", "display:none");
+        elt.querySelector("#masquer").removeAttribute("style", "display:none");
+
+        if(elt.item.comment != undefined){
+            elt.querySelector("#modifier").removeAttribute("style", "display:none");
+        }
+        else {
+            elt.querySelector("#commentaire").removeAttribute("style", "display:none");
+        }
+        elt.querySelector("#textcomment").setAttribute("class", "col-md-9")
+
+      }
+    }
+
+    var commenter = function(elt){
+      elt.querySelector("#text").removeAttribute("style","display:none");
+      elt.querySelector("#textcomment").setAttribute("style","display:none");
+      elt.querySelector("#annuler").removeAttribute("style","display:none");
+      elt.querySelector("#terminer").removeAttribute("style","display:none");
+      elt.querySelector("#masquer").setAttribute("style","display:none");
+      elt.querySelector("#commentaire").setAttribute("style","display:none");
+
+    }
+
+    var annuler = function(elt) {
+        elt.querySelector("#text").setAttribute("style","display:none");
+        elt.querySelector("#annuler").setAttribute("style","display:none");
+        elt.querySelector("#terminer").setAttribute("style","display:none");
+        elt.querySelector("#masquer").removeAttribute("style","display:none");
+        elt.querySelector("#modifier").removeAttribute("style","display:none");
+        elt.querySelector("#commentaire").textContent="Ajouter un commentaire";
+        elt.querySelector("#textcomment").removeAttribute("style","diplay:none");
+        }
+
+    itemPrototype.commentExist = function(){
+        if (this.item.comment){
+            this.querySelector("#modifier").removeAttribute("style","display:none");
+            this.querySelector("#commentaire").setAttribute("style","display:none");
+            this.querySelector("#textcomment").innerHTML = this.item.comment;
+            console.log(this.item.comment)
+         }
+       }
+
+    var terminer = function(elt) {
+      var texte  = elt.querySelector("#editeur").innerHTML;
+      elt.querySelector("#text").setAttribute("style","display:none");
+      elt.querySelector("#textcomment").removeAttribute("style","display:none");
+      elt.querySelector("#textcomment").innerHTML = texte;
+      elt.item.comment = texte;
+      console.log(elt.item);
+      elt.querySelector("#annuler").setAttribute("style","display:none");
+      elt.querySelector("#terminer").setAttribute("style","display:none");
+      elt.querySelector("#masquer").removeAttribute("style","display:none");
+      elt.querySelector("#commentaire").setAttribute("style","display:none");
+      elt.querySelector("#modifier").removeAttribute("style","display:none");
+    }
+
+
+    itemPrototype.verifierVisible = function(){
+      if (this.item.visible == false)
+      {
+        console.log(this.item)
+          this.querySelector('#item').setAttribute("class","col-md-12 darken");
+          this.querySelector("#afficher").removeAttribute("style","display:none");
+          this.querySelector("#masquer").setAttribute("style","display:none");
+          this.querySelector("#commentaire").setAttribute("style", "display:none");
+          this.querySelector("#textcomment").setAttribute("class", "col-md-9 darken");
+          this.querySelector("#modifier").setAttribute("style", "display:none");
+      }
+    }
+
+    itemPrototype.ifTitle = function(){
+      console.log(this.item);
+      if (this.item.type == "section-header" || this.item.type == "subsection-title") {
+        this.querySelector("#button").setAttribute("style","display:none");
+      }
+    }
+
+    var modifierCommentaire = function(elt){
+      elt.querySelector("#text").removeAttribute("style","display:none");
+      if (elt.item.comment != undefined) {
+
+        elt.querySelector("#editeur").innerHTML=elt.item.comment;
+      }
+      elt.querySelector("#textcomment").setAttribute("style","display:none");
+      elt.querySelector("#annuler").removeAttribute("style","display:none");
+      elt.querySelector("#terminer").removeAttribute("style","display:none");
+      elt.querySelector("#masquer").setAttribute("style","display:none");
+      elt.querySelector("#commentaire").setAttribute("style","display:none");
+      elt.querySelector("#modifier").setAttribute("style","display:none");
+    }
+
+    itemPrototype.attachedCallback = function(){
+      var obj =this;
+
+      this.querySelector("#masquer").onclick = function(){
+        afficher(obj);
+      };
+      this.querySelector("#commentaire").onclick = function(){
+        commenter(obj);
+      };
+
+      this.querySelector("#annuler").onclick = function() {
+          annuler(obj);
+      };
+
+      this.querySelector("#terminer").onclick = function () {
+          terminer(obj);
+      };
+
+      this.querySelector('#modifier').onclick = function () {
+        modifierCommentaire(obj);
+      };
+
+      this.querySelector("#afficher").onclick = function (){
+        afficher(obj);
+      }
+    }
+
+
+    itemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV);
+        var reports = {};
+
+        ItemComponent.reportTemplate = TemplateReportComponent.reportTemplate;
+        this.item = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        if(this.item){
+          this.commentExist();
+          this.verifierVisible();
+          this.ifTitle();
+          var newC = createItemComponent(this.item.type, newV);
+          this.querySelector("#item").append(newC);
+        }
+      }
+    };
+
+    ItemComponent = document.registerElement('beenov-item', {
+      prototype : itemPrototype
+    });
+})();
+</script>

@@ -1,0 +1,173 @@
+<link rel="import" href="templateReport.html">
+
+<template id="content">
+  <div id="report">
+  <!--- new TemplateReportComponent -->
+  </div>
+</template>
+
+<template id="navbar">
+  <br />
+  <select id="templateList">
+    <option selected disabled hidden style="display: none" value="">
+      Choisissez un modèle
+    </option>
+    <!-- ReportTemplate.allCurrent -->
+    <!-- ReportComponent.report <<lastReport>> -->
+  </select>
+</template>
+
+<template id="actions">
+  <button type="button" id="save_report">
+    Enregistrer ce compte-rendu
+  </button>
+  <br />
+  <button type="button" id="summon_report">
+    Générer le compte-rendu
+  </button>
+
+</template>
+
+<script>
+  var ReportComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var reportPrototype = Object.create(HTMLElement.prototype);
+    var deferred = new $.Deferred();
+
+    reportPrototype.defEvents = function(){
+      var me = this;
+
+      document.querySelector("#templateList").onclick = function(){
+        me.setAttribute("name", this.value);
+      };
+
+      document.querySelector("#save_report").onclick = function(){
+        var obj = TemplateReportComponent.reportTemplate;
+        var id = ReportComponent.report.idReport;
+
+        Report.updateReport(id, obj).onload = ()=>{
+          alert("save done");
+          Report.getReportById(id).done((data)=>{
+            var x = JSON.parse(data);
+            if(x.status === "ok")
+              ReportComponent.report = new ReportTemplate(x.resources[0]);
+          });
+        };
+      };
+
+      document.querySelector("#summon_report").onclick = function(){
+        Report.generatePDF(TemplateReportComponent.reportTemplate).onload = (data)=>{
+          var url = data.currentTarget.response;
+
+          Report.downloadPDF(url).onload = (data)=>
+            createLink(data.currentTarget.response)
+        };
+      };
+
+    };
+
+    function createLink(arrayBuffer){
+      var b = new Blob([new Uint8Array(arrayBuffer)], {type: 'application/octet-binary'});
+      var link = document.createElement("a");
+
+      link.href = window.URL.createObjectURL(b);
+      link.download = "rapport.pdf";
+
+      if(window.confirm("Télécharger le rapport !")){
+        link.click();
+      }
+    }
+
+    reportPrototype.createdCallback = function(){
+      Operation.appendTemplate(this, currentDoc, "#content");
+      ReportComponent.lastReportName = "Dernier Rapport";
+
+      var elt = document.querySelector("#sumup_type");
+      Operation.appendTemplate(elt, currentDoc, "#navbar");
+
+      elt = document.querySelector("#actions");
+      Operation.appendTemplate(elt, currentDoc, "#actions");
+
+      this.defEvents();
+    };
+
+    reportPrototype.appendTemplateName = function(){
+      var newOp = {};
+      var elt = document.querySelector("#templateList");
+
+      if(ReportComponent.report){
+        newOp = document.createElement("option");
+        newOp.innerText = ReportComponent.lastReportName;
+        elt.append(newOp);
+
+        ReportComponent.singleton[newOp.innerText] = null;
+      }
+
+      var l = ReportTemplate.allCurrent.length;
+      for (var i=0; i<l; i++){
+        newOp = document.createElement("option");
+        newOp.innerText = ReportTemplate.allCurrent[i].name;
+        elt.append(newOp);
+
+        ReportComponent.singleton[newOp.innerText] = null;
+      }
+    };
+
+    function init(){
+      ReportComponent.singleton = {};
+
+      Report.getReports().done((data)=>{
+        var x = JSON.parse(data);
+        if(x.status === "ok"){
+          var tab = x.resources;
+          ReportComponent.report = new ReportTemplate(tab[tab.length-1]);
+        }
+
+        $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting())
+                      .done(()=>deferred.resolve());
+      });
+
+      return deferred.promise();
+    }
+
+    reportPrototype.attachedCallback = function(){
+      init().done(()=>this.appendTemplateName());
+    };
+
+    reportPrototype.appendReport = function(name){
+      var report = {};
+
+      if(! ReportComponent.singleton[name]){
+        report = ReportComponent.singleton[name] = new TemplateReportComponent();
+
+        if(name === ReportComponent.lastReportName)
+          report.setAttribute('existing', true);
+        else
+          report.setAttribute('name', name);
+      }
+
+      else
+        report = ReportComponent.singleton[name];
+
+      this.querySelector("#report").appendChild(report);
+    };
+
+    reportPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr === "name" && newV){
+        var child = this.firstElementChild;
+        if(child.firstElementChild)
+          child.removeChild(child.firstElementChild);
+
+        this.appendReport(newV);
+      }
+
+    };
+
+    ReportComponent = document.registerElement('beenov-report', {
+      prototype : reportPrototype
+    });
+
+  })();
+</script>

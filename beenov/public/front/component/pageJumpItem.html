@@ -1,0 +1,34 @@
+<template id="template">
+
+  <div class="col-md-10" style="page-break-after : always">
+      <p style="text-align: center"> --- Saut de page --- </p>
+  </div>
+</template>
+
+<script>
+  var PageJumpItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var pageJumpItemPrototype = Object.create(HTMLElement.prototype);
+
+    pageJumpItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    pageJumpItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.pageJumpItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+      }
+    }
+
+    PageJumpItemComponent = document.registerElement('beenov-page-jump-item', {
+      prototype : pageJumpItemPrototype
+    });
+})();
+</script>

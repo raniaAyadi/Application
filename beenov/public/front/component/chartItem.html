@@ -1,0 +1,74 @@
+<template id="template">
+
+  <h4 style="font-style:italic;" id="title">
+    <!-- charItem.label -->
+  </h4>
+</br>
+</br>
+
+  <div class="row">
+          <img class="col-md-8" id="image"> </img><!-- src charItem.data -->
+
+          <div class="row-md-4" id="legend"> </div>  <!-- charItem.legend -->
+ </div>
+</br>
+
+</template>
+
+<script>
+  var ChartItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var chartItemPrototype = Object.create(HTMLElement.prototype);
+
+    chartItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    };
+
+    chartItemPrototype.legend = function(colors, names, index){
+      let toAppend = "";
+      let i = 0;
+      while (colors && names && colors[i] && names[i]){
+
+        toAppend += '<svg width="8" height="8">';
+        toAppend += '<rect width="20" height="20" style="fill:#' + colors[i] + '" />';
+        toAppend +='</svg>&nbsp';
+        toAppend += '<span>' + names[i] + '</span><br />';
+
+      	++i;
+       }
+
+      this.querySelector("#legend").innerHTML = toAppend;
+      this.querySelector("#image").setAttribute("style","float:left");
+    };
+
+    chartItemPrototype.setImageSrc = function(){
+      this.chartItem.setData().done((data)=>{
+        var src = CONST.chart.data + Operation.base64ArrayBuffer(this.chartItem.data);
+        this.querySelector("#image").setAttribute("src",src);
+      });
+
+    };
+
+    chartItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV);
+        this.chartItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        this.querySelector("#title").innerHTML = this.chartItem.title;
+        this.setImageSrc();
+
+        var legendData = this.chartItem.legend();
+        this.legend(legendData.colors, legendData.names, legendData.index);
+      }
+    };
+
+    ChartItemComponent = document.registerElement(
+      'beenov-char-item', {
+      prototype : chartItemPrototype
+    });
+
+  })();
+</script>

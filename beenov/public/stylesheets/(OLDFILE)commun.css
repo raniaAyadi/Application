@@ -1,0 +1,46 @@
+/* 
+** /mnt/home/alban/Documents/V2/advisor-web/light version/asset/cascadingStyleSheets/commun.css 
+*/
+.hoverall{
+	z-index: 400;
+	display: block;
+	position: absolute;
+	background-color: white;
+	height: 100%;
+	min-width: 100%;
+	top: 0px;
+	left: 0px;
+	opacity: 0.8;
+}
+
+#new{
+	background-color: white;
+	display: block;
+	left: 50%;
+	margin: auto;
+	opacity: 1;
+	position: absolute;
+	top: 50%;
+}
+
+.textWarning{
+	color: red;
+}
+
+.stopScroll {
+	height: 100%;
+	overflow: hidden;
+}
+
+.warning{
+	outline: 5px solid red;
+}
+
+.trumbowyg-button-pane{
+	background-color: #acbece;
+}
+
+.hidd{
+	background-color: white;
+	opacity: 0.3;
+}

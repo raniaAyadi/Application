@@ -1,0 +1,74 @@
+#center_div
+{
+	margin-top: 50vh;
+	transform: translateY(-100%);
+	border: 2px black solid;
+	background-color: #abbecf;
+	box-shadow: 3px 2px 2px black;
+}
+
+#logologin
+{
+	position: fixed;
+	right: 0;
+	height: 4vh;
+}
+
+#titre
+{
+	color: white;
+}
+
+.font
+{
+	border: 1px black solid;
+	box-shadow: 1px 1px 1px black;
+	background-color: #f4f4f4;
+	width: 30vw;
+	margin: 0 auto;
+}
+
+h2
+{
+	color: rgb(255 255 255);
+	background-color: #003c74;
+}
+
+p
+{
+	margin-left: 1vw;
+	margin-bottom: 0;
+	font-weight: bold;
+	color: black;
+}
+
+input
+{
+	background-color: #f4f4f4;
+	border: 1px black solid;
+	width: 75%;
+}
+
+#button
+{
+	background-color: #003c74;
+	border: 1px black solid;
+	box-shadow: 1px 1px 1px black;
+	padding: 4px 4px 4px 4px;
+	width: 40%;
+	float: right;
+	margin-right: 30%;
+	margin-bottom: 2%;
+
+	text-align: center;
+	font-weight: bold;
+	color: white;
+}
+
+.no-padding > [class*='col-']
+{
+	padding-top: 0;
+	padding-right: 0;
+	padding-left: 0;
+	padding-bottom: 0;
+}

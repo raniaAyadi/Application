@@ -1,0 +1,28 @@
+Fonctionnement du compte-rendu:
+
+A la création de l'entretien, à l'ouverture de l'onglet compte-rendu,
+
+-> send_questionnaire(2)
+ |-> enregistre les reponses du questionnaire sur le serveur par requête sur /company
+ |-> update-report(2)
+  |-> cas 2: récupère les nouvelles réponses sur le serveur par requête /info_questionnaire
+  |-> poste un compte rendu sur le serveur avec les réponses déjà renseignées par /firstreport, retourne un ID sur lequel if faudra poster les suivant.
+      /!\ Etape non fonctionnelle: le LISP refuse le json /!\
+
+La réinitialisation du compte-rendu,
+
+-> update_report(1)
+ |-> cas 1: simple réinitialisation du compte rendu (MAJ des réponses)
+ |-> generate_sumup(report_template)
+  |-> if (report) existe
+   |-> regénération du compte-rendu avec le template présent sur le serveur
+  |-> else
+   |-> regénération du compte-rendu avec le report_template recu de la requête /report-template
+
+L'enregistrement du compte-rendu
+
+-> generate_report()
+ |-> génere le json contenant tout les champs du compte rendu avec leur réponse
+ |-> sendreport()
+  |-> balance le report sur le serveur avec la requête /savereport
+      /!\ Etape non fonctionnelle: nécessite l'ID sur lequel poster le report /!\

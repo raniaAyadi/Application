@@ -1,0 +1,42 @@
+<template id="template">
+  <div class="col-md-10">
+    <h3 style="font-style: italic" id="label"></h3>
+
+       <div id="image">
+      </div>
+
+      <!-- commentItem.label -->
+
+  </div>
+</template>
+
+<script>
+  var StaticImageItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var staticImageItemPrototype = Object.create(HTMLElement.prototype);
+
+    staticImageItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    staticImageItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.staticImageItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#label").innerHTML = this.staticImageItem.label;
+       this.querySelector("#image").innerHTML = '<img src="' + this.staticImageItem.url + ' " alt="' + this.staticImageItem.fileName +'">';
+
+      }
+    }
+    StaticImageItemComponent = document.registerElement('beenov-static-image-item', {
+
+      prototype : staticImageItemPrototype
+    });
+})();
+</script>

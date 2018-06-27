@@ -1,0 +1,39 @@
+<template id="template">
+  <div class="col-md-10">
+    <p style="font-style: italic" id="label">
+      <!-- imageItem.label -->
+    </p>
+    <h4 style="font-family:serif" class="title"> Sélectionnez l'image à télécharger </h4>
+    <input type="file" name="nom" value=""/>
+
+  </div>
+</template>
+
+<script>
+  var ImageItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var imageItemPrototype = Object.create(HTMLElement.prototype);
+
+      imageItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    imageItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.imageItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#label").innerHTML = this.imageItem.label;
+      }
+    }
+
+    ImageItemComponent = document.registerElement('beenov-image-item', {
+      prototype : imageItemPrototype
+    });
+})();
+</script>

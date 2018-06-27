@@ -1,0 +1,95 @@
+html, body {
+  font-family: Roboto, sans-serif; }
+
+.header {
+  background-color: #003c74;
+  color: white;
+  padding: .5em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
+  .header .user-menu {
+    position: relative;
+    width: 10em; }
+    .header .user-menu .user-btn {
+      background-color: #abbecf;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      color: white;
+      padding: 0; }
+      .header .user-menu .user-btn .username {
+        display: inline-block;
+        border-right: 1px solid #003c74;
+        padding: 2px .5em; }
+    .header .user-menu .dropdown-menu {
+      display: none;
+      position: absolute;
+      width: 13em;
+      top: 2em;
+      right: 2.4em;
+      font-size: 14px;
+      background-color: #abbecf; }
+      .header .user-menu .dropdown-menu .dropdown-element {
+        display: block;
+        padding: 5px 10px 7px;
+        text-align: right;
+        color: black;
+        text-decoration: none;
+        border-bottom: 1px solid white; }
+        .header .user-menu .dropdown-menu .dropdown-element:hover {
+          background-color: #869fb5; }
+
+nav {
+  margin: 1em 0;
+  display: inline-block;
+  background-color: #003c74; }
+  nav .nav-list {
+    list-style-type: none;
+    margin: 0;
+    color: white;
+    padding: 0; }
+    nav .nav-list a {
+      padding: 5px 0;
+      display: inline-block;
+      color: white;
+      border-right: 1px solid white; }
+      nav .nav-list a:hover {
+        background-color: #fab21a;
+        color: black; }
+      nav .nav-list a li {
+        display: inline-block;
+        padding: 0 10px;
+        margin: 0; }
+
+.title {
+  color: #003c74;
+  font-size: 35px;
+  font-weight: bold; }
+
+.form-box {
+  display: inline-block;
+  border: 2px solid #abbecf; }
+  .form-box .box-header {
+    background-color: #abbecf; }
+    .form-box .box-header p {
+      margin: 0;
+      padding: .75em 0 .5em 5px;
+      font-weight: bold; }
+  .form-box .box-content {
+    padding: 1.5em 1em;
+    background-color: #f4f4f4; }
+    .form-box .box-content label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px; }
+    .form-box .box-content input, .form-box .box-content textarea {
+      width: 15em;
+      margin-bottom: 10px;
+      padding: 2px; }
+    .form-box .box-content textarea {
+      height: 4em;
+      resize: none;
+      font-family: Roboto, sans-serif; }
+
+/*# sourceMappingURL=style.css.map */

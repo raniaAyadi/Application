@@ -1,0 +1,37 @@
+<template id="template">
+  <div class="col-md-9">
+  </br>
+      <p style="font-style: italic" class="title" id="label">
+            <!-- appendixCompanyInfoItem.label -->
+      </p> </br>
+  </div>
+</template>
+
+<script>
+  var AppendixCompanyInfoItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var appendixCompanyInfoItemPrototype = Object.create(HTMLElement.prototype);
+    var appendixCompanyInfoItem = {};
+
+    appendixCompanyInfoItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    }
+
+    appendixCompanyInfoItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.appendixCompanyInfoItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#label").innerHTML = this.appendixCompanyInfoItem.label;
+      }
+    }
+
+    AppendixCompanyInfoItemComponent = document.registerElement('beenov-appendix-Company-Info-item', {
+      prototype : appendixCompanyInfoItemPrototype
+    });
+})();
+</script>

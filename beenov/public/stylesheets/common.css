@@ -1,0 +1,134 @@
+body
+{
+	font-family: Roboto, sans-serif;
+}
+
+/* Header et Footer */
+
+#top
+{
+	background-color: #003c74;
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: 0;
+	height: 8%;
+}
+
+.credits
+{
+	float: left;
+	margin-top: 1vh;
+	margin-bottom: auto;
+	margin-left: 1vw;
+	height: 75%;
+	width: auto;
+	cursor: pointer;
+}
+
+#bottom
+{
+	background-color: #003c74;
+	position: absolute;
+	right: 0;
+	bottom: 0px;
+	left: 0;
+	height: 8%;
+}
+
+/* Menu déroulant de deconnexion/changement mdp (inclut dans le header) */
+
+.menu
+{
+	float: right;
+}
+
+.menu ul
+{
+	margin-top: 0;
+	margin-right: 6vw;
+	padding: 0;
+}
+
+.menu ul li
+{
+	display: block;
+	position: relative;
+	float: right;
+}
+
+.menu .droite
+{
+	float: right;
+}
+
+.menu li ul
+{
+	display: none;
+	min-width: 15vw;
+}
+
+.menu ul li a
+{
+	display: block;
+	text-decoration: none;
+	font-size: 1.2vw;
+	color: #ffffff;
+	padding: 0.8vh 1.1vw;
+	background: #006699;
+	white-space: nowrap;
+}
+
+.menu ul li a:hover
+{
+	background: #999;
+}
+
+.menu li:hover ul
+{
+	display: block;
+	position: absolute;
+}
+
+.menu li:hover li
+{
+	float: none;
+}
+
+.menu li:hover a
+{
+	background: #006699;
+} 
+
+.menu li:hover li a:hover
+{
+	background: #555;
+}​
+
+.derouleur
+{
+	width: 1.3em;
+	height: auto;
+}
+
+/* To avoid Bootstrap's intempestive marges */
+
+.no-padding > [class*='col-']
+{
+	padding-top: 0;
+	padding-right: 0;
+	padding-left: 0;
+	padding-bottom: 0;
+}
+
+.derouleur
+{
+	width: 1.3em;
+	height: auto;
+}
+
+#marge
+{
+    margin-top: 4%;
+    position: relative;
+}

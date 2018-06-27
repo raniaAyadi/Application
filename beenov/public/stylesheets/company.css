@@ -1,0 +1,84 @@
+.trumbowyg-box
+{
+    margin: 0px;
+}
+
+.numeric
+{
+    text-align: right;
+}
+
+.fr-box
+{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.cityclose
+{
+    color: red;
+}
+
+#settings
+{
+	width: 80vw;
+	height: 60vh;
+	margin: center;
+	border: 1px black solid;
+	box-shadow: 1px 1px 1px;
+	overflow-y: scroll;
+	float: left;
+	margin-left: 2vw;
+}
+
+#loader
+{
+	float: right;
+	width: 15vw;
+	margin-right: 0px;
+}
+
+#buttonzone
+{
+	clear: both;
+	display: block;
+	position: relative;
+	margin-top: 2vh;
+	margin-left: 2vw;
+}
+
+#pictr
+{
+	max-width: 20vw;
+	max-height: 20vh;
+	margin-top: 2vh;
+}
+
+.redinput
+{
+    box-shadow: 0 0 0 1px red;
+}
+
+h1
+{
+	font-size: 2vw;
+	font-weight: bold;
+	color: #003c74;
+	text-align: center;
+}
+
+h2
+{
+	font-size: 1.5vw;
+	font-weight: bold;
+	margin-left: 1vw;
+	color: #003c74;
+}
+
+label
+{
+	font-size: 1.2vw;
+	font-weight: bold;
+	margin-left: 1vw;
+	color: #003c74;	
+}

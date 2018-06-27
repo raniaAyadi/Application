@@ -1,0 +1,21 @@
+textarea
+{
+    resize: none;
+}
+
+.titreSection
+{
+  /* background: Gainsboro;
+  border: 2px groove silver; */
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+#editeur
+ {
+  width: 500px;
+  height: 200px;
+  border: 1px solid black;
+  padding: 5px;
+  overflow: auto;
+}

@@ -1,0 +1,43 @@
+<template id="template">
+
+  <div class="col-md-12" id="space">
+      <!-- nb line jump  -->
+  </div>
+</template>
+
+<script>
+  var LineJumpItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var lineJumpItemPrototype = Object.create(HTMLElement.prototype);
+
+    lineJumpItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    var setLinejump = function () {
+      let toAppend = "";
+      for (let i = 0; i < this.lineJumpItem.count ; ++i)
+      {
+  	     toAppend += "<br />";
+      }
+      this.querySelector("#space").append(toAppend);
+    }
+
+    lineJumpItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.lineJumpItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        setLinejump();
+      }
+    }
+
+    LineJumpItemComponent = document.registerElement('beenov-line-jump-item', {
+      prototype : lineJumpItemPrototype
+    });
+})();
+</script>

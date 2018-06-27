@@ -1,0 +1,131 @@
+html, body {
+  font-family: $roboto;
+}
+
+.header {
+  background-color: $navyBlue;
+  color: white;
+  padding: .5em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-menu {
+    position: relative;
+    width: 10em;
+
+    .user-btn {
+      background-color: $lightBlue;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      color: white;
+      padding: 0;
+
+      .username {
+        display: inline-block;
+        border-right: 1px solid $navyBlue;
+        padding: 2px .5em;
+      }
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      width: 13em;
+      top: 2em;
+      right: 2.4em;
+      font-size: 14px;
+      background-color: $lightBlue;
+
+      .dropdown-element {
+        display: block;
+        padding: 5px 10px 7px;
+        text-align: right;
+        color: black;
+        text-decoration: none;
+        border-bottom: 1px solid white;
+
+        &:hover {
+          background-color: #869fb5;
+        }
+      }
+
+    }
+  }
+}
+
+nav {
+  margin: 1em 0;
+  display: inline-block;
+  background-color: $navyBlue;
+
+  .nav-list {
+    list-style-type: none;
+    margin: 0;
+    color: white;
+    padding: 0;
+
+    a {
+      padding: 5px 0;
+      display: inline-block;
+      color: white;
+      border-right: 1px solid white;
+
+      &:hover {
+        background-color: $yellow;
+        color: black;
+      }
+
+      li {
+        display: inline-block;
+        padding: 0 10px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.title {
+  color: $navyBlue;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.form-box {
+  display: inline-block;
+  border: 2px solid $lightBlue;
+
+  .box-header {
+    background-color: $lightBlue;
+
+    p {
+      margin: 0;
+      padding: .75em 0 .5em 5px;
+      font-weight: bold;
+    }
+  }
+
+  .box-content {
+    padding: 1.5em 1em;
+    background-color: $lighterGrey;
+
+    label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 3px;
+    }
+
+    input, textarea {
+      width: 15em;
+      margin-bottom: 10px;
+      padding: 2px;
+    }
+
+    textarea {
+      height: 4em;
+      resize: none;
+      font-family: $roboto;
+    }
+  }
+}

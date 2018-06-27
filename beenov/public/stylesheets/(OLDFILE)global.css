@@ -1,0 +1,275 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace view "com.widmee.beenov.advisor.view.*";
+@namespace renderer "com.widmee.beenov.advisor.view.renderer.*";
+@namespace report "com.widmee.beenov.advisor.view.renderer.report.*";
+
+s|FormItem s|Label#labelDisplay {
+    textAlign: right;
+}
+
+s|Application {
+    background-color: #EBEBEB;
+}
+
+s|SkinnableContainer .gradientContainer {
+    background-colors: #FFFFFF,#ECECEC;
+    border-color: #C8C7C7;
+}
+
+s|SkinnableContainer .reportContainer {
+    background-colors: #FFFFFF,#FFFFFF;
+    border-color: #C8C7C7;
+}
+
+view|HomeView s|Label.homeTitle {
+    color: white;
+    font-size: 20;
+    font-weight: bold;
+}
+
+s|Button.actionButton {
+    color: #000000;
+    font-weight: bold;
+}
+
+view|InterviewWindow s|Label.leftPartTitle {
+    font-size: 18;
+    font-weight: bold;
+    color: #BEBEBE
+}
+
+view|InterviewWindow s|Label.sectionNumber {
+    font-size: 20;
+    font-weight: bold;
+}
+
+view|NewCompanyWindow s|Label.sectionTitle {
+    font-size: 16;
+    font-weight: bold;
+}
+
+view|NewCompanyWindow s|Label.sectionNumber {
+    font-size: 20;
+    font-weight: bold;
+}
+
+s|Label.questionTitle {
+    font-size: 14;
+    font-weight: bold;
+}
+
+s|Label.questionText {
+    font-size: 13;
+}
+
+s|Label.questionnaireValidationError {
+    font-size: 13;
+    font-weight: bold;
+    color: #FE0000;
+}
+
+s|Label.mandatoryError {
+    font-size: 13;
+    font-weight: bold;
+    color: #FE0000;
+}
+
+s|Label.companyName {
+    font-size: 14;
+    color: #000000;
+    font-weight: bold;
+}
+
+s|Label.metadataValueNormal {
+    font-size: 12;
+    color: #CC980C;
+    font-weight: bold;
+    background-color: white;
+    vertical-align: middle;
+}
+s|Label.interviewDate {
+    font-size: 12;
+    color: #CC980C;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+s|Label.metadataName {
+    font-size: 12;
+    color: #909090;
+    font-weight: bold;
+}
+
+s|Label.metadataValueMissing {
+    color: #FE0000;
+}
+
+view|ReportView s|Label.sectionTitle {
+    color: black;
+    font-size: 16;
+    font-weight: bold;
+}
+
+view|ReportView s|Label.subsectionTitle {
+    color: #1C5FC5;
+    font-size: 14;
+    font-weight: bold;
+}
+
+view|ReportView s|Label.nameLabel {
+    color: #1C5FC5;
+    font-size: 12;
+}
+
+view|ReportView s|Label.valueLabel {
+    color: black;
+    font-size: 12;
+    font-weight: normal;
+}
+
+view|ReportView s|Label.chartTitle {
+    font-size: 13;
+    font-weight: normal;
+    font-style: italic;
+}
+
+view|ReportView s|Label.questionText {
+    font-size: 13;
+    font-weight: normal;
+    font-style: italic;
+}
+
+view|ReportView s|Label.comment {
+    color: black;
+    font-size: 12;
+    font-style: italic; 
+}
+
+view|ReportView s|Label.sectionActionsTitle {
+    font-size: 13;
+    font-weight: normal;
+    font-style: italic;
+}
+
+view|ReportView s|Label.sectionCommentsTitle {
+    color: #1C5FC5;
+    font-size: 12;
+    font-weight: bold;
+}
+
+view|InterviewReportView s|Label.warning {
+    font-size: 12;
+    font-weight: normal;
+    font-style: italic;
+}
+
+view|InterviewReportView s|Label.templateTitle {
+    color: white;
+    font-size: 20;
+    font-weight: bold;
+}
+
+report|QuestionAnswerReportItemRenderer s|Label.headerLabel {
+    font-weight: bold;
+}
+
+view|InterviewWindow s|List {
+    border-visible: false;
+    content-background-alpha: 0;
+}
+
+view|InterviewWindow s|DropDownList {
+    border-visible: false;
+    content-background-alpha: 1;
+}
+
+view|InterviewWindow  s|BorderContainer{
+    corner-radius: 12;
+    border-visible: false;
+    background-color: white;
+}
+renderer|RichTextQuestionRenderer s|BorderContainer{
+    border-visible: true;
+}
+renderer|RichTextGridQuestionRenderer s|BorderContainer{
+    border-visible: true;
+}
+renderer|PorterMatrixQuestionRenderer s|BorderContainer{
+    border-visible: true;
+}
+report|PorterMatrixReportItemRenderer s|BorderContainer{
+    border-visible: true;
+}
+report|CommentReportItemRenderer s|BorderContainer{
+    border-visible: true;
+}
+
+s|Button.edit {
+    skin-class: ClassReference("com.widmee.beenov.advisor.view.skin.EditButtonSkin");
+}
+
+s|Button.delete {
+    skin-class: ClassReference("com.widmee.beenov.advisor.view.skin.DeleteButtonSkin");
+}
+
+view|InfoSheetDetailsView s|Label.infoSheetTitle {
+    color: white;
+    font-size: 20;
+    font-weight: bold;
+}
+
+view|InfoSheetDetailsView s|Label.infoSheetSectionTitle {
+    font-size: 16;
+    font-weight: bold;
+    color: #419AD5;
+}
+
+
+view|InfoSheetDetailsView s|Label.leftPartTitle {
+    font-size: 18;
+    font-weight: bold;
+    color: #BEBEBE
+}
+
+view|InfoSheetDetailsView s|Label.infoSheetTitle {
+    color: white;
+    font-size: 20;
+    font-weight: bold;
+}
+
+view|InfoSheetDetailsView s|Label.infoSheetSectionTitle {
+    font-size: 16;
+    font-weight: bold;
+    color: #419AD5;
+}
+
+
+view|InfoSheetDetailsView s|Label.leftPartTitle {
+    font-size: 18;
+    font-weight: bold;
+    color: #BEBEBE
+}
+
+s|Label.mandatoryLabel {
+    color: #DD3333;
+    font-weight: bold;
+}
+
+view|PopUpTextEditorPopUp {
+    corner-radius: 8;
+    border-weight: 2.5;
+    background-color: #FFFFFF;
+    border-color: #419AD5;
+    color: black;
+}
+
+
+renderer|PorterMatrixQuestionRenderer s|RadioButton {
+    skinClass: ClassReference("com.widmee.beenov.advisor.view.skin.MultilineRadioButtonSkin");
+}
+
+renderer|PorterMatrixQuestionRenderer s|Label.porterLabel {
+    font-weight: bold;
+}

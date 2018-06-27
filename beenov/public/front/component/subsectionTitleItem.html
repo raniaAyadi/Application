@@ -1,0 +1,33 @@
+<template id="template">
+  <h3 class="title" id="title"> <!-- subsectionItem.text --> </h3>
+  <div class="col-md-10">
+  </div>
+</template>
+
+<script>
+  var SubsectionTitleItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var subsectionTitleItemPrototype = Object.create(HTMLElement.prototype);
+
+    subsectionTitleItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    }
+
+    subsectionTitleItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.subsectionTitleItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#title").innerHTML = this.subsectionTitleItem.text;
+      }
+    }
+
+    SubsectionTitleItemComponent = document.registerElement('beenov-subsection-title-item', {
+      prototype : subsectionTitleItemPrototype
+    });
+})();
+</script>

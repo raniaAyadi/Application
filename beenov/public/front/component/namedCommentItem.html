@@ -1,0 +1,41 @@
+<template id="template">
+    </br>
+
+    <div class="row col-md-11">
+
+    </div>
+
+    <!-- <div class="col-md-3" id="button">
+    </div> -->
+    </br>
+</template>
+
+<script>
+  var NamedCommentItemComponent = {};
+
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var namedCommentItemPrototype = Object.create(HTMLElement.prototype);
+
+    namedCommentItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    namedCommentItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.namedCommentItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        // this.querySelector("#label").innerHTML = this.namedCommentItem.comment;
+
+      }
+    }
+
+    NamedCommentItemComponent = document.registerElement('beenov-named-comment-item', {
+      prototype : namedCommentItemPrototype
+    });
+})();
+</script>

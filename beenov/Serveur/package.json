@@ -1,0 +1,24 @@
+{
+  "name": "beenov",
+  "version": "1.0.0",
+  "description": "beenov serveur",
+  "main": "Server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "camill_a devier_n",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "jsonfile": "^4.0.0",
+    "nodemailer": "^4.4.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.1",
+    "unirest": "^0.5.1",
+    "wait.for": "^0.6.6",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

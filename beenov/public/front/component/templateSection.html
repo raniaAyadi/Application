@@ -1,0 +1,77 @@
+<link rel="import" href="item.html">
+
+<template id="template">
+</ br>
+  <div class="row">
+      <span class="col-md-12 well titreSection" id="title">
+          <!-- templateSection.title -->
+      </span>
+  </div>
+
+  <!-- <span class="col-md-12 titreSection" id="title" >  </span> -->
+
+    <div class="row" id="items">
+      <!-- templateSection.items -->
+    </div>
+</template>
+
+<script>
+  var TemplateSectionComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var templateSectionPrototype = Object.create(HTMLElement.prototype);
+    var deferred = new $.Deferred();
+
+    templateSectionPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    };
+
+    templateSectionPrototype.appendItems = function(index){
+        TemplateSectionComponent.reportTemplate = TemplateReportComponent.reportTemplate;
+
+        var elt = this.querySelector("#title");
+        this.templateSection = TemplateSectionComponent.reportTemplate.sections[index];
+        if(this.templateSection.title)
+          elt.innerHTML = this.templateSection.title;
+        else
+          elt.hidden = true;
+
+        var elt = this.querySelector("#items");
+        var items = this.templateSection.items;
+        var l = items.length;
+
+        for(var i=0; i<l; i++){
+          var itemComponent = new ItemComponent();
+          var id = index+"/"+i;
+          itemComponent.setAttribute("index",id);
+
+          elt.appendChild(itemComponent);
+        }
+    };
+
+    function setCurrentTemplate(){
+      if(ReportTemplate.allCurrent)
+        deferred.resolve();
+
+      else
+        ReportTemplate.getAllCurrent().done(()=>deferred.resolve());
+
+      return deferred.promise();
+    }
+
+    templateSectionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        this.appendItems(newV);
+      }
+    };
+
+    TemplateSectionComponent = document.registerElement(
+      'beenov-template-section', {
+      prototype : templateSectionPrototype
+    });
+})();
+
+</script>

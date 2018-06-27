@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>Beenov</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed" rel="stylesheet">
+  </head>
+  <body>
+    <div class="header">
+      <p>HEADER</p>
+      <div class="user-menu">
+        <button class="user-btn" id="user-btn"><span class="username">Arnaud Chapal</span>▼</button>
+        <div class="dropdown-menu" id="dropdown-menu">
+          <a class="dropdown-element" href="#">Déconnexion</a>
+          <a class="dropdown-element" href="#">Changer de mot de passe</a>
+        </div>
+      </div>
+    </div>
+
+    <nav>
+      <ul class="nav-list">
+        <a href="#"><li>QUESTIONNAIRE</li></a><a href="#"><li>COMPTE-RENDU</li></a><a href="#"><li>CATALOGUE DE FICHES CONSEILS</li></a><a href="#"><li>CATALOGUE DE FICHES PRODUITS</li></a>
+      </ul>
+    </nav>
+
+    <p class="title">
+      Entretien<br>
+      4/ SYNTHÈSE DU PROJET DE CESSION
+    </p>
+
+    <div class="form-box">
+      <div class="box-header">
+        <p>Nom de l'entreprise</p>
+      </div>
+      <div class="box-content">
+        <form>
+          <div class="form-group">
+            <label for="theme">Thématique :</label>
+            <textarea name="theme" id="theme"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="author">Entretien réalisé par :</label>
+            <input name="author" id="author" value="Arnaud Chapal">
+          </div>
+          <div class="form-group">
+            <label for="interlocutor">Interlocuteur :</label>
+            <input name="interlocutor" id="interlocutor" value="Jean Dupont">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

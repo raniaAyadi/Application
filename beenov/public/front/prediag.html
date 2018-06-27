@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="prediag.css">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/se-1.2.2/datatables.min.js"></script>
+		<script type="text/javascript" src="prediag.js"></script>
+		<title>CCI pré-diagnostique</title>
+	</head>
+	<body>
+		<h1>Nom du diagnostic</h1>
+		<div id="quest"></div>
+		<button type="button" id="dialog-link">Enregistrer</button>
+
+		<div id="bottom">
+			<img src="logo-feder.png" class="credits">
+			<img src="logo-direccte.png" class="credits">    
+		</div>
+
+
+
+		<div id="dialog" title="Dialog Title", style="display:none;">
+			<div role="document">
+				<!-- dialog content start -->
+				<form>
+					<h2>Quelques informations sur vous</h2>
+					<p>
+						<label>Nom: </label>&emsp;&emsp;
+						<input type="text" name="Nom" id="DialogNom">
+						<label>Prénom: </label>&emsp;
+						<input type="text" name="Prénom" id="DialogPrenom"><br />
+						<label>Courriel: </label>&nbsp;
+						<input type="mail" name="Courriel" placeholder="Example@mail.com" id="DialogMail"><br />
+						<button type="button">Enregistrer</button>
+					</p>
+				</form>
+			</div>
+		</div>
+
+
+
+<!-- dialog box at bottom of page 
+		<div id="dia" role="dialog" aria-labelledby="dia-heading" style="display:none;">
+			<div role="document">
+				<form>
+					<h2>Identité de l'interlocuteur:</h2>
+					<p>
+						<label>Nom: </label>&emsp;&emsp;
+						<input type="text" name="Nom" id="DialogNom">
+						<label>Prénom: </label>&emsp;
+						<input type="text" name="Prénom" id="DialogPrenom"><br />
+						<label>Courriel: </label>&nbsp;
+						<input type="mail" name="Courriel" placeholder="" id="DialogMail"><br />
+						<button type="button" class="focus closebutton" aria-label="Close dialog" id="DialogClose">Enregistrer</button>
+					</p>
+				</form>
+
+				<button class="close cross" aria-label="Close dialog">X</button>
+			</div>
+		</div>-->
+	</body>
+</html>

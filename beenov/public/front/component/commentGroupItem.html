@@ -1,0 +1,36 @@
+<template id="template">
+  <div class="col-md-10">
+    <p style="font-style: italic" id="label">
+      <!-- commentItem.label -->
+    </p>
+  </div>
+</template>
+
+<script>
+  var CommentGroupItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var commentGroupItemPrototype = Object.create(HTMLElement.prototype);
+
+    commentGroupItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    commentGroupItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.commentGroupItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#label").innerHTML = this.commentGroupItem.label;
+      }
+    }
+
+    CommentGroupItemComponent = document.registerElement('beenov-comment-group-item', {
+      prototype : commentGroupItemPrototype
+    });
+})();
+</script>

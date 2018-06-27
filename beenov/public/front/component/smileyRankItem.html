@@ -1,0 +1,52 @@
+<template id="template">
+
+  <div class="col-md-9">
+  </br></br>
+    <p style="font-style: italic" id="label"></br>
+      <!-- commentItem.label -->
+    </p></br>
+    <div style="font-style: italic" id="image"></div></br></br>
+  </div>
+</template>
+
+<script>
+  var SmileyRankItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var smileyRankItemPrototype = Object.create(HTMLElement.prototype);
+
+    smileyRankItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    smileyRankItemPrototype.setVariableValue = function(){
+    this.smileyRankItem.setVariableValue().done(()=>{
+     this.querySelector("#image").innerHTML = this.smileyRankItem.variableValue ;
+
+       let picture = ["sad0-1.png", "sad0-1.png", "sceptical2-3.png", "sceptical2-3.png", "happy4-5.png","happy4-5.png"]
+
+    this.querySelector("#image").innerHTML= '<img src="' + picture[this.smileyRankItem.variableValue] + '">';
+
+      });
+    };
+
+
+    smileyRankItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.smileyRankItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#label").innerHTML = this.smileyRankItem.label;
+          this.setVariableValue();
+      }
+    }
+
+    SmileyRankItemComponent = document.registerElement('beenov-smiley-rank-item', {
+      prototype : smileyRankItemPrototype
+    });
+})();
+</script>

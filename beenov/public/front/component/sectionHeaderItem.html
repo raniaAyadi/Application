@@ -1,0 +1,34 @@
+<template id="template">
+  <span id="title" class="col-md-12 well titreSection">
+      <!-- templateSection.title -->
+  </span>
+</template>
+
+<script>
+  var SectionHeaderItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var sectionHeaderPrototype = Object.create(HTMLElement.prototype);
+
+    sectionHeaderPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    };
+
+    sectionHeaderPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.sectionHeaderItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        this.querySelector("#title").innerHTML = this.sectionHeaderItem.title;
+      }
+    };
+
+    SectionHeaderItemComponent = document.registerElement('beenov-section-header-item', {
+      prototype : sectionHeaderPrototype
+    });
+
+  })();
+</script>

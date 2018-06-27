@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.css">
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-reboot.css">
+		<link rel="stylesheet" type="text/css" href="common.css">
+		<link rel="stylesheet" type="text/css" href="lostpwd.css">
+		<title>Beenov' - Reset</title>
+	</head>
+	<body>
+		<div id="top">
+			<img src="logo_beenov2.png" alt="Beenov'" class="credits">
+		</div>
+
+		<div class="container">
+			<div class="row no-padding">
+			    <div class="col-lg-4"></div>
+				<div class="col-lg-4" id="center_div">
+					<div class="row">
+						<div class="col-lg-12">
+							<h2>
+								<span id="titre">Réinitialisation</span><img src="logo_beenov.png" id="logologin">
+							</h2>
+						</div>
+					</div>
+					<form method="post" action="lostpwd">
+
+						<div class="row">
+							<div class="col-lg-12">
+								<p>
+									Un lien vous sera envoyé par mail pour réinitialiser votre mot de passe.<br />
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-8">
+								<p>
+									<label>Adresse e-mail<br /></label>
+									<input type="email" class="champ" name="mail" placeholder="Example@society.fr" required>
+								</p>
+							</div>
+							<div class="col-lg-4">
+								<br /><input type="submit" name="OK" id="button" value="Envoyer">
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div id="bottom">
+			<img src="logo-feder.png" class="credits">
+			<img src="logo-direccte.png" class="credits">
+		</div>
+	</body>
+</html>

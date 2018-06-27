@@ -1,0 +1,35 @@
+<template id="template">
+  <div class="col-md-12">
+    <!-- <p style="font-style: italic" id="label">
+    </p> -->
+  </div>
+</template>
+
+<script>
+  var SectionActionsItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var sectionActionsItemPrototype = Object.create(HTMLElement.prototype);
+
+    sectionActionsItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+
+    }
+
+    sectionActionsItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV)
+        this.sectionActionsItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+      //  this.querySelector("#label").innerHTML = this.sectionActionsItem.comment;
+      }
+    }
+
+    SectionActionsItemComponent = document.registerElement('beenov-section-actions-item', {
+      prototype : sectionActionsItemPrototype
+    });
+})();
+</script>

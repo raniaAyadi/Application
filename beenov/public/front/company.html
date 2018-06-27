@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-grid.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-reboot.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" type="text/css" href="ui/trumbowyg.min.css">
+    <link rel="stylesheet" type="text/css" href="company.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Trumbowyg  -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="trumbowyg.min.js"></script>
+    <script type="text/javascript" src="langs/fr.min.js"></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="question_handling.js"></script>
+    <script type="text/javascript" src="api_entreprise.js"></script>
+    <script type="text/javascript" src="global_rules.js"></script>
+    <script type="text/javascript" src="question_values.js"></script>
+    <script type="text/javascript" src="question_rules.js"></script>
+    <script type="text/javascript" src="send_questionnaire.js"></script>
+    <script type="text/javascript" src="company.js"></script>
+    <script type="text/javascript" src="logo_entity.js"></script>
+    <script type="text/javascript" src="user_name.js"></script>
+
+    <title>Beenov' - Company</title>
+  </head>
+  <body>
+    <div id="top">
+      <img src="logo_beenov2.png" alt="logo_beenov" class="credits">
+      <nav role="navigation" class="menu">
+	<ul>
+	  <li><a href="#"><script>document.write(getCookie("username")); console.log(getCookie("username"))</script><img src="triangle_menu.png" class="derouleur"></a>
+	    <ul>
+	      <li><a href="login">Deconnexion</a></li>
+	      <!-- <li><a href="changepwd">Changer de mot de passe</a></li> -->
+	    </ul>​
+	  </li>
+	</ul>
+      </nav>
+    </div>
+
+    <br /><br /><br /><br /><br />
+    <div class="container-fluid">
+      <div class="row">
+	<div class="col-md-12">
+	  <h1>Fiche Entreprise</h1>
+	</div>
+      </div>
+      <form method="post" action="#">
+	<div class="row">
+	  <div class="col-md-8" id="settings">
+	    <p id="questionnairecmpn">
+	      <!-- Here is inserted the questionnaire -->
+	    </p>
+	  </div>
+	  <div class="col-md-3" id="loader">
+	    <label>Logo de l'entreprise</label>
+	    <br />
+	    <input type="button" value="Parcourir" id="btninputfile">
+	    <input type="file" name="logo" id="inputfile" style="display: none">
+	    <img id="pictr" src="#" hidden="true">
+	  </div>
+	  <div id="buttonzone">
+	    <input type="button" name="save" value="Enregistrer" id="savequest">
+	    <input type="button" name="save" value="Annuler" href="meeting_list">
+	  </div>
+	</div>
+      </form>
+    </div>
+    <div id="bottom">
+      <img src="logo-feder.png" class="credits">
+      <img src="logo-direccte.png" class="credits">
+    </div>
+  </body>
+</html>

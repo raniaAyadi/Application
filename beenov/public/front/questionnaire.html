@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="common.css">
+    <link rel="stylesheet" type="text/css" href="menu_deroulant.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="ui/trumbowyg.min.css">
+    <link rel="stylesheet" type="text/css" href="questionnaire.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="trumbowyg.min.js"></script>
+    <script type="text/javascript" src="langs/fr.min.js"></script>
+    <script type="text/javascript" src="send_questionnaire.js"></script>
+    <script type="text/javascript" src="user_name.js"></script>
+    <script type="text/javascript" src="logo_entity.js"></script>
+    <script type="text/javascript" src="question_handling.js"></script>
+    <script type="text/javascript" src="question_condition.js"></script>
+    <script type="text/javascript" src="questionnaire_client.js"></script>
+    <script type="text/javascript" src="global_rules.js"></script>
+    <script type="text/javascript" src="question_rules.js"></script>
+    <script type="text/javascript" src="question_values.js"></script>
+
+    <script type="text/javascript" src="model/quiz.js"></script>
+    <script type="text/javascript" src="consts.js"></script>
+    <script type="text/javascript" src="model/section.js"></script>
+    <script type="text/javascript" src="model/question.js"></script>
+    <script type="text/javascript" src="model/meeting.js"></script>
+    <script type="text/javascript" src="operation.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+    <script type="text/javascript" src="model/reportTemplate.js"></script>
+    <script type="text/javascript" src="component/item.js"></script>
+    <script type="text/javascript" src="component/questionAnswerItem.js"></script>
+    <script type="text/javascript" src="component/itemFactory.js"></script>
+    <script type="text/javascript" src="component/commentItem.js"></script>
+    <script type="text/javascript" src="model/templateSection.js"></script>
+    <script type="text/javascript" src="component/charItem.js"></script>
+    <script type="text/javascript" src="component/subsectionTitleItem.js"></script>
+    <script type="text/javascript" src="component/sectionHeaderItem.js"></script> -->
+     <script type="text/javascript" src="component/report.js"></script>
+    <script type="text/javascript" src="component/namedCommentItem.js"></script>
+    <script type="text/javascript" src="component/variableValueItem.js"></script>
+    <script type="text/javascript" src="component/appendixCompanyInfoItem.js"></script>
+    <script type="text/javascript" src="component/infoSheetsItem.js"></script>
+    <script type="text/javascript" src="component/pageJumpItem.js"></script>
+    <script type="text/javascript" src="component/staticImageItem.js"></script>
+    <script type="text/javascript" src="component/smileyRankItem.js"></script>
+    <script type="text/javascript" src="component/commentGroupItem.js"></script>
+    <script type="text/javascript" src="component/imageItem.js"></script>
+    <script type="text/javascript" src="component/sectionActionsItem.js"></script>
+    <script type="text/javascript" src="component/lineJumpItem.js"></script>
+    <script type="text/javascript" src="component/report.js"></script>
+
+    <link rel="import" href="component/report.html">
+
+    <title>Beenov' - Questionnaire</title>
+  </head>
+  <body>
+    <div id="dialog"></div>
+    <div id="top">
+      <img src="logo_beenov2.png" alt="logo_beenov" class="credits" title="Retour a la liste de entretiens">
+      <nav role="navigation" class="menu">
+	<ul>
+	  <li><a href="#"><script>document.write(getCookie("username"))</script><img src="triangle_menu.png" class="derouleur"></a>
+	    <ul>
+	      <li><a href="login">Deconnexion</a></li>
+	      <!-- <li><a href="changepwd">Changer de mot de passe</a></li> -->
+	    </ul>
+	  </li>
+	</ul>
+      </nav>
+    </div>
+
+    <div class="container-fluid">
+      <nav>
+	<span class="nav_bar">
+	  <span id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
+	  <span class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
+	  <span onclick="changeOnglet(2)"> FICHES CONSEIL </span>
+	  <span onclick="changeOnglet(3)"> FICHES PRODUIT </span>
+	  <span onclick="changeOnglet(4)"> FICHES AIDE </span>
+	  <button type="button" onclick="#" id="meeting">Acceuil</button>
+	</span>
+      </nav>
+
+      <div id="onglet0" style="display:block;">
+	<div class="row">
+	  <div class="col-md-3 marge"></div>
+	  <div class="col-md-9 marge">
+	    <h1><span class="sectionTitle" id="title_section"></span></h1>
+	  </div>
+	</div>
+
+	<div class="row" id="option">
+	  <div class="col-md-3">
+	    <div id="company">
+	      <h2>
+		<span class="sectionTitle" id="cmpn"></span>
+		<img src="btn_edit_up.png" class="modify" onclick="modifycomp()">
+	      </h2>
+	    </div>
+	    <div id="newmet">
+	      <form>
+		<label>Thématique :</label><br />
+		<input type="text" id="theme" disabled><br />
+		<label>Entretien réalisé par :</label><br />
+		<input type="text" id="advisor" disabled><br />
+		<label>Interlocuteur :</label><br />
+		<input type="text" id="locutor" disabled>
+		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br />
+	      </form>
+	    </div><br />
+	    <div id="section">
+
+	      <!-- Inserer ici les liens des differentes sections dispo -->
+	    </div>
+	    <div><button type="button" onclick="#" id="save">Enregistrer</button></div>
+	  </div>
+	  <div class="col-md-9" id="list">
+	    <!-- Questions du questionnaire -->
+	  </div>
+	</div>
+      </div>
+
+      <div id="onglet1" style="display:none;">
+	<!-- <h1>Onglet 1</h1> -->
+	<div class="row" id="option">
+	  <div class="col-md-3" id="actions">
+	    <div id="rendu">
+	      <p id="sumup_type">Modèle de compte rendu</p>
+	      <p id="selectedcons">Fiches conseil</p>
+	      <p id="selectedprod">Fiches produit</p>
+	      <p id="selectedhelp">Fiches aide</p>
+	    </div><hr>
+	  </div>
+
+
+    <div class="col-md-9" id="listrendu">
+      <beenov-report></beenov-report>
+	  </div>
+
+
+  </div>
+      </div>
+
+      <div id="onglet2" style="display:none;">
+	<div class="row" id="options">
+	  <div class="col-md-3">
+	    <div id="conseil">
+	    </div>
+	  </div>
+	  <div class="col-md-9" id="listcons">
+	  </div>
+	</div>
+      </div>
+
+      <div id="onglet3" style="display:none;">
+	<!-- <h1>Onglet 3</h1> -->
+	<div class="row" id="option">
+	  <div class="col-md-3">
+	    <div id="produit">
+	    </div>
+	  </div>
+	  <div class="col-md-9" id="listprod">
+	  </div>
+	</div>
+      </div>
+
+      <div id="onglet4" style="display:none;">
+	<!-- <h1>Onglet 4</h1> -->
+	<div class="row" id="option">
+	  <div class="col-md-3">
+	    <div id="aide">
+	      <form>
+		<label>Code NAF : </label>&emsp;
+		<input type="text" name="naf" id="naf" maxlength="5" placeholder="0000A"><br />
+		<label>Dep. : </label>&emsp;
+		<input type="number" name="dept" maxlength="3" id="dept">
+		<label>Commune : </label>&emsp;
+		<select name="Commune" id="cmmn"></select><br />
+		<label>Projet</label><br />
+		<select name="projet" id="projet"></select><br />
+		<label>Moyen d'intervention</label><br />
+		<select name="interv" id="interv"></select><br />
+		<label>Filière du marché</label><br />
+		<select name="filiere" id="filiere"></select><br />
+		<br /><button type="button" onclick="needhalp()">Rechercher</button>
+		<form>
+		  <div id="helpsheet">
+		  </div>
+	    </div>
+	  </div>
+	  <div class="col-md-9" id="listhelp">
+	    <!-- Questions du questionnaire -->
+	  </div>
+	</div>
+      </div>
+
+    </div>
+    <div id="bottom">
+      <img src="logo-feder.png" class="credits">
+      <img src="logo-direccte.png" class="credits">
+    </div>
+
+    <!-- dialog box at bottom of page -->
+    <div id="dia" role="dialog" aria-labelledby="dia-heading" style="display:none;">
+      <div role="document">
+	<!-- dialog content start -->
+	<form>
+	  <h2>Identité de l'interlocuteur:</h2>
+	  <p>
+	    <label>Nom: </label>&emsp;&emsp;
+	    <input type="text" name="Nom" id="DialogNom">
+	    <label>Prénom: </label>&emsp;
+	    <input type="text" name="Prénom" id="DialogPrenom"><br />
+	    <label>Courriel: </label>&nbsp;
+	    <input type="mail" name="Courriel" placeholder="" id="DialogMail"><br />
+	    <label>Date de l'entretien: </label>&emsp;
+	    <input type="text" name="Date de l'entretien" placeholder="JJ/MM/AAAA" id="DialogDate" class="datepicker">&emsp;
+	    <button type="button" class="focus closebutton" aria-label="Close dialog" id="DialogClose"  >Enregistrer</button>
+	  </p>
+	</form>
+      </div>
+    </div>
+    <div id="company_questionnaire" title="Mise à jour fiche entreprise" ><span></span></div>
+  </body>
+</html>

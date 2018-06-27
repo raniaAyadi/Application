@@ -1,0 +1,113 @@
+<template id="template">
+  <div class="col-md-12">
+    <!-- <div class="title" id="label">
+       questionAnswerItem.label
+    </div> -->
+  </br></br>
+    <p class="title" id="question">
+        <!-- question.text  -->
+    </p>
+  </br>
+    <div id="answer" class="col-md-12">
+      <!-- questionAnswerItem.question.answer -->
+    </div></br></br>
+  </div>
+</template>
+
+<script>
+  var QuestionAnswerItemComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var questionAnswerItemPrototype = Object.create(HTMLElement.prototype);
+
+    questionAnswerItemPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+    }
+
+
+    questionAnswerItemPrototype.setAnswer = function(answer, type){
+
+      var elt = this.querySelector("#answer");
+
+      switch (type){
+        case CONST.questionType.n1Choice :
+        var l = answer.length;
+        for(var i=0; i<l; i++){
+          var p = document.createElement("P");
+          var info = answer[i].row + " : " + answer[i].column;
+          p.appendChild(document.createTextNode(info));
+
+          elt.appendChild(p);
+        }
+        break;
+
+        case CONST.questionType.nChoices :
+        var l = answer.length;
+        var p = document.createElement("ul");
+        for(var i=0; i<l ;i++){
+          var p1 = document.createElement("li");
+           var info = answer[i];
+           p1.appendChild(document.createTextNode(info));
+
+          elt.appendChild(p);
+          elt.appendChild(p1);
+        } break;
+
+        case CONST.questionType.porterMatrix :
+        console.log("le porter matrix");
+        var toAppend = Operation.createPorterMatrix(answer, this.questionAnswerItem.question.title);
+        elt.innerHTML = toAppend;
+        break;
+
+        case CONST.questionType.nMTexts :
+        console.log("le nMtext");
+        var toAppend = Operation.createNMTexts(answer,this.questionAnswerItem.question.typeOptions);
+        elt.innerHTML = toAppend;
+        break;
+
+        case CONST.questionType.nMLongTexts:
+        var toAppend = Operation.createNMLongTexts(answer,this.questionAnswerItem.question.typeOptions);
+        elt.innerHTML = toAppend;
+        break;
+
+        default:
+        elt.innerHTML = answer;
+      }
+    };
+
+    questionAnswerItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr == "index"){
+        var index = Operation.getSectIdItemId(newV);
+        this.questionAnswerItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+
+        // this.querySelector("#label").innerHTML = this.questionAnswerItem.label;
+        // var questionText = this.questionAnswerItem.title;
+        console.log("le question ");
+        console.log(this.questionAnswerItem);
+        console.log(this.questionAnswerItem.question.title);
+
+        // this.querySelector("#question").innerHTML = questionText;
+
+        if(isNaN(this.questionAnswerItem.question) == false)
+          this.questionAnswerItem.setQuestion().done(()=>{
+            this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
+            var data = this.questionAnswerItem.getAnswer();
+            this.setAnswer(data.answer, data.type);
+          });
+
+        else{
+          var data = this.questionAnswerItem.getAnswer();
+          this.setAnswer(data.answer, data.type);
+        }
+      }
+    };
+
+    QuestionAnswerItemComponent = document.registerElement(
+      'beenov-question-answer-item', {
+      prototype : questionAnswerItemPrototype
+    });
+})();
+</script>

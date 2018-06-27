@@ -1,0 +1,29 @@
+body
+{
+	margin-left: 3vw;
+	margin-right: 3vw;
+}
+
+h1
+{
+	font-size: 1.4em;
+	background-color: #abbecf;
+	color: #003c74;
+	text-align: center;
+}
+
+button
+{
+	background-color: #003c74;
+	border: 1px black solid;
+	box-shadow: 1px 1px 1px black;
+	margin-left: 10%;
+	font-weight: bold;
+	color: white;
+}
+
+p
+{
+	background-color: #f4f4f4;
+	padding: 5px 5px 5px 5px;
+}

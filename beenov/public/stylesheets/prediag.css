@@ -1,0 +1,102 @@
+body
+{
+	font-family: Roboto, sans-serif;
+
+}
+
+h1
+{
+	color: white;
+	text-align: center;
+	border: 1px white solid;
+	border-radius: 15px;
+	background-color: #003c74;
+
+	margin-left: 2%;
+	margin-right: 18%;
+}
+
+#quest
+{
+	border: 1px black solid;
+	width: 80%;
+	height: 75vh;
+	overflow-y: scroll;
+	overflow-x: none;
+	margin-left: 2vw;
+	float: left;
+}
+
+button
+{
+	float: right;
+    background-color: #fab21a; /* Green */
+   	margin-top: 40vh;
+	transform: translateY(-100%);
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 3vw;
+}
+
+.credits
+{
+	float: left;
+	margin-top: 1vh;
+	margin-bottom: auto;
+	margin-left: 1vw;
+	height: 75%;
+	width: auto;
+}
+
+#bottom
+{
+	background-color: #003c74;
+	position: absolute;
+	right: 0;
+	bottom: 0px;
+	left: 0;
+	height: 8%;
+}
+
+div[role="dialog"]
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height:100%;
+	z-index: 999999;
+	background-color: rgba(0,0,0,0.6);
+}
+
+div[role="document"]
+{
+	position: fixed;
+	left:50%;
+	top:50%;
+	transform: translate(-50%, -50%);
+	max-width:85%;
+	max-height:85%;
+	overflow:auto;
+	padding:10px;
+	background-color: white;
+	border:15px solid white;
+	border-radius:15px;
+	padding-top:10px;
+}
+
+div[role="dialog"] .close
+{
+	position:absolute;
+	top: 2px;
+	right: 2px;
+	border:none;
+	padding:0;
+	background: white;
+	cursor:pointer;
+}
