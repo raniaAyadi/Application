@@ -382,5 +382,65 @@ var Operation = {
             return (toAppend);
     },
 
+  createN1Choice : function(answer, typeOptions)
+          {
+            let toAppend = "";
+            let nbrcol = typeOptions.columnLabels.length;
+            let nbrline = typeOptions.rowLabels.length;
+            let nbAns = 0;
+            let i = 0;
+            let j = 0;
+            let h = 0;
+
+            toAppend += '<table class="table-hover"><tr><th> </th>'
+            for (nbrcol = 0; typeOptions.columnLabels[nbrcol]; ++nbrcol)
+            {
+                toAppend += '<th>' + typeOptions.columnLabels[nbrcol] + '</th>';
+            }
+            toAppend += '</tr>';
+
+      while (i < nbrline)
+      {
+                toAppend += '<tr><th>' + typeOptions.rowLabels[i] + '</th>';
+
+          if (j < nbrcol)
+            {
+              
+              if (answer[i].column != undefined){
+
+                  if (answer[i].column == "Prioritaire") 
+                      toAppend += '<td align="center">x</td><td></td><td></td><td></td>';
+                
+                  if (answer[i].column == "A faire")
+                        toAppend += '<td></td><td align="center">x</td><td></td><td></td>'
+                  
+                  if (answer[i].column == "Secondaire")
+                        toAppend += '<td></td><td></td><td align="center">x</td><td></td>'
+                  
+                  
+                  if (answer[i].column == "Non envisagé")
+                        toAppend += '<td></td><td></td><td></td><td align="center">x</td>'
+                      
+                  }
+              
+                  
+              else
+                  toAppend += "<td></td><td></td><td></td><td></td>"
+              
+              ++j;
+              ++h
+              nbAns = 0;
+            }
+            
+
+        toAppend += "</tr>";
+        ++i;
+        j = 0;
+      
+      }
+            
+            toAppend += '</th></table>';
+            return (toAppend);
+    },
 
 }
