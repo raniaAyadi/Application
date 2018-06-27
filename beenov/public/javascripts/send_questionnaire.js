@@ -57,7 +57,7 @@ function        getParameterByName(name, url)
     if (!results) return null;
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
-} 
+}
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -108,7 +108,7 @@ function	send_questionnaire(reinit)
 	};
 	console.log(posted);
     }
-    else if (getParameterByName("newquest", window.location.href) == "true") 
+    else if (getParameterByName("newquest", window.location.href) == "true")
     {
 	posted = {
 	    globalVariableValues: globalVariables,
@@ -149,7 +149,7 @@ function	send_questionnaire(reinit)
 	url += '?company=false';
     if (is_new_entreprise == true)
     {
-	url += "&newent=true&siret=" + getParameterByName("siret", window.location.href); 
+	url += "&newent=true&siret=" + getParameterByName("siret", window.location.href);
     }
     url += '&newquest=' + getParameterByName("newquest", window.location.href);
     if (getParameterByName("newquest", window.location.href) == "true")
@@ -176,8 +176,11 @@ function	send_questionnaire(reinit)
 		window.location.replace('/questionnaire?newquest=true');
 	    }
 	    console.log(body);
-	    if (reinit!= undefined)
-		update_report(reinit);
+
+	    if (reinit!= undefined){
+        var reportComponent = document.querySelector("beenov-report");
+        reportComponent.updateItems();
+      }
 	},
 	error: function(text, code, item)
 	{
