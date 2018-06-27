@@ -81,6 +81,7 @@
           this.questionAnswerItem.setQuestion().done(()=>{
             this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
             var data = this.questionAnswerItem.getAnswer();
+            if (data.answer != undefined)
             this.setAnswer(data.answer, data.type);
           });
 
