@@ -61,7 +61,7 @@
     }
 
     function createItemComponent(type, index){
-      var component = null;
+      component = null;
       switch (type){
         case CONST.itemType.comment :
         component = new CommentItemComponent();
@@ -267,6 +267,15 @@
       }
     }
 
+    itemPrototype.update = function(){
+      var elt = this.querySelector("#item");
+      if(elt.firstElementChild){
+        elt.removeChild(elt.firstElementChild);
+        var index = this.getAttribute("index");
+        this.attributeChangedCallback("index", index, index);
+      }
+
+    }
 
     itemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
@@ -281,6 +290,7 @@
           this.verifierVisible();
           this.ifTitle();
           var newC = createItemComponent(this.item.type, newV);
+
           this.querySelector("#item").append(newC);
         }
       }

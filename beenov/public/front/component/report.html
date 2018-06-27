@@ -81,6 +81,7 @@
     }
 
     reportPrototype.createdCallback = function(){
+      console.log("new");
       Operation.appendTemplate(this, currentDoc, "#content");
       ReportComponent.lastReportName = "Dernier Rapport";
 
@@ -136,22 +137,33 @@
       init().done(()=>this.appendTemplateName());
     };
 
+    reportPrototype.updateItems = function(){
+      if(ReportTemplate.allCurrent)
+        ReportTemplate.allCurrent[0].update().done(()=>{
+          if(ReportComponent.singleton){
+            for(var name in ReportComponent.singleton)
+              if(ReportComponent.singleton[name])
+                ReportComponent.singleton[name].updateItems();
+              }
+            });
+    };
+
     reportPrototype.appendReport = function(name){
-      var report = {};
+      this.reportComponent = {};
 
       if(! ReportComponent.singleton[name]){
-        report = ReportComponent.singleton[name] = new TemplateReportComponent();
+        this.reportComponent = ReportComponent.singleton[name] = new TemplateReportComponent();
 
         if(name === ReportComponent.lastReportName)
-          report.setAttribute('existing', true);
+          this.reportComponent.setAttribute('existing', true);
         else
-          report.setAttribute('name', name);
+          this.reportComponent.setAttribute('name', name);
       }
 
       else
-        report = ReportComponent.singleton[name];
+        this.reportComponent = ReportComponent.singleton[name];
 
-      this.querySelector("#report").appendChild(report);
+      this.querySelector("#report").appendChild(this.reportComponent);
     };
 
     reportPrototype.attributeChangedCallback = function(attr, oldV, newV){

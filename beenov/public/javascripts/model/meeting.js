@@ -16,7 +16,7 @@ function Meeting(obj, isCurrent){
 }
 
 Meeting.prototype.setCompany = function(){
-  
+
 }
 
 Meeting.prototype.setQuiz = function(id){
@@ -26,6 +26,10 @@ Meeting.prototype.setQuiz = function(id){
 
 Meeting.prototype.setAnswers = function(id){
   return this.quiz.setAnswers(id);
+}
+
+Meeting.prototype.update = function(){
+  return this.quiz.setAnswers(this.quizReply);
 }
 
 Meeting.getAll = function(){

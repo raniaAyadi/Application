@@ -103,3 +103,8 @@ ReportTemplate.getByName = function(name){
 ReportTemplate.prototype.getItem = function(idSect, idItem){
   return this.sections[idSect].items[idItem];
 };
+
+ReportTemplate.prototype.update = function(idSect, idItem){
+  var meeting = Meeting.instance.object;
+  return meeting.update();
+}
