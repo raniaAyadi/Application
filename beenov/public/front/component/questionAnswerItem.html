@@ -33,16 +33,6 @@
       var elt = this.querySelector("#answer");
 
       switch (type){
-        case CONST.questionType.n1Choice :
-        var l = answer.length;
-        for(var i=0; i<l; i++){
-          var p = document.createElement("P");
-          var info = answer[i].row + " : " + answer[i].column;
-          p.appendChild(document.createTextNode(info));
-
-          elt.appendChild(p);
-        }
-        break;
 
         case CONST.questionType.nChoices :
         var l = answer.length;
@@ -70,6 +60,12 @@
         var toAppend = Operation.createNMLongTexts(answer,this.questionAnswerItem.question.typeOptions);
         elt.innerHTML = toAppend;
         break;
+
+        case CONST.questionType.n1Choice:
+        var toAppend = Operation.createN1Choice(answer,this.questionAnswerItem.question.typeOptions);
+        elt.innerHTML = toAppend;
+        break;
+
 
         default:
         elt.innerHTML = answer;
