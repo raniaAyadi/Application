@@ -57,13 +57,11 @@
         } break;
 
         case CONST.questionType.porterMatrix :
-        console.log("le porter matrix");
         var toAppend = Operation.createPorterMatrix(answer, this.questionAnswerItem.question.title);
         elt.innerHTML = toAppend;
         break;
 
         case CONST.questionType.nMTexts :
-        console.log("le nMtext");
         var toAppend = Operation.createNMTexts(answer,this.questionAnswerItem.question.typeOptions);
         elt.innerHTML = toAppend;
         break;
@@ -80,16 +78,8 @@
 
     questionAnswerItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
-        var index = Operation.getSectIdItemId(newV);
-        this.questionAnswerItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
-
-        // this.querySelector("#label").innerHTML = this.questionAnswerItem.label;
-        // var questionText = this.questionAnswerItem.title;
-        console.log("le question ");
-        console.log(this.questionAnswerItem);
-        console.log(this.questionAnswerItem.question.title);
-
-        // this.querySelector("#question").innerHTML = questionText;
+        var index = newV.split("/");
+        this.questionAnswerItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
         if(isNaN(this.questionAnswerItem.question) == false)
           this.questionAnswerItem.setQuestion().done(()=>{
@@ -100,6 +90,7 @@
 
         else{
           var data = this.questionAnswerItem.getAnswer();
+          this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
           this.setAnswer(data.answer, data.type);
         }
       }

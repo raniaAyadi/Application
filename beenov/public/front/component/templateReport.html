@@ -20,15 +20,15 @@
       this.appendChild(copie);
     };
 
-    templateReportPrototype.appendSections = function(){
-      sections = TemplateReportComponent.reportTemplate.sections;
+    templateReportPrototype.appendSections = function(indexT){
+      sections = ReportTemplate.allCurrent[indexT].sections;
       var l = sections ? sections.length : 0;
       var elt = this.querySelector("#sections");
 
       this.sectionComponent = new Array();
       for(var i=0; i<l; i++){
         var s = new TemplateSectionComponent();
-        s.setAttribute("index", i);
+        s.setAttribute("index", indexT+"/"+i);
         this.sectionComponent.push(s);
 
         elt.appendChild(s);
@@ -36,7 +36,8 @@
     };
 
     templateReportPrototype.updateItems = function(){
-      if(TemplateReportComponent.reportTemplate){
+      if(this.reportTemplate){
+
         if(this.sectionComponent){
           var l = this.sectionComponent.length;
           for(var i=0; i<l; i++)
@@ -47,13 +48,11 @@
     };
 
     templateReportPrototype.attributeChangedCallback = function(attr, oldV, newV){
-      if(attr == "name")
-        TemplateReportComponent.reportTemplate = ReportTemplate.getByName(newV);
+      if(attr == "index"){
+        this.reportTemplate = ReportTemplate.allCurrent[newV];
+        this.appendSections(newV);
+      }
 
-      else if(attr == "existing")
-        TemplateReportComponent.reportTemplate = ReportComponent.report;
-
-      this.appendSections();
     };
 
 

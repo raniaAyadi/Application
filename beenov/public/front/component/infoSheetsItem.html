@@ -25,8 +25,8 @@
 
     infoSheetsItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
-        var index = Operation.getSectIdItemId(newV)
-        this.infoSheetsItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        var index = newV.split("/");
+        this.infoSheetsItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
         this.querySelector("#titre").innerHTML = this.infoSheetsItem.titre;
         this.querySelector("#label").innerHTML = this.infoSheetsItem.label;

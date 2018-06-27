@@ -30,10 +30,11 @@
     };
 
     templateSectionPrototype.appendItems = function(index){
-        TemplateSectionComponent.reportTemplate = TemplateReportComponent.reportTemplate;
-
+        var tab = index.split("/");
         var elt = this.querySelector("#title");
-        this.templateSection = TemplateSectionComponent.reportTemplate.sections[index];
+
+        this.templateSection = ReportTemplate.allCurrent[tab[0]].sections[tab[1]];
+
         if(this.templateSection.title)
           elt.innerHTML = this.templateSection.title;
         else

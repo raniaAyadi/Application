@@ -98,7 +98,20 @@ ReportTemplate.getByName = function(name){
     if(temp.name == name)
       return temp;
   }
+
+  return null;
 };
+
+ReportTemplate.getIndex = function(name){
+  var l = ReportTemplate.allCurrent.length;
+  for(var i=0; i<l; i++){
+    var temp = ReportTemplate.allCurrent[i];
+    if(temp.name == name)
+      return i;
+  }
+
+  return -1;
+}
 
 ReportTemplate.prototype.getItem = function(idSect, idItem){
   return this.sections[idSect].items[idItem];

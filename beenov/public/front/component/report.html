@@ -44,21 +44,30 @@
       };
 
       document.querySelector("#save_report").onclick = function(){
-        var obj = TemplateReportComponent.reportTemplate;
+        var name = me.getAttribute("name");
+        var obj = ReportTemplate.getByName(name);
+
         var id = ReportComponent.report.idReport;
 
         Report.updateReport(id, obj).onload = ()=>{
           alert("save done");
           Report.getReportById(id).done((data)=>{
             var x = JSON.parse(data);
-            if(x.status === "ok")
+            if(x.status === "ok"){
               ReportComponent.report = new ReportTemplate(x.resources[0]);
+              var reportComponent = ReportComponent.singleton[name] = new TemplateReportComponent();
+              var index = ReportTemplate.getIndex("Dernier Rapport");
+              reportComponent.setAttribute('index', index);
+            }
           });
         };
       };
 
       document.querySelector("#summon_report").onclick = function(){
-        Report.generatePDF(TemplateReportComponent.reportTemplate).onload = (data)=>{
+        var name = me.getAttribute("name");
+        var report = ReportTemplate.getByName(name);
+
+        Report.generatePDF(report).onload = (data)=>{
           var url = data.currentTarget.response;
 
           Report.downloadPDF(url).onload = (data)=>
@@ -81,7 +90,6 @@
     }
 
     reportPrototype.createdCallback = function(){
-      console.log("new");
       Operation.appendTemplate(this, currentDoc, "#content");
       ReportComponent.lastReportName = "Dernier Rapport";
 
@@ -124,10 +132,16 @@
         if(x.status === "ok"){
           var tab = x.resources;
           ReportComponent.report = new ReportTemplate(tab[tab.length-1]);
+
         }
 
-        $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting())
-                      .done(()=>deferred.resolve());
+        $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
+          deferred.resolve()
+          if(ReportComponent.report){
+            ReportComponent.report.name = "Dernier Rapport";
+            ReportTemplate.allCurrent.push(ReportComponent.report);
+          }
+        });
       });
 
       return deferred.promise();
@@ -149,21 +163,19 @@
     };
 
     reportPrototype.appendReport = function(name){
-      this.reportComponent = {};
+      var reportComponent = {};
 
       if(! ReportComponent.singleton[name]){
-        this.reportComponent = ReportComponent.singleton[name] = new TemplateReportComponent();
+        reportComponent = ReportComponent.singleton[name] = new TemplateReportComponent();
 
-        if(name === ReportComponent.lastReportName)
-          this.reportComponent.setAttribute('existing', true);
-        else
-          this.reportComponent.setAttribute('name', name);
+        var index = ReportTemplate.getIndex(name);
+        reportComponent.setAttribute('index', index);
       }
 
       else
-        this.reportComponent = ReportComponent.singleton[name];
+        reportComponent = ReportComponent.singleton[name];
 
-      this.querySelector("#report").appendChild(this.reportComponent);
+      this.querySelector("#report").appendChild(reportComponent);
     };
 
     reportPrototype.attributeChangedCallback = function(attr, oldV, newV){

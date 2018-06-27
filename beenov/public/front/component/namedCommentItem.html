@@ -27,8 +27,8 @@
 
     namedCommentItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
-        var index = Operation.getSectIdItemId(newV)
-        this.namedCommentItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        var index = newV.split("/");
+        this.namedCommentItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
         // this.querySelector("#label").innerHTML = this.namedCommentItem.comment;
 
       }

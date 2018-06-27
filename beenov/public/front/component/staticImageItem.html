@@ -26,8 +26,8 @@
 
     staticImageItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
-        var index = Operation.getSectIdItemId(newV)
-        this.staticImageItem = ItemComponent.reportTemplate.getItem(index.idSect, index.idItem);
+        var index = newV.split("/");
+        this.staticImageItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
         this.querySelector("#label").innerHTML = this.staticImageItem.label;
        this.querySelector("#image").innerHTML = '<img src="' + this.staticImageItem.url + ' " alt="' + this.staticImageItem.fileName +'">';
