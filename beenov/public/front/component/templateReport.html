@@ -1,4 +1,5 @@
 <link rel="import" href="templateSection.html">
+
 <template id="template">
   <div id="sections">
     <!-- templateReport.sections -->
@@ -20,16 +21,29 @@
     };
 
     templateReportPrototype.appendSections = function(){
-      var sections = TemplateReportComponent.reportTemplate.sections;
+      sections = TemplateReportComponent.reportTemplate.sections;
       var l = sections ? sections.length : 0;
       var elt = this.querySelector("#sections");
 
+      this.sectionComponent = new Array();
       for(var i=0; i<l; i++){
         var s = new TemplateSectionComponent();
         s.setAttribute("index", i);
+        this.sectionComponent.push(s);
 
         elt.appendChild(s);
       }
+    };
+
+    templateReportPrototype.updateItems = function(){
+      if(TemplateReportComponent.reportTemplate){
+        if(this.sectionComponent){
+          var l = this.sectionComponent.length;
+          for(var i=0; i<l; i++)
+            this.sectionComponent[i].updateItems();
+          }
+        }
+
     };
 
     templateReportPrototype.attributeChangedCallback = function(attr, oldV, newV){

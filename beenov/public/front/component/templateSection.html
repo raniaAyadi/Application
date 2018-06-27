@@ -43,14 +43,24 @@
         var items = this.templateSection.items;
         var l = items.length;
 
+        this.itemComponent = new Array();
         for(var i=0; i<l; i++){
           var itemComponent = new ItemComponent();
           var id = index+"/"+i;
           itemComponent.setAttribute("index",id);
+          this.itemComponent.push(itemComponent);
 
           elt.appendChild(itemComponent);
         }
     };
+
+    templateSectionPrototype.updateItems = function(){
+      if(this.itemComponent){
+        var l = this.itemComponent.length;
+        for(var i=0; i<l; i++)
+          this.itemComponent[i].update();
+      }
+    }
 
     function setCurrentTemplate(){
       if(ReportTemplate.allCurrent)
