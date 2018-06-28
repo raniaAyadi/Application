@@ -66,7 +66,11 @@ var CONST = {
         pie : 'pie',
         radar : 'radar'
       },
-      data : "data:image/png;base64,"
+      data : "data:image/png;base64,",
+      sourceType : {
+        list : "list",
+        variables : "variables"
+      }
     },
 
     questionType : {

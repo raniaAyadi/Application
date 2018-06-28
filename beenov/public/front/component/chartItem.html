@@ -7,9 +7,8 @@
 </br>
 
   <div class="row">
-          <img class="col-md-8" id="image"> </img><!-- src charItem.data -->
-
-          <div class="row-md-4" id="legend"> </div>  <!-- charItem.legend -->
+    <img class="col-md-8" id="image"> </img><!-- src charItem.data -->
+    <div class="row-md-4" id="legend"> </div>  <!-- charItem.legend -->
  </div>
 </br>
 
@@ -28,7 +27,7 @@
       this.appendChild(copie);
     };
 
-    chartItemPrototype.legend = function(colors, names, index){
+    chartItemPrototype.legend = function(colors, names){
       let toAppend = "";
       let i = 0;
       while (colors && names && colors[i] && names[i]){
@@ -58,10 +57,10 @@
         var index = newV.split("/");
         this.chartItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
         this.querySelector("#title").innerHTML = this.chartItem.title;
-        // this.setImageSrc();
-        //
-        // var legendData = this.chartItem.legend();
-        // this.legend(legendData.colors, legendData.names, legendData.index);
+        this.setImageSrc();
+
+        var legendData = this.chartItem.legend();
+        this.legend(legendData.colors, legendData.names);
       }
     };
 
