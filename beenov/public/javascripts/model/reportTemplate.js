@@ -3,7 +3,7 @@ function ReportTemplate(obj){
   this.id = obj.template ? Operation.getId(obj.template.resource) : obj.id;
   this.idReport = obj.template ? obj.id : null;
 
-  this.name = obj ? obj.name : null;
+  this.name = obj ? (obj.name ? obj.name : CONST.component.lastReportName) : null;
   this.showFirstPage = obj ? obj.showFirstPage : null;
   this.showSubsectionsInToc = obj ? obj.showSubsectionsInToc : null;
 

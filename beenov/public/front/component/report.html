@@ -35,6 +35,7 @@
     var currentDoc = document.currentScript.ownerDocument;
     var reportPrototype = Object.create(HTMLElement.prototype);
     var deferred = new $.Deferred();
+    var existLastReport = false;
 
     reportPrototype.defEvents = function(){
       var me = this;
@@ -47,16 +48,18 @@
         var name = me.getAttribute("name");
         var obj = ReportTemplate.getByName(name);
 
-        var id = ReportComponent.report.idReport;
+        var id = ReportTemplate.getByName(CONST.component.lastReportName).idReport;
 
         Report.updateReport(id, obj).onload = ()=>{
           alert("save done");
           Report.getReportById(id).done((data)=>{
             var x = JSON.parse(data);
             if(x.status === "ok"){
-              ReportComponent.report = new ReportTemplate(x.resources[0]);
-              var reportComponent = ReportComponent.singleton[name] = new TemplateReportComponent();
-              var index = ReportTemplate.getIndex("Dernier Rapport");
+              var id = ReportTemplate.getIndex(CONST.component.lastReportName);
+              ReportTemplate.allCurrent[id] = new ReportTemplate(x.resources[0]);
+
+              var reportComponent = ReportComponent.singleton[CONST.component.lastReportName] = new TemplateReportComponent();
+              var index = ReportTemplate.getIndex(CONST.component.lastReportName);
               reportComponent.setAttribute('index', index);
             }
           });
@@ -91,7 +94,6 @@
 
     reportPrototype.createdCallback = function(){
       Operation.appendTemplate(this, currentDoc, "#content");
-      ReportComponent.lastReportName = "Dernier Rapport";
 
       var elt = document.querySelector("#sumup_type");
       Operation.appendTemplate(elt, currentDoc, "#navbar");
@@ -106,9 +108,9 @@
       var newOp = {};
       var elt = document.querySelector("#templateList");
 
-      if(ReportComponent.report){
+      if(existLastReport){
         newOp = document.createElement("option");
-        newOp.innerText = ReportComponent.lastReportName;
+        newOp.innerText = CONST.component.lastReportName;
         elt.append(newOp);
 
         ReportComponent.singleton[newOp.innerText] = null;
@@ -131,15 +133,14 @@
         var x = JSON.parse(data);
         if(x.status === "ok"){
           var tab = x.resources;
-          ReportComponent.report = new ReportTemplate(tab[tab.length-1]);
-
+          var toPush = new ReportTemplate(tab[tab.length-1]);
+          existLastReport = true;
         }
 
         $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
-          deferred.resolve()
-          if(ReportComponent.report){
-            ReportComponent.report.name = "Dernier Rapport";
-            ReportTemplate.allCurrent.push(ReportComponent.report);
+          deferred.resolve();
+          if(x.status == "ok"){
+            ReportTemplate.allCurrent.push(toPush);
           }
         });
       });
@@ -192,6 +193,8 @@
     ReportComponent = document.registerElement('beenov-report', {
       prototype : reportPrototype
     });
+
+    CONST.component.lastReportName = "Dernier Rapport";
 
   })();
 </script>

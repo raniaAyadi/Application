@@ -34,6 +34,10 @@ var CONST = {
       currentMeeting : 'infomet'
     },
 
+    component :{
+      lastReportName : "Dernier Rapport"
+    },
+
     itemType : {
       comment : 'comment',
       questionAnswer : 'question-answer',
