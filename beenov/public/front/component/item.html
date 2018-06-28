@@ -13,6 +13,7 @@
 <link rel="import" href="variableValueItem.html">
 <link rel="import" href="lineJumpItem.html">
 <link rel="import" href="sectionActionsItem.html">
+<link rel="import" href="appendixQuestionnaireReplyItem.html">
 <link rel="import" href="sectionHeaderItem.html">
 
 
@@ -125,6 +126,10 @@
 
         case CONST.itemType.sectionHeader :
         component = new SectionHeaderItemComponent();
+        break;
+
+        case CONST.itemType.appendixQuestionnaireReply :
+        component = new AppendixQuestionnaireReplyItemComponent();
         break;
       }
 
