@@ -50,7 +50,8 @@ var CONST = {
       namedComment : 'named-comment',
       infoSheets : 'info-sheets',
       commentGroup : 'comment-group',
-      sectionHeader : 'section-header'
+      sectionHeader : 'section-header',
+      appendixQuestionnaireReply : 'appendix-questionnaire-reply'
     },
 
     chart : {
