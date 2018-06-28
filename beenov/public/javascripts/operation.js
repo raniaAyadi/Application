@@ -401,12 +401,14 @@ var Operation = {
 
       while (i < nbrline)
       {
-                toAppend += '<tr><th>' + typeOptions.rowLabels[i] + '</th>';
+            toAppend += '<tr><th>' + typeOptions.rowLabels[i] + '</th>';
 
                 if (answer[i].column == undefined){
                   while (j<nbrcol) {
                       toAppend += "<td></td>"
-                    }
+                      j++
+                     }
+                     j=0;
                   }
             else {
               while (j < nbrcol)
