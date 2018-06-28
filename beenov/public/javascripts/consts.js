@@ -27,7 +27,8 @@ var CONST = {
       getReportById : 'getReport',
       updateReport : 'updateReport',
       generatePDF : 'generatePDF',
-      downloadPDF : 'downloadPDF/'
+      downloadPDF : 'downloadPDF/',
+      addReport : 'addReport'
     },
 
     cookie : {

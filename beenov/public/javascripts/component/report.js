@@ -41,5 +41,16 @@ var Report ={
     xhr.responseType = "arraybuffer";
     xhr.send();
     return xhr;
+  },
+
+  addReport : function(report){
+    var x = report.getJSON();
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", CONST.url.addReport);
+    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.send(JSON.stringify(x));
+
+    return xhr;
   }
 };

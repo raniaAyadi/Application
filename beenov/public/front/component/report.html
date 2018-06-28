@@ -47,23 +47,39 @@
       document.querySelector("#save_report").onclick = function(){
         var name = me.getAttribute("name");
         var obj = ReportTemplate.getByName(name);
+        var lastReport = ReportTemplate.getByName(CONST.component.lastReportName);
 
-        var id = ReportTemplate.getByName(CONST.component.lastReportName).idReport;
+        if(lastReport){
+          var id = lastReport.idReport;
+          Report.updateReport(id, obj).onload = ()=> saveReport(id);
+        }
 
-        Report.updateReport(id, obj).onload = ()=>{
-          alert("save done");
-          Report.getReportById(id).done((data)=>{
-            var x = JSON.parse(data);
-            if(x.status === "ok"){
-              var id = ReportTemplate.getIndex(CONST.component.lastReportName);
-              ReportTemplate.allCurrent[id] = new ReportTemplate(x.resources[0]);
+        else{
+          var aux = {
+            name : CONST.component.lastReportName
+          };
+          ReportTemplate.allCurrent.push(aux);
 
-              var reportComponent = ReportComponent.singleton[CONST.component.lastReportName] = new TemplateReportComponent();
-              var index = ReportTemplate.getIndex(CONST.component.lastReportName);
-              reportComponent.setAttribute('index', index);
-            }
-          });
-        };
+          Report.addReport(obj).onload = (data) => {
+            var res = JSON.parse(data.currentTarget.response);
+            saveReport(res.id);
+          };
+        }
+      };
+
+      var saveReport = function(id){
+        alert("save done");
+        Report.getReportById(id).done((data)=>{
+          var x = JSON.parse(data);
+          if(x.status === "ok" & x.resources.length){
+            var id = ReportTemplate.getIndex(CONST.component.lastReportName);
+            ReportTemplate.allCurrent[id] = new ReportTemplate(x.resources[0]);
+
+            var reportComponent = ReportComponent.singleton[CONST.component.lastReportName] = new TemplateReportComponent();
+            var index = ReportTemplate.getIndex(CONST.component.lastReportName);
+            reportComponent.setAttribute('index', index);
+          }
+        });
       };
 
       document.querySelector("#summon_report").onclick = function(){
@@ -131,7 +147,7 @@
 
       Report.getReports().done((data)=>{
         var x = JSON.parse(data);
-        if(x.status === "ok"){
+        if(x.status === "ok" && x.resources.length){
           var tab = x.resources;
           var toPush = new ReportTemplate(tab[tab.length-1]);
           existLastReport = true;
@@ -139,7 +155,7 @@
 
         $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
           deferred.resolve();
-          if(x.status == "ok"){
+          if(x.status == "ok" && x.resources.length){
             ReportTemplate.allCurrent.push(toPush);
           }
         });
