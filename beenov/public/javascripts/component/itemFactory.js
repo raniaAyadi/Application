@@ -48,6 +48,9 @@ var ItemFactory = {
 
       case CONST.itemType.sectionHeader :
       return new SectionHeaderItem(obj);
+
+      case CONST.itemType.appendixQuestionnaireReply :
+      return new AppendixQuestionnaireReplyItem(obj);
     }
   }
 }
