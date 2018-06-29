@@ -72,11 +72,6 @@ app.post('/addReport', function(req, res){
 		questionnaire.generatePDF(req, res, base_url, data);
 	})
 
-	app.get('/downloadPDF/*', function(req, res){
-		let data = req.body;
-		questionnaire.downloadPDF(req, res, data);
-	})
-
 	app.get('/getReport/*', function(req, res){
 		let data = req.body;
 		questionnaire.getReport(req, res, base_url, data);

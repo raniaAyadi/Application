@@ -27,7 +27,6 @@ var CONST = {
       getReportById : 'getReport',
       updateReport : 'updateReport',
       generatePDF : 'generatePDF',
-      downloadPDF : 'downloadPDF/',
       addReport : 'addReport',
       getAverage : 'getAverage'
     },

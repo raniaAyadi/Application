@@ -25,7 +25,6 @@
   <button type="button" id="summon_report">
     Générer le compte-rendu
   </button>
-
 </template>
 
 <script>
@@ -87,21 +86,18 @@
         var report = ReportTemplate.getByName(name);
 
         Report.generatePDF(report).onload = (data)=>{
-          var url = data.currentTarget.response;
-
-          Report.downloadPDF(url).onload = (data)=>
-            createLink(data.currentTarget.response)
+          var res = JSON.parse(data.currentTarget.response);
+          createLink(res.url);
         };
       };
-
     };
 
-    function createLink(arrayBuffer){
-      var b = new Blob([new Uint8Array(arrayBuffer)], {type: 'application/octet-binary'});
+    function createLink(url){
       var link = document.createElement("a");
 
-      link.href = window.URL.createObjectURL(b);
+      link.href = url;
       link.download = "rapport.pdf";
+      link.target="_blank";
 
       if(window.confirm("Télécharger le rapport !")){
         link.click();

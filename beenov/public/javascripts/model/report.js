@@ -23,23 +23,11 @@ var Report ={
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", CONST.url.generatePDF);
-    xhr.setRequestHeader("Content-Type", "application/json")
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.setRequestHeader("Accept-language", 'fr-FR,en;q=0.5');
+    xhr.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
     xhr.send(JSON.stringify(x));
 
-    return xhr;
-  },
-
-  downloadPDF : function(url){
-    var file = JSON.parse(url);
-    file = file.url;
-    file =  file.split('/');
-    file = file[file.length-1];
-
-    var xhr = new XMLHttpRequest();
-
-    xhr.open("GET", CONST.url.downloadPDF+file);
-    xhr.responseType = "arraybuffer";
-    xhr.send();
     return xhr;
   },
 

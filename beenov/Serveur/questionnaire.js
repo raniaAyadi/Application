@@ -565,32 +565,14 @@ var		barchart = function(req, res, base_url, json)
 	});
 }
 
-var downloadPDF = function(req, res, data){
-  let url = "http://www.beenov.fr/core/files" + '/generated/'+req.params['0'];
-  request.get(
-{
-    url: url,
-    json: data
-}, function(err, resp, body)
-{
-    if (err || body.status == 'error')
-    {
-  res.send(body);
-  res.status(204).end();
-    }
-    else
-    {
-  res.send(body);
-  res.status(200).end();
-    }
-});
-}
-
 var generatePDF = function(req, res, base_url, data){
   let url = base_url + '/generate-pdf-report'+'?session-key=' + req.cookies.cskey;
   request.post(
 {
     url: url,
+    "Accept-Language" : 'fr-FR,en;q=0.5',
+    "Accept-Encoding" : 'gzip,deflate',
+    "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     json: data,
 }, function(err, resp, body)
 {
@@ -767,7 +749,6 @@ exports.questionnaire_entreprise = questionnaire_entreprise;
 exports.addReport = addReport;
 exports.updateReport = updateReport;
 exports.generatePDF = generatePDF;
-exports.downloadPDF = downloadPDF;
 exports.getReport = getReport;
 exports.fiches_conseil = fiches_conseil;
 exports.fiches_produit = fiches_produit;
