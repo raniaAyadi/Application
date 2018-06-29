@@ -69,8 +69,13 @@ Meeting.getCurrentMeeting = function(){
   }
 
   return Meeting.instance.deferred.promise();
-}
+};
 
 Meeting.prototype.getQuestion = function(id){
   return this.quiz.getQuestion(id);
-}
+};
+
+Meeting.prototype.getAverage = function(varName){
+  var idCompany =  this.quiz.company.resource;
+  return $.get('getAverage', {idCompany : idCompany, variableName : varName});
+};

@@ -28,7 +28,8 @@ var CONST = {
       updateReport : 'updateReport',
       generatePDF : 'generatePDF',
       downloadPDF : 'downloadPDF/',
-      addReport : 'addReport'
+      addReport : 'addReport',
+      getAverage : 'getAverage'
     },
 
     cookie : {

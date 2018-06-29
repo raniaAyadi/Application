@@ -209,6 +209,27 @@ var get_quest = function(protocol_version, base_url, res, cskey, data)
 		});
 }
 
+var getAverage = function(req, res, base_url){
+  var idQuest = JSON.parse(req.cookies.infomet).quest;
+  var url = base_url+'/companies-average-variable-values?'
+  +'company={"resource":"'+req.param("idCompany")+'"}&'+
+  'variable-name='+req.param("variableName")+'&session-key='+req.cookies.cskey+
+  '&questionnaire={"resource":"'+idQuest+'"}';
+
+  request.get(url, function(err, response, body)
+  {
+      let json = JSON.parse(body);
+      if (err || json.status == 'error')
+      {
+    res.status(204).end();
+      }
+      else
+      {
+    res.send(json);
+    res.status(200).end();
+      }
+  });
+}
 
 var     send_questionnaire_reply = function(req, res, base_url)
 {
@@ -546,7 +567,6 @@ var		barchart = function(req, res, base_url, json)
 
 var downloadPDF = function(req, res, data){
   let url = "http://www.beenov.fr/core/files" + '/generated/'+req.params['0'];
-  console.log(url);
   request.get(
 {
     url: url,
@@ -568,7 +588,6 @@ var downloadPDF = function(req, res, data){
 
 var generatePDF = function(req, res, base_url, data){
   let url = base_url + '/generate-pdf-report'+'?session-key=' + req.cookies.cskey;
-  console.log(url);
   request.post(
 {
     url: url,
@@ -591,7 +610,6 @@ var generatePDF = function(req, res, base_url, data){
 
 var updateReport = function(req, res, base_url, data){
   let url = base_url + '/reports/'+req.params['0']+'?session-key=' + req.cookies.cskey;
-  console.log(url);
   request.post(
 {
     url: url,
@@ -634,7 +652,6 @@ var addReport = function(req, res, base_url, data){
 
 var getReport = function(req, res, base_url, data){
   let url = base_url + '/reports/'+req.params['0']+'?session-key=' + req.cookies.cskey;
-  console.log(url);
   request.get(
 {
     url: url,
@@ -770,6 +787,7 @@ exports.scatterchart2 = scatterchart2;
 exports.barchart = barchart;
 exports.api_entreprise = api_entreprise;
 exports.savereport = savereport;
+exports.getAverage = getAverage;
 exports.report = report;
 exports.post_questionnaire_entreprise = post_questionnaire_entreprise;
 exports.firstreport = firstreport;

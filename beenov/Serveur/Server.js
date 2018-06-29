@@ -82,6 +82,11 @@ app.post('/addReport', function(req, res){
 		questionnaire.getReport(req, res, base_url, data);
 	});
 
+app.get('/getAverage', function(req, res){
+	let data = req.body;
+	questionnaire.getAverage(req, res, base_url ,data);
+});
+
 app.post('/lostpwd', function(req, res)
 	 {
 	     let mail = req.body.mail;
