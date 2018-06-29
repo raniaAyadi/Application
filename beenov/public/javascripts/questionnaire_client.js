@@ -409,6 +409,26 @@ function	update_cptrd_prod(data)
 	++i;
     }
     $('#selectedprod').append(toAppend);
+
+
+		let j = 0;
+		while (j < arrCons.length){
+			var obj = data.resources[arrCons[j] - 1];
+			var selector = 'input[id-info="'+obj.id+'"]';
+			(function(){
+				var elt = document.querySelector(selector);
+
+				elt.onclick = ()=>{
+					var bool = 0;
+					if(elt.checked)
+						bool = 1;
+
+					var infoSheet = document.querySelector("beenov-info-sheets-item");
+					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"/"+bool);
+					};
+				})();
+ ++j
+}
 }
 
 function	update_cptrd_help(data)
