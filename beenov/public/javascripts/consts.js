@@ -36,7 +36,10 @@ var CONST = {
     },
 
     component :{
-      lastReportName : "Dernier Rapport"
+      lastReportName : "Dernier Rapport",
+      advice : "advice-info-sheets",
+      semaphore : "semaphore-info-sheet-descriptors",
+      product : "product-info-sheets/25004"
     },
 
     itemType : {
