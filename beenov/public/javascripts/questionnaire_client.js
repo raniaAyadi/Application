@@ -380,21 +380,50 @@ function	dunkhelp(id, index)
     }
 }
 
+
 /* print the needed sheets in the compte rendu */
 function	update_cptrd_cons(data)
 {
     let toAppend = "";
     let i = 0;
-
-    while (i < arrCons.length)
+		var tabCheck = new Array();
+		while (i < arrCons.length)
     {
-	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" value="' + (arrCons[i] - 1) + '">';
-	toAppend += data.resources[arrCons[i] - 1].title + '</div>';
+	toAppend += '<br /><div class="delimit sheet"><input id-info="'+ data.resources[arrCons[i] - 1].id+'" type="checkbox" value="' + (arrCons[i] - 1) + '">';
+		var obj = data.resources[arrCons[i] - 1]
+  	toAppend += data.resources[arrCons[i] - 1].title + '</div>';
 
-	++i;
-    }
+	var elt = document.querySelector("beenov-info-sheets-item");
+	elt.setAttribute("id-info", obj.id);
+	elt.setAttribute("title", obj.title);
+		++i;
+   }
     $('#selectedcons').append(toAppend);
+
+		let toAppend2="";
+		console.log(toAppend2);
+		let j = 0;
+		while (j < arrCons.length){
+			var obj = data.resources[arrCons[j] - 1];
+			var selector = 'input[id-info="'+ obj.id+'"]';
+			console.log(selector);
+			(function(){
+				var elt = document.querySelector(selector);
+
+
+				elt.onclick = ()=>{
+					var bool = 0;
+					if(elt.checked)
+						bool = 1;
+
+					var infoSheet = document.querySelector("beenov-info-sheets-item");
+					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"/"+bool);
+					};
+				})();
+	++j
+	}
 }
+
 
 function	update_cptrd_prod(data)
 {
@@ -409,26 +438,6 @@ function	update_cptrd_prod(data)
 	++i;
     }
     $('#selectedprod').append(toAppend);
-
-
-		let j = 0;
-		while (j < arrCons.length){
-			var obj = data.resources[arrCons[j] - 1];
-			var selector = 'input[id-info="'+obj.id+'"]';
-			(function(){
-				var elt = document.querySelector(selector);
-
-				elt.onclick = ()=>{
-					var bool = 0;
-					if(elt.checked)
-						bool = 1;
-
-					var infoSheet = document.querySelector("beenov-info-sheets-item");
-					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"/"+bool);
-					};
-				})();
- ++j
-}
 }
 
 function	update_cptrd_help(data)
@@ -443,7 +452,7 @@ function	update_cptrd_help(data)
 	item = arrHelp[i].split("_");
 	item = item[0] + '-' + item[1];
 	while (data.resources[u] && item != data.resources[u].id)
-	{
+	{ console.log(data.resources[u]);
 	    ++u;
 	}
 	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" value="' + (arrHelp[i]) + '">';
