@@ -4,7 +4,22 @@
       <p style="font-size:13px" id="label">
 
       <!-- infoSheetsItem.label -->
-    </p></br></br>
+      </p>
+    </br>
+
+      <div class="" id="fiche">
+
+      </div>
+<!--
+      <div class="" id= CONST.component.product >
+
+      </div>
+
+      <div class="" id= CONST.component.semaphore >
+
+      </div> -->
+
+  </br></br>
 </div>
 </template>
 
@@ -24,15 +39,13 @@
     }
 
     infoSheetsItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
-      if(attr == "index"){
+      if(attr === "index"){
         var index = newV.split("/");
         this.infoSheetsItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
         this.querySelector("#titre").innerHTML = this.infoSheetsItem.titre;
         this.querySelector("#label").innerHTML = this.infoSheetsItem.label;
-
       }
-
 
       if(attr === "id-info"){
         var elt = document.createElement("div")
@@ -41,6 +54,22 @@
         elt.setAttribute("hidden", true);
         this.querySelector("#fiche").append(elt);
       }
+      //
+      // if(attr === "id-info"){
+      //   var elt = document.createElement("div")
+      //
+      //   elt.setAttribute("id-info", newV);
+      //   elt.setAttribute("hidden", true);
+      //   this.querySelector("#" + ).append(elt);
+      // }
+      //
+      // if(attr === "id-info"){
+      //   var elt = document.createElement("div")
+      //
+      //   elt.setAttribute("id-info", newV);
+      //   elt.setAttribute("hidden", true);
+      //   this.querySelector("#fiche").append(elt);
+      // }
 
       if(attr === "title"){
         var id = this.getAttribute("id-info");
@@ -60,12 +89,11 @@
         else
           elt.setAttribute("hidden", true);
       }
-
-
     }
 
     InfoSheetsItemComponent = document.registerElement('beenov-info-sheets-item', {
       prototype : infoSheetsItemPrototype
     });
+
 })();
 </script>
