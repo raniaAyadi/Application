@@ -32,6 +32,36 @@
         this.querySelector("#label").innerHTML = this.infoSheetsItem.label;
 
       }
+
+
+      if(attr === "id-info"){
+        var elt = document.createElement("div")
+
+        elt.setAttribute("id-info", newV);
+        elt.setAttribute("hidden", true);
+        this.querySelector("#fiche").append(elt);
+      }
+
+      if(attr === "title"){
+        var id = this.getAttribute("id-info");
+        var elt = this.querySelector('[id-info="'+id+'"]');
+
+        elt.innerText = newV;
+      }
+
+      if(attr === "show"){
+        var tab = newV.split("/");
+        var elt = this.querySelector('[id-info="'+tab[0]+'"]');
+        console.log(elt.getAttribute("hidden"));
+
+        if(elt.getAttribute("hidden"))
+          elt.removeAttribute("hidden");
+
+        else
+          elt.setAttribute("hidden", true);
+      }
+
+
     }
 
     InfoSheetsItemComponent = document.registerElement('beenov-info-sheets-item', {
