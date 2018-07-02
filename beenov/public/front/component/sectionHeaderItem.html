@@ -22,9 +22,12 @@
         var index = newV.split("/");
         this.sectionHeaderItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
-        this.querySelector("#title").innerHTML = this.sectionHeaderItem.title;
-        else
-          this.querySelector("#title").setAttribute("style","display:none");
+
+       if (this.sectionHeaderItem.title != "")
+          this.querySelector("#title").innerHTML = this.sectionHeaderItem.title;
+      else
+           this.querySelector("#title").setAttribute("style","display:none");
+
 
       }
     };

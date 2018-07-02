@@ -27,7 +27,10 @@
         var index = newV.split("/");
         this.commentItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
-        this.querySelector("#label").innerHTML = this.commentItem.label;
+        if (this.commentItem.label != null)
+        this.querySelector("#label").innerHTML = this.commentItem.label
+        else
+          this.querySelector("#label").innerHTML = this.commentItem.text;
       }
     }
 

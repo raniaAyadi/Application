@@ -40,9 +40,6 @@ var ItemFactory = {
       case CONST.itemType.pageJump :
       return new PageJumpItem(obj);
 
-      case CONST.itemType.lineJump :
-       return new PageJumpItem(obj);
-
       case CONST.itemType.sectionActions :
       return new SectionActionsItem(obj);
 
