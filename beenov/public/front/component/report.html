@@ -33,8 +33,6 @@
   (function(){
     var currentDoc = document.currentScript.ownerDocument;
     var reportPrototype = Object.create(HTMLElement.prototype);
-    var deferred = new $.Deferred();
-    var existLastReport = false;
 
     reportPrototype.defEvents = function(){
       var me = this;
@@ -116,52 +114,43 @@
       this.defEvents();
     };
 
-    reportPrototype.appendTemplateName = function(){
+    reportPrototype.appendTemplateName = function(name){
       var newOp = {};
       var elt = document.querySelector("#templateList");
 
-      if(existLastReport){
-        newOp = document.createElement("option");
-        newOp.innerText = CONST.component.lastReportName;
-        elt.append(newOp);
+      newOp = document.createElement("option");
+      newOp.innerText = name;
+      elt.append(newOp);
 
-        ReportComponent.singleton[newOp.innerText] = null;
-      }
-
-      var l = ReportTemplate.allCurrent.length;
-      for (var i=0; i<l; i++){
-        newOp = document.createElement("option");
-        newOp.innerText = ReportTemplate.allCurrent[i].name;
-        elt.append(newOp);
-
-        ReportComponent.singleton[newOp.innerText] = null;
-      }
+      ReportComponent.singleton[newOp.innerText] = null;
     };
 
-    function init(){
+    reportPrototype.attachedCallback = function(){
       ReportComponent.singleton = {};
+      var deferred = new $.Deferred();
+      var me = this;
+
+      deferred.progress(function(name){
+        me.appendTemplateName(name);
+      });
+
+      $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
+        var l = ReportTemplate.allCurrent.length;
+        for (var i=0; i<l; i++)
+          deferred.notify(ReportTemplate.allCurrent[i].name);
+      });
 
       Report.getReports().done((data)=>{
         var x = JSON.parse(data);
         if(x.status === "ok" && x.resources.length){
           var tab = x.resources;
           var toPush = new ReportTemplate(tab[tab.length-1]);
-          existLastReport = true;
-        }
+          ReportTemplate.allCurrent.push(toPush);
 
-        $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
-          deferred.resolve();
-          if(x.status == "ok" && x.resources.length){
-            ReportTemplate.allCurrent.push(toPush);
-          }
-        });
+          deferred.notify(toPush.name);
+        }
       });
 
-      return deferred.promise();
-    }
-
-    reportPrototype.attachedCallback = function(){
-      init().done(()=>this.appendTemplateName());
     };
 
     reportPrototype.updateItems = function(){
@@ -205,8 +194,6 @@
     ReportComponent = document.registerElement('beenov-report', {
       prototype : reportPrototype
     });
-
-    CONST.component.lastReportName = "Dernier Rapport";
 
   })();
 </script>
