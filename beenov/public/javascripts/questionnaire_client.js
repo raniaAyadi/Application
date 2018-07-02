@@ -486,9 +486,9 @@ function	update_cptrd_help(data)
 	while (data.resources[u] && item != data.resources[u].id)
 	{ console.log(data.resources[u]);
 	    ++u;
-			var id = CONST.component.help + '/' + data.resources[arrHelp[i] - 1].id;
-			console.log(id);
 	}
+	var id = CONST.component.semaphore + '/' + data.resources[i].id;
+	console.log(id);
 	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" id-info="'+ id +'" value="' + (arrHelp[i]) + '">';
 	toAppend += data.resources[i].title + '</div>';
 	console.log(data.resources[i].title);
@@ -506,7 +506,7 @@ function	update_cptrd_help(data)
 		let j=0;
 				while (j < arrHelp.length){
 					var obj = data.resources[j];
-					var id = CONST.component.help + '/' + obj.id;
+					var id = CONST.component.semaphore + '/' + obj.id;
 
 					(function(){
 						var selector = 'input[id-info="'+ id +'"]';
