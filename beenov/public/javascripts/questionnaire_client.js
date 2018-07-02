@@ -389,27 +389,29 @@ function	update_cptrd_cons(data)
 		var tabCheck = new Array();
 		while (i < arrCons.length)
     {
-	toAppend += '<br /><div class="delimit sheet"><input id-info="'+ data.resources[arrCons[i] - 1].id+'" type="checkbox" value="' + (arrCons[i] - 1) + '">';
+		var id = CONST.component.advice + '/' + data.resources[arrCons[i] - 1].id;
+		toAppend += '<br /><div class="delimit sheet"><input id-info="'+ id +'" type="checkbox" value="' + (arrCons[i] - 1) + '">';
 		var obj = data.resources[arrCons[i] - 1]
   	toAppend += data.resources[arrCons[i] - 1].title + '</div>';
 
 	var elt = document.querySelector("beenov-info-sheets-item");
-	elt.setAttribute("id-info", obj.id);
+	elt.setAttribute("id-info", id);
 	elt.setAttribute("title", obj.title);
 		++i;
    }
     $('#selectedcons').append(toAppend);
 
-		let toAppend2="";
-		console.log(toAppend2);
+
 		let j = 0;
 		while (j < arrCons.length){
 			var obj = data.resources[arrCons[j] - 1];
-			var selector = 'input[id-info="'+ obj.id+'"]';
-			console.log(selector);
-			(function(){
-				var elt = document.querySelector(selector);
+			var id = CONST.component.advice + '/' + obj.id;
 
+			(function(){
+				var selector = 'input[id-info="'+ id +'"]';
+				var elt = document.querySelector(selector);
+				console.log(selector);
+				console.log(elt);
 
 				elt.onclick = ()=>{
 					var bool = 0;
@@ -417,7 +419,7 @@ function	update_cptrd_cons(data)
 						bool = 1;
 
 					var infoSheet = document.querySelector("beenov-info-sheets-item");
-					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"/"+bool);
+					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"*"+bool);
 					};
 				})();
 	++j
@@ -432,12 +434,41 @@ function	update_cptrd_prod(data)
 
     while (i < arrProd.length)
     {
-	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" value="' + (arrProd[i] - 1) + '">';
+			var id = CONST.component.product + '/' + data.resources[arrProd[i] - 1].id;
+	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" id-info="'+ id +'" type="checkbox" value="' + (arrProd[i] - 1) + '" value="' + (arrProd[i] - 1) + '">';
 	toAppend += data.resources[arrProd[i] - 1].title + '</div>';
+	var obj = data.resources[arrProd[i] - 1];
+	var elt = document.querySelector("beenov-info-sheets-item");
+	elt.setAttribute("id-info", id);
+	elt.setAttribute("title", obj.title);
 
 	++i;
     }
     $('#selectedprod').append(toAppend);
+
+		let j=0;
+		while (j < arrProd.length){
+			var obj = data.resources[arrProd[j] - 1];
+			var id = CONST.component.product + '/' + obj.id;
+
+			(function(){
+				var selector = 'input[id-info="'+ id +'"]';
+				var elt = document.querySelector(selector);
+				console.log(selector);
+				console.log(elt);
+
+				elt.onclick = ()=>{
+					var bool = 0;
+					if(elt.checked)
+						bool = 1;
+
+					var infoSheet = document.querySelector("beenov-info-sheets-item");
+					infoSheet.setAttribute("show", elt.getAttribute("id-info")+"*"+bool);
+					};
+				})();
+	++j
+	}
+
 }
 
 function	update_cptrd_help(data)
@@ -449,19 +480,52 @@ function	update_cptrd_help(data)
 
     while (i < arrHelp.length)
     {
+
 	item = arrHelp[i].split("_");
 	item = item[0] + '-' + item[1];
 	while (data.resources[u] && item != data.resources[u].id)
 	{ console.log(data.resources[u]);
 	    ++u;
+			var id = CONST.component.help + '/' + data.resources[arrHelp[i] - 1].id;
+			console.log(id);
 	}
-	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" value="' + (arrHelp[i]) + '">';
+	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" id-info="'+ id +'" value="' + (arrHelp[i]) + '">';
 	toAppend += data.resources[i].title + '</div>';
+	console.log(data.resources[i].title);
 
 	u = 0;
+
+	var obj = data.resources[i];
+	var elt = document.querySelector("beenov-info-sheets-item");
+	elt.setAttribute("id-info", id);
+	elt.setAttribute("title", obj.title);
 	++i;
     }
     $('#selectedhelp').append(toAppend);
+
+		let j=0;
+				while (j < arrHelp.length){
+					var obj = data.resources[j];
+					var id = CONST.component.help + '/' + obj.id;
+
+					(function(){
+						var selector = 'input[id-info="'+ id +'"]';
+						var elt = document.querySelector(selector);
+						console.log(selector);
+						console.log(elt);
+
+						elt.onclick = ()=>{
+							var bool = 0;
+							if(elt.checked)
+								bool = 1;
+
+							var infoSheet = document.querySelector("beenov-info-sheets-item");
+							infoSheet.setAttribute("show", elt.getAttribute("id-info")+"*"+bool);
+							};
+						})();
+			++j
+			}
+
 }
 
 function	fillfield(target, data)
