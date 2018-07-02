@@ -8,17 +8,8 @@
     </br>
 
       <div class="" id="fiche">
-
+        <!-- items -->
       </div>
-<!--
-      <div class="" id= CONST.component.product >
-
-      </div>
-
-      <div class="" id= CONST.component.semaphore >
-
-      </div> -->
-
   </br></br>
 </div>
 </template>
@@ -65,13 +56,18 @@
       if(attr === "show"){
         var tab = newV.split("*");
         var elt = this.querySelector('[id-info="'+tab[0]+'"]');
-        console.log(elt.getAttribute("hidden"));
 
-        if(elt.getAttribute("hidden"))
+        if(elt.getAttribute("hidden")){
           elt.removeAttribute("hidden");
+          this.infoSheetsItem.addInfoSheet(tab[0]);
+        }
 
-        else
+        else{
           elt.setAttribute("hidden", true);
+          this.infoSheetsItem.removeInfoSheet(tab[0]);
+        }
+
+        console.log(this.infoSheetsItem.infoSheets);
       }
     }
 
