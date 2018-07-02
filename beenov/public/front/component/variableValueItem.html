@@ -12,6 +12,13 @@
      <span style="font-style: italic" id="maxValue">
             <!-- valeur max -->
      </span>
+
+   </br>
+
+   <span class="title"> Moyenne régionale: </span>
+   <span id="moyReg">  </span>
+
+
 </div>
 </template>
 
@@ -33,6 +40,7 @@
     variableValueItemPrototype.setVariableValue = function(){
       this.variableValueItem.setVariableValue().done(()=>{
         this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue ;
+        this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage;
       });
     };
 
