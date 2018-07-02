@@ -39,7 +39,7 @@ var CONST = {
       lastReportName : "Dernier Rapport",
       advice : "advice-info-sheets",
       semaphore : "semaphore-info-sheet-descriptors",
-      product : "product-info-sheets/25004"
+      product : "product-info-sheets"
     },
 
     itemType : {
