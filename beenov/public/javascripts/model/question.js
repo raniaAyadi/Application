@@ -4,11 +4,25 @@ function Question(obj){
     this.helpText = obj.helpText;
     this.id = obj.id;
     this.type = obj.type;
-    this.rules = obj.rules;
     this.answer = obj.answer;
     this.typeOptions = obj.typeOptions;
+
+    this.setRules(obj.rules);
   }
 }
+
+Question.prototype.setRules = function(tab){
+  if(! tab){
+    this.rules = null;
+    return ;
+  }
+
+  this.rules = new Array();
+  for(var i in tab){
+    var rule = RuleFactory.createRule(tab[i].expression);
+    this.rules.push(rule);
+  }
+};
 
 Question.prototype.getAnswerData = function(){
   var answerData = {
@@ -53,7 +67,7 @@ Question.prototype.getAnswerData = function(){
     for (var i = 0; i < l ; i++) {
           answerData.answer.push(this.answer[i]);
     }
-      break;
+    break;
 
 
     default :
@@ -62,3 +76,8 @@ Question.prototype.getAnswerData = function(){
 
   return answerData;
 };
+
+Question.prototype.appRules = function(){
+  for(var i in this.rules)
+    this.rules[i].appRule(this.answer);
+}

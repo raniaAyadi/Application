@@ -25,3 +25,10 @@ Section.prototype.getQuestion = function(id){
 
   return null;
 }
+
+Section.prototype.appRules = function(){
+  var l = this.questions.length;
+
+  for(var i=0; i<l; i++)
+    this.questions[i].appRules();
+}
