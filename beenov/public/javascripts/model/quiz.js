@@ -98,9 +98,15 @@ Quiz.prototype.appRules = function(){
   this.appQuizRules();
 }
 
-// Quiz.prototype.updateAnswers = function(obj){
-//   if(!obj)
-//     return;
-//
+Quiz.prototype.upadteAnswers = function(tab){
+  if(!tab)
+    return;
 
-//}
+  var me = this;
+  tab.forEach((elt)=>{
+    var id = Operation.getId(elt.question.resource)
+    var q = me.getQuestion(id);
+
+    q.answer = elt.answer;
+  });
+}

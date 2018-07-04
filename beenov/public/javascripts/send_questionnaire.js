@@ -83,12 +83,9 @@ function	send_questionnaire(reinit)
 {
     let posted;
     let url = '/send_questionnaire';
-    console.log(questionnaire_data);
     globalVariables = {};
     get_rules("quest");
     global_rules(main_rules);
-    console.log("GET COMMENTS");
-    console.log(get_comments());
 
     if (window.location.pathname == "/company")
     {
@@ -106,7 +103,6 @@ function	send_questionnaire(reinit)
 	    date: getCurrentDate(),
 	    owner: { resource: "users/" + getCookie("uid") }
 	};
-	console.log(posted);
     }
     else if (getParameterByName("newquest", window.location.href) == "true")
     {
@@ -124,7 +120,6 @@ function	send_questionnaire(reinit)
 	    date: $("#DialogDate").val(),
 	    owner: { resource: "users/" + getCookie("uid") }
 	};
-	console.log(posted);
     }
     else if (getParameterByName("newquest", window.location.href) == "false")
     {
@@ -156,7 +151,13 @@ function	send_questionnaire(reinit)
     {
 	url += "&nbsend=" + nb_send;
     }
-    console.log(url);
+
+    var quiz = Meeting.instance.object.quiz;
+
+    quiz.upadteAnswers(posted.questionAnswers);
+    quiz.appRules();
+    posted.globalVariableValues = quiz.globalVariableValues;
+
     $.ajax({
 	type: 'POST',
 	url: url,
@@ -168,14 +169,11 @@ function	send_questionnaire(reinit)
 		alert("Enregistrement bien effectué");
 	    if (getParameterByName("newquest", window.location.href) == "true"){
 		nb_send++;
-		console.log("after increment : " + nb_send);
 	    }
-	    console.log(posted);
 	    if (window.location.pathname == "/company") {
 		document.cookie = "entreprise_siret=" + getParameterByName('siret', window.location.href);
 		window.location.replace('/questionnaire?newquest=true');
 	    }
-	    console.log(body);
 
 	    if (reinit!= undefined){
         var reportComponent = document.querySelector("beenov-report");
@@ -185,8 +183,6 @@ function	send_questionnaire(reinit)
 	error: function(text, code, item)
 	{
 	    alert('error');
-	    console.log(text);
-	    console.log(' | ' + code + ' | ' + item);
 	}
     });
 }
