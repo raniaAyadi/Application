@@ -21,12 +21,13 @@ GlobalRuleSetVar.prototype.appRule = function(){
   else{
     var sum = 0;
     var list = globalVariableValues[this.action[1]];
-    if(! list)
-      return;
-
+    console.log(list);
+    if( ! list || list.length === 0)
+    {
+        globalVariableValues[this.varDest]= 0;
+        return;
+    }
     var l = list.length;
-    if(l === 0)
-      return;
 
     for(var i=0; i<l; i++)
       sum += list[i];
