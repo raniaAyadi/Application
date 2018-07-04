@@ -186,15 +186,15 @@
         if (this.item.comment){
             this.querySelector("#modifier").removeAttribute("style","display:none");
             this.querySelector("#commentaire").setAttribute("style","display:none");
-            this.querySelector("#textcomment").innerHTML = this.item.comment;
+            this.querySelector("#textcomment").innerText = this.item.comment;
          }
        }
 
     var terminer = function(elt) {
-      var texte  = elt.querySelector("#editeur").innerHTML;
+      var texte  = elt.querySelector("#editeur").innerText;
       elt.querySelector("#text").setAttribute("style","display:none");
       elt.querySelector("#textcomment").removeAttribute("style","display:none");
-      elt.querySelector("#textcomment").innerHTML = texte;
+      elt.querySelector("#textcomment").innerText = texte;
       elt.item.comment = texte;
       elt.querySelector("#annuler").setAttribute("style","display:none");
       elt.querySelector("#terminer").setAttribute("style","display:none");
@@ -226,7 +226,7 @@
       elt.querySelector("#text").removeAttribute("style","display:none");
       if (elt.item.comment != undefined) {
 
-        elt.querySelector("#editeur").innerHTML=elt.item.comment;
+        elt.querySelector("#editeur").innerText = elt.item.comment;
       }
       elt.querySelector("#textcomment").setAttribute("style","display:none");
       elt.querySelector("#annuler").removeAttribute("style","display:none");
