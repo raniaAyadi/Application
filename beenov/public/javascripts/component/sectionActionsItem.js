@@ -1,7 +1,7 @@
 function SectionActionsItem(obj){
   Item.call(this, obj);
   // this.label = "The section actions item";
-  this.comment= "The section actions item";
+  this.comment= "";
   console.log(this.comment);
 }
 
