@@ -18,6 +18,9 @@
 
    <span class="title"> Moyenne régionale: </span>
    <span id="moyReg">  </span>
+   <span> / </span>
+   <span style="font-style: italic" id="maxValueAverage">
+          <!-- valeur max -->
 
 
 </div>
@@ -40,19 +43,23 @@
 
     variableValueItemPrototype.setVariableValue = function(){
       this.variableValueItem.setVariableValue().done(()=>{
-        this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue ;
-        this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage;
+        this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue.toFixed(2);
+        this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage.toFixed(2);
+        console.log(this.variableValueItem.variableAverage);
       });
     };
 
     variableValueItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr == "index"){
         var index = newV.split("/");
+        var variableValue ;
         this.variableValueItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
 
         this.querySelector("#title").innerHTML = this.variableValueItem.name ;
         this.setVariableValue();
-        this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue ;
+        this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue.toFixed(2);
+        var maxValueAverage = "4.00";
+        this.querySelector("#maxValueAverage").innerHTML = maxValueAverage ;
 
       }
     }
