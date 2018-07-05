@@ -136,7 +136,6 @@ function	loadhelp(info)
 function	printhelp(id1, id2, index)
 {
     let id = id1 + '-' + id2;
-    console.log(id);
     $.ajax(
 	{
 	    type: "POST",
@@ -145,7 +144,6 @@ function	printhelp(id1, id2, index)
 	    success : (function(info)
 		       {
 			   info = JSON.parse(info);
-			   console.log(info);
 			   let i = 0;
 			   let toAppend = "";
 			   $('#listhelp > *').remove();
@@ -158,13 +156,11 @@ function	printhelp(id1, id2, index)
 			       ++i;
 			   }
 			   var topkek = ('_' + id1 + '_' + id2);
-			   console.log(topkek);
 			   toAppend += '<a onclick="dunkhelp(\'' + topkek + '\', ' + index + ')">Ajouter au panier</a>';
 			   $('#listhelp').append(toAppend);
 		       }),
 	    error : (function(err)
 		     {
-			 console.log(err);
 		     }),
 	});
 }
@@ -189,7 +185,6 @@ function	getquest(data)
 		       }),
 	    error : (function(err)
 		     {
-			 console.log(err);
 		     }),
 	});
 }
@@ -259,7 +254,6 @@ function        showquest(data)
 		    }
 		    else
 		    {
-			console.log("Unregistered locutor");
 		    }
 		}
 	    });
@@ -410,8 +404,6 @@ function	update_cptrd_cons(data)
 			(function(){
 				var selector = 'input[id-info="'+ id +'"]';
 				var elt = document.querySelector(selector);
-				console.log(selector);
-				console.log(elt);
 
 				elt.onclick = ()=>{
 					var bool = 0;
@@ -454,8 +446,6 @@ function	update_cptrd_prod(data)
 			(function(){
 				var selector = 'input[id-info="'+ id +'"]';
 				var elt = document.querySelector(selector);
-				console.log(selector);
-				console.log(elt);
 
 				elt.onclick = ()=>{
 					var bool = 0;
@@ -484,14 +474,12 @@ function	update_cptrd_help(data)
 	item = arrHelp[i].split("_");
 	item = item[0] + '-' + item[1];
 	while (data.resources[u] && item != data.resources[u].id)
-	{ console.log(data.resources[u]);
+	{
 	    ++u;
 	}
 	var id = CONST.component.semaphore + '/' + data.resources[i].id;
-	console.log(id);
 	toAppend += '<br /><div class="delimit sheet"><input type="checkbox" id-info="'+ id +'" value="' + (arrHelp[i]) + '">';
 	toAppend += data.resources[i].title + '</div>';
-	console.log(data.resources[i].title);
 
 	u = 0;
 
@@ -511,8 +499,6 @@ function	update_cptrd_help(data)
 					(function(){
 						var selector = 'input[id-info="'+ id +'"]';
 						var elt = document.querySelector(selector);
-						console.log(selector);
-						console.log(elt);
 
 						elt.onclick = ()=>{
 							var bool = 0;
@@ -571,7 +557,6 @@ function	needhalp()
 		       }),
 	    error : (function(err)
 		     {
-			 console.log(err);
 		     }),
 	});
 }
@@ -630,8 +615,6 @@ function modifycomp()
 	    date: getCurrentDate(),
 	    owner: { resource: "users/" + getCookie("uid") }
 	};
-	console.log("company-quest?reply=" + company_questionnaire_ids.questionnaire_reply);
-	console.log(posted);
 	$.ajax({
 	    type: 'POST',
 	    url: "company-quest?reply=" + company_questionnaire_ids.questionnaire_reply,
@@ -639,7 +622,6 @@ function modifycomp()
 	    data: JSON.stringify(posted),
 	    success: function(body, status, jqXHR)
 	    {
-		console.log(body);
 	    }
 	});
 	$('#company_questionnaire').find('span').remove();
@@ -663,14 +645,12 @@ function modifycomp()
 			  }
     });
 
-    console.log("REQUEST ENTREPRISE");
     let url = "/questionnaire-entreprise?";
     $.ajax({
 	type: 'GET',
 	url: url,
 	success: function (info) {
 
-	    console.log(info);
 	    if (getParameterByName("newquest", window.location.href) == "false")
 		url = "/info-entreprise?siret=" + questionnaire_reply.resources[0].companySiret;
 	    else if (getParameterByName("newquest", window.location.href) == "true")
@@ -680,7 +660,6 @@ function modifycomp()
 	     	type: 'GET',
 	     	url: url,
 		success: function (data) {
-		    console.log(data);
 		    company_questionnaire_ids.questionnaire = info.id;
 		    company_questionnaire_ids.questionnaire_reply = data.resources[0].id;
 		    set_questionnaire_entreprise(info, data);
@@ -694,7 +673,6 @@ $(document).ready(function()
 		  {
 		      $("#inputfile").change(function()
 					     {
-						 console.log("AAAAAAAHHH")
 						 readURL(this);
 					     });
 
@@ -879,7 +857,6 @@ $(document).ready(function()
 					    }
 					    else
 					    {
-						console.log("shiiiet");
 					    }
 					});
 

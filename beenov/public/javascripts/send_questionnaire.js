@@ -152,37 +152,60 @@ function	send_questionnaire(reinit)
 	url += "&nbsend=" + nb_send;
     }
 
-    var quiz = Meeting.instance.object.quiz;
-
-    quiz.upadteAnswers(posted.questionAnswers);
-    quiz.appRules();
-    posted.globalVariableValues = quiz.globalVariableValues;
+    if(Meeting.instance){
+      url = "send_questionnaire?company=false&newquest=false";
+      var quiz = Meeting.instance.object.quiz;
+      quiz.upadteAnswers(posted.questionAnswers);
+      quiz.appRules();
+      posted.globalVariableValues = quiz.globalVariableValues;
+    }
 
     $.ajax({
-	type: 'POST',
-	url: url,
-	contentType: 'application/json',
-	data: JSON.stringify(posted),
-	success: function(body, status, jqXHR)
-	{
-	    if (status == "success")
-		alert("Enregistrement bien effectué");
-	    if (getParameterByName("newquest", window.location.href) == "true"){
-		nb_send++;
-	    }
-	    if (window.location.pathname == "/company") {
-		document.cookie = "entreprise_siret=" + getParameterByName('siret', window.location.href);
-		window.location.replace('/questionnaire?newquest=true');
-	    }
+  	type: 'POST',
+  	url: url,
+  	contentType: 'application/json',
+  	data: JSON.stringify(posted),
+  	success: function(body, status, jqXHR)
+  	{
+  	    if (status == "success")
+  		alert("Enregistrement bien effectué");
+  	    if (getParameterByName("newquest", window.location.href) == "true"){
+  		nb_send++;
+  	    }
+  	    if (window.location.pathname == "/company") {
+  		document.cookie = "entreprise_siret=" + getParameterByName('siret', window.location.href);
+  		window.location.replace('/questionnaire?newquest=true');
+  	    }
 
-	    if (reinit!= undefined){
-        var reportComponent = document.querySelector("beenov-report");
-        reportComponent.updateItems();
+  	    if (reinit!= undefined){
+          var reportComponent = document.querySelector("beenov-report");
+
+          if(reportComponent)
+            reportComponent.updateItems();
+        }
+  	},
+  	error: function(text, code, item)
+  	{
+  	    alert('error');
+  	}
+      });
+
+
+
+    var aux = JSON.parse(Operation.getCookie(CONST.cookie.currentMeeting));
+    if(!aux.questRep){
+      posted.questionAnswers = [];
+      posted.questionnaire.resource = aux.quest;
+      posted.globalVariableValues = {};
+
+      $.ajax({
+        type:"POST",
+        url : "questionnaire-replies",
+        contentType: 'application/json',
+        data : JSON.stringify(posted)
+      }).done((data)=>{
+        aux.questRep = "questionnaire-replies/"+data.id;
+        document.cookie = "infomet=" + JSON.stringify(aux);
+        });
       }
-	},
-	error: function(text, code, item)
-	{
-	    alert('error');
-	}
-    });
 }

@@ -27,6 +27,36 @@ var	set_themes = function (req, res, base_url)
 		});
 }
 
+var addMeeting = function(req, res, base_url, data){
+  let url = create_url(base_url, '/questionnaire-replies', {'session-key': req.cookies.cskey});
+  console.log(url);
+  request.post({url:url, json:data},
+    function(err, response, body){
+      console.log(body);
+      if(err)
+      res.status(204);
+      else{
+        res.send(body);
+        res.status(200).end();
+      }
+  });
+};
+
+var updateMeetingReply = function(req, res, base_url, data){
+  let url = create_url(base_url, '/questionnaire-replies/'+req.params['0'], {'session-key': req.cookies.cskey});
+  console.log(url);
+  request.post({url:url, json:data},
+    function(err, response, body){
+      console.log(body);
+      if(err)
+      res.status(204);
+      else{
+        res.send(body);
+        res.status(200).end();
+      }
+  });
+};
+
 var	get_list = function(req, res, base_url)
 {
     let url = create_url(base_url, '/questionnaire-replies-metadata', {'session-key': req.cookies.cskey});
@@ -56,5 +86,7 @@ var	get_list = function(req, res, base_url)
     // });
 }
 
+exports.addMeeting = addMeeting;
+exports.updateMeetingReply = updateMeetingReply;
 exports.get_list = get_list;
 exports.set_themes = set_themes;

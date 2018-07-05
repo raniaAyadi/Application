@@ -277,6 +277,18 @@ app.get('/questionnaire-entreprise', function(req, res)
 	    questionnaire.questionnaire_entreprise(req, res, base_url);
 	});
 
+app.post('/questionnaire-replies', function(req, res){
+	let data = req.body;
+	meeting.addMeeting(req, res, base_url, data);
+});
+
+app.post('/updateReply/*', function(req, res){
+	console.log("okkkkkkkkkkkkk")
+	let data = req.body;
+	meeting.updateMeetingReply(req, res, base_url, data);
+});
+
+
 app.get('/info-entreprise', function(req, res)
 	{
 	    questionnaire.info_entreprise(req, res, base_url);

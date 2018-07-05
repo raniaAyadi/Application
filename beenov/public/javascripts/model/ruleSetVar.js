@@ -11,7 +11,8 @@ RuleSetVar.prototype.appRule = function(answer){
 
   if(this.action === "append"){
     globalVariableValues[this.varDest] = globalVariableValues[this.varDest] || new Array();
-    globalVariableValues[this.varDest].push(value);
+    if(value)
+      globalVariableValues[this.varDest].push(value);
   }
 
   else{
@@ -28,8 +29,10 @@ RuleSetVar.prototype.appRule = function(answer){
 
       for(var j=0; j<nbRows; j++){
         answerMatrice[j] = new Array();
-        for(var k=i; k<i+nbCol; k++)
-          answerMatrice[j].push(parseInt(answer[k]));
+        for(var k=i; k<i+nbCol; k++){
+          if(answer[k])
+            answerMatrice[j].push(parseInt(answer[k]));
+        }
 
         i+=nbCol;
       }
@@ -43,18 +46,19 @@ RuleSetVar.prototype.appRule = function(answer){
         case "table-column":
           for(var i in answerMatrice){
             var toPush = answerMatrice[i][value[4]];
-            globalVariableValues[this.varDest].push(toPush);
+            if(toPush)
+              globalVariableValues[this.varDest].push(toPush);
           }
         break;
 
         case "table-cell":
-
-          globalVariableValues[this.varDest].push(answerMatrice[value[4]][value[5]]);
+          if(answerMatrice[value[4]][value[5]])
+            globalVariableValues[this.varDest].push(answerMatrice[value[4]][value[5]]);
           break;
       }
     }
 
     else
-      globalVariableValues[this.varDest] = value;
+      globalVariableValues[this.varDest] = value ? value : 0;
   }
 };

@@ -11,8 +11,10 @@ GlobalRuleSetVar.prototype.appRule = function(){
     globalVariableValues[this.varDest] = new Array();
     var l = this.action.length;
 
-    for(var i=1; i<l; i++)
-      globalVariableValues[this.varDest].push(this.action[i]);
+    for(var i=1; i<l; i++){
+      if(this.action[i])
+        globalVariableValues[this.varDest].push(this.action[i]);
+    }
   }
 
   else if(this.action[0] === "set-comment")
