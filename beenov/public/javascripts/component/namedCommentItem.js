@@ -15,6 +15,6 @@ NamedCommentItem.prototype.setComment = function (name){
 
   Meeting.getCurrentMeeting().done(()=>{
     var meeting = Meeting.instance.object;
-    this.comment = meeting.quiz.globalVariableValues[name]; //renvoie le nom et le text de commentaire
+  this.comment = (meeting.quiz.globalVariableValues[name]) ? meeting.quiz.globalVariableValues[name] : ""; 
   });
 };
