@@ -15,6 +15,9 @@
     <!-- ReportTemplate.allCurrent -->
     <!-- ReportComponent.report <<lastReport>> -->
   </select>
+  <p hidden id="pasTemplate" style="font-size :11px; color:black; text-align:center">
+    Aucun modéle disponible, demandez à votre administrateur la création d'un modéle de compte-rendu
+  </p>
 </template>
 
 <template id="actions">
@@ -136,8 +139,17 @@
 
       $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
         var l = ReportTemplate.allCurrent.length;
-        for (var i=0; i<l; i++)
+        console.log(l);
+
+        if (l == 0){
+        document.querySelector("#templateList").setAttribute("style","display:none");
+        document.querySelector("#pasTemplate").removeAttribute("hidden","true");
+        }
+        else {
+          for (var i=0; i<l; i++)
           deferred.notify(ReportTemplate.allCurrent[i].name);
+        }
+
       });
 
       Report.getReports().done((data)=>{
