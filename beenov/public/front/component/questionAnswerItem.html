@@ -79,6 +79,8 @@
 
         if(isNaN(this.questionAnswerItem.question) == false)
           this.questionAnswerItem.setQuestion().done(()=>{
+            if (!this.questionAnswerItem.question)
+              return;
             this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
             var data = this.questionAnswerItem.getAnswer();
             if (data.answer != undefined)
