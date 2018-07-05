@@ -15,14 +15,12 @@ function ChartItem(obj){
 
   this.dataSeriesNames = new Array();
   this.dataSeriesColors = new Array();
+  this.dataSeries = obj.dataSeries;
 
   if(obj.dataSeries){
     this.setDataSeriesColors(obj.dataSeries);
     this.setDataSeriesNames(obj.dataSeries);
-    this.dataSeriesValues = {
-      data : obj.dataSeries,
-      state : false
-    };
+    this.dataSeriesValues = {};
   }
 
   else{
@@ -71,8 +69,11 @@ ChartItem.prototype.setDataSeriesValues = function(data){
 
             if(value === "")
               value = 0;
-            values.push(value);
+            values.push(parseFloat(value));
           }
+
+          if(values.length === 1)
+            value = parseFloat(values);
 
           this.dataSeriesValues.push(values);
           break;
@@ -85,11 +86,7 @@ ChartItem.prototype.setData = function(){
   var json = {};
   var deferred = new $.Deferred();
 
-  if(this.dataSeriesValues.state === false)
-    this.setDataSeriesValues(this.dataSeriesValues.data).done(()=>this.getChart(deferred));
-
-  else
-    this.getChart(deferred);
+  this.setDataSeriesValues(this.dataSeries).done(()=>this.getChart(deferred));
 
   return deferred.promise();
 };
