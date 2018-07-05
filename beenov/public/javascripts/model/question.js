@@ -6,6 +6,7 @@ function Question(obj){
     this.type = obj.type;
     this.answer = obj.answer;
     this.typeOptions = obj.typeOptions;
+    this.mandatory = obj.mandatory;
 
     this.setRules(obj.rules);
   }

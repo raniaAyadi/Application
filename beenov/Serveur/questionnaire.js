@@ -82,6 +82,42 @@ var     api_entreprise = function (req, res)
 		});
 }
 
+var getCompany = function(req, res, base_url){
+  let url = base_url+"/companies?session-key="+req.cookies.cskey+"&siret="+req.param("siret");
+  console.log(url)
+  request.get(url, function(err, response, body)
+  {
+      let json = JSON.parse(body);
+      if (err || json.status == 'error')
+      {
+    res.status(204).end();
+    return;
+      }
+      else {
+    res.send(json);
+    res.status(200).end();
+      }
+  });
+};
+
+var getQuestReply = function(req, res, base_url){
+  let url = base_url+"/questionnaire-replies/"+req.params["0"]+"?session-key="+req.cookies.cskey;
+  console.log(url)
+  request.get(url, function(err, response, body)
+  {
+      let json = JSON.parse(body);
+      if (err || json.status == 'error')
+      {
+    res.status(204).end();
+    return;
+      }
+      else {
+    res.send(json);
+    res.status(200).end();
+      }
+  });
+};
+
 var	questionnaire_entreprise = function(req, res, base_url)
 {
     let url = create_get_url(base_url, "/questionnaires/company-info", {'session-key': req.cookies.cskey});
@@ -772,3 +808,5 @@ exports.getAverage = getAverage;
 exports.report = report;
 exports.post_questionnaire_entreprise = post_questionnaire_entreprise;
 exports.firstreport = firstreport;
+exports.getCompany = getCompany;
+exports.getQuestReply = getQuestReply;

@@ -1,0 +1,62 @@
+<template id="template">
+  <div id="question">
+      <label> <!-- question.title --> </label>
+
+      <div id="options">
+        <!-- question.typeOptions.options -->
+      </div>
+  </div>
+</template>
+
+<script>
+  var OneChoiceQuestionComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var oneChoiceQuestionPrototype = Object.create(HTMLElement.prototype);
+
+    oneChoiceQuestionPrototype.createdCallback = function(){
+      Operation.appendTemplate(this, currentDoc, "#template");
+
+      this.question = {};
+    };
+
+    oneChoiceQuestionPrototype.setLabel = function(){
+      var label = this.querySelector("label");
+      label.innerText = this.question.title;
+    };
+
+    oneChoiceQuestionPrototype.setOptions = function(){
+      var tab = this.question.typeOptions.options;
+      var l = tab.length;
+      var elt = this.querySelector("#options");
+
+      for(var i=0; i<l; i++){
+        var radio = document.createElement('input');
+        var span = document.createElement("span");
+        var br = document.createElement("br");
+
+        radio.setAttribute('type', 'radio');
+        radio.checked = i === this.question.answer;
+
+        span.innerText = tab[i];
+
+        elt.appendChild(radio);
+        elt.appendChild(span);
+        elt.appendChild(br);
+      }
+    };
+
+    oneChoiceQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr === "question"){
+        this.question = QuestionComponent.company.quiz.getQuestion(newV);
+        this.setLabel();
+        this.setOptions();
+      }
+    };
+
+    OneChoiceQuestionComponent = document.registerElement("beenov-one-choice-question",{
+      prototype : oneChoiceQuestionPrototype
+    });
+  })();
+</script>

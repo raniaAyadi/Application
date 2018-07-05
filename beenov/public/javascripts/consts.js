@@ -28,7 +28,9 @@ var CONST = {
       updateReport : 'updateReport',
       generatePDF : 'generatePDF',
       addReport : 'addReport',
-      getAverage : 'getAverage'
+      getAverage : 'getAverage',
+      getCompany : "getCompany",
+      getQuestReply : "getQuestReply"
     },
 
     cookie : {
@@ -91,5 +93,6 @@ var CONST = {
       groupableComment : 'groupableComment',
       cfa : 'cfa'
 
-    }
+    },
+
 }

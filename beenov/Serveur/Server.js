@@ -341,6 +341,14 @@ app.get('/valid_means', function(req, res)
 	    //res.end();
 	});
 
+app.get('/getCompany', function(req, res){
+	questionnaire.getCompany(req, res, base_url);
+});
+
+app.get('/getQuestReply/*', function(req, res){
+	questionnaire.getQuestReply(req, res, base_url);
+});
+
 app.get('/valid_industries', function(req, res)
 	{
 	    console.log("GET industries");

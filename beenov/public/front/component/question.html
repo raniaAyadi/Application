@@ -1,0 +1,57 @@
+<link rel="import" href="oneChoiceQuestion.html">
+
+<template id="template">
+  <div id="question">
+      <!-- questionCompoent -->
+  </div>
+</template>
+
+<script>
+  var QuestionComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var questionPrototype = Object.create(HTMLElement.prototype);
+
+    questionPrototype.createdCallback = function(){
+      Operation.appendTemplate(this, currentDoc, "#template");
+
+      this.company = {};
+      Company.getBySiret("00000000000000").done((data)=>{
+        QuestionComponent.company = new Company(data.resources[0]);
+        QuestionComponent.company.setQuizReply().done(()=>console.log("done"));
+      });
+    };
+
+    var createQuestionComponent = function(type, typeOptions, idQuestion){
+      var questionComponent = null;
+
+      switch(type){
+        case CONST.questionType.choice :
+        questionComponent = new OneChoiceQuestionComponent();
+        break;
+      }
+
+      if(questionComponent){
+        questionComponent.setAttribute("question", idQuestion);
+        return questionComponent;
+      }
+    }
+
+    questionPrototype.attributeChangedCallback = function(att, oldV, newV){
+      if(att === "question"){
+        var question = QuestionComponent.company.quiz.getQuestion(newV);
+        console.log(question);
+        var newC = createQuestionComponent(question.type, question.typeOptions, newV);
+
+        this.querySelector("#question").append(newC);
+      }
+    };
+
+    QuestionComponent = document.registerElement("beenov-question",{
+      prototype : questionPrototype
+    });
+
+  })();
+
+</script>
