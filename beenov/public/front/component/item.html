@@ -158,7 +158,6 @@
             elt.querySelector("#commentaire").removeAttribute("style", "display:none");
         }
         elt.querySelector("#textcomment").setAttribute("class", "col-md-9")
-
       }
     }
 
@@ -187,6 +186,11 @@
             this.querySelector("#modifier").removeAttribute("style","display:none");
             this.querySelector("#commentaire").setAttribute("style","display:none");
             this.querySelector("#textcomment").innerText = this.item.comment;
+         }
+
+         if (this.item.comment == "")
+         {
+            this.querySelector("#button").setAttribute("style","display:none");
          }
        }
 
