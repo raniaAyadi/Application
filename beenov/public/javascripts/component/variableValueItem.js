@@ -2,7 +2,7 @@ function VariableValueItem(obj){
   Item.call(this, obj);
   this.maxValue = obj.maxValue;
   this.name=obj.name;
-  this.variableName = obj.variable;
+  this.variable = obj.variable;
 
   this.variableValue = null;
   this.variableAverage = {};
@@ -18,9 +18,9 @@ VariableValueItem.prototype.setVariableValue = function(){
     var meeting = Meeting.instance.object;
     var variablesGlobales = meeting.quiz.globalVariableValues;
 
-    this.variableValue = variablesGlobales[this.variableName];
+    this.variableValue = variablesGlobales[this.variable];
 
-    meeting.getAverage(this.variableName).done((data)=>{
+    meeting.getAverage(this.variable).done((data)=>{
       if(data.status === "ok")
         this.variableAverage = data;
 
