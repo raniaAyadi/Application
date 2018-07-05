@@ -88,6 +88,8 @@
           });
 
         else{
+	if (data.answer != undefined)
+            this.setAnswer(data.answer, data.type);
           var data = this.questionAnswerItem.getAnswer();
           this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
           this.setAnswer(data.answer, data.type);
