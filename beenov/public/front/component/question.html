@@ -1,8 +1,10 @@
 <link rel="import" href="oneChoiceQuestion.html">
 <link rel="import" href="textQuestion.html">
+<link rel="import" href="nTextsQuestion.html">
 
 <template id="template">
   <div id="question">
+    <label> <!-- question.title --> </label>
       <!-- questionCompoent -->
   </div>
 </template>
@@ -35,6 +37,10 @@
         case CONST.questionType.text :
         questionComponent = new TextQuestionComponent();
         break;
+
+        case CONST.questionType.nTexts :
+        questionComponent = new NTextsQuestionComponent();
+        break;
       }
 
       if(questionComponent){
@@ -43,11 +49,20 @@
       }
     }
 
+
+    questionPrototype.setLabel = function(){
+      var label = this.querySelector("label");
+      label.innerText = this.question.title;
+    };
+
+
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
-        var question = QuestionComponent.company.quiz.getQuestion(newV);
+        this.question = QuestionComponent.company.quiz.getQuestion(newV);
         console.log(question);
-        var newC = createQuestionComponent(question.type, newV);
+        this.setLabel();
+
+        var newC = createQuestionComponent(this.question.type, newV);
 
         this.querySelector("#question").append(newC);
       }

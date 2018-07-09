@@ -1,10 +1,6 @@
 <template id="template">
   <div id="question">
-      <label> <!-- question.title --> </label>
-
-      <div id="options">
-        <!-- question.typeOptions.options -->
-      </div>
+    <!-- question.typeOptions.options -->
   </div>
 </template>
 
@@ -21,15 +17,10 @@
       this.question = {};
     };
 
-    oneChoiceQuestionPrototype.setLabel = function(){
-      var label = this.querySelector("label");
-      label.innerText = this.question.title;
-    };
-
     oneChoiceQuestionPrototype.setOptions = function(){
       var tab = this.question.typeOptions.options;
       var l = tab.length;
-      var elt = this.querySelector("#options");
+      var elt = this.querySelector("#question");
 
       for(var i=0; i<l; i++){
         var radio = document.createElement('input');
@@ -51,7 +42,6 @@
     oneChoiceQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "question"){
         this.question = QuestionComponent.company.quiz.getQuestion(newV);
-        this.setLabel();
         this.setOptions();
       }
     };
