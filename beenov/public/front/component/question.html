@@ -9,9 +9,9 @@
     <label> <!-- question.title --> </label>
       <!-- questionCompoent -->
 
-    <span id="mandatory" hidden>
+    <span id="error" style="display:none">
       <!-- question.inputs.isFilled -->
-      Veuillez compléter les champas manquants!
+      Veuillez compléter les champs manquants!
     </span>
   </div>
 
@@ -26,7 +26,7 @@
 
     questionPrototype.createdCallback = function(){
       Operation.appendTemplate(this, currentDoc, "#template");
-      QuestionComponent.quiz = QuestionnaireSectionComponent.company.quiz;
+      QuestionComponent.quiz = QuizSectionComponent.quiz;
     };
 
     var createQuestionComponent = function(type, idQuestion){
@@ -91,10 +91,10 @@
     };
 
     questionPrototype.check = function(){
-      var span = this.querySelector("#mandatory");
+      var span = this.querySelector("#error");
       var isFilled = this.getAttribute("is-filled");
 
-      span.hidden = ̣isFilled;
+      span.style.display = (isFilled === "true") ? "none" : "inline";
     };
 
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){

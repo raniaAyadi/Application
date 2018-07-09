@@ -13,23 +13,19 @@
 </template>
 
 <script>
-  var QuestionnaireSectionComponent = {};
+  var QuizSectionComponent = {};
 
   (function(){
     var currentDoc = document.currentScript.ownerDocument;
-    var questionnaireSectionPrototype = Object.create(HTMLElement.prototype);
+    var quizSectionPrototype = Object.create(HTMLElement.prototype);
 
-    questionnaireSectionPrototype.createdCallback = function(){
+    quizSectionPrototype.createdCallback = function(){
       Operation.appendTemplate(this, currentDoc, "#template");
 
-      this.company = {};
-      Company.getBySiret("00000000000000").done((data)=>{
-        QuestionnaireSectionComponent.company = new Company(data.resources[0]);
-        QuestionnaireSectionComponent.company.setQuizReply().done(()=>console.log("done"));
-      });
+      QuizSectionComponent.quiz = QuizComponent.company.quiz;
     };
 
-    questionnaireSectionPrototype.setQuestions = function(){
+    quizSectionPrototype.setQuestions = function(){
       var elt = this.querySelector("#question");
       var questions = this.section.questions;
 
@@ -42,9 +38,9 @@
       }
     };
 
-    questionnaireSectionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    quizSectionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "index"){
-        this.section = QuestionnaireSectionComponent.company.quiz.sections[newV];
+        this.section = QuizSectionComponent.quiz.sections[newV];
 
         this.querySelector("#title").innerText = this.section.title;
         this.setQuestions();
@@ -59,8 +55,8 @@
       }
     };
 
-    QuestionnaireSectionComponent = document.registerElement('beenov-questionnaire-section',{
-      prototype : questionnaireSectionPrototype
+    QuizSectionComponent = document.registerElement('beenov-quiz-section',{
+      prototype : quizSectionPrototype
     });
 
   })();
