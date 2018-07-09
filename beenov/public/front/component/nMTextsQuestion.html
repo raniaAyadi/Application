@@ -1,0 +1,71 @@
+<template id="template">
+  <table id="table">
+    <tr></tr>
+    <th></th>
+    <!-- question.typeOptions -->
+  </table>
+</template>
+
+<script>
+ var NMTextsQuestionComponent = {};
+
+ (function(){
+   var currentDoc = document.currentScript.ownerDocument;
+   var nMTextsQuestionPrototype = Object.create(HTMLElement.prototype);
+
+   nMTextsQuestionPrototype.createdCallback = function(){
+     Operation.appendTemplate(this, currentDoc, "#template");
+     this.question = {};
+   };
+
+   nMTextsQuestionPrototype.setTable = function(){
+     var elt = this.querySelector("#table");
+     var columns = this.question.typeOptions.columnLabels;
+     var rows = this.question.typeOptions.rowLabels;
+
+     for(var i in columns){
+       var th = document.createElement("th");
+       th.innerText = columns[i];
+
+       elt.append(th);
+     }
+
+     var nb = columns.length;
+     var k = 0;
+     for(var i in rows){
+       var tr = document.createElement("tr");
+       elt.append(tr);
+
+       var th = document.createElement("th");
+       th.innerText = rows[i];
+       elt.append(th);
+
+       for(var j=k; j<k+nb; j++){
+         var td = document.createElement("td");
+         var input = document.createElement("input");
+
+         input.type = "text";
+         input.value = this.question.answer ? this.question.answer[j] : "";
+
+         td.append(input);
+         elt.append(td);
+       }
+
+       k = j;
+     }
+   };
+
+   nMTextsQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+     if(attr === "question"){
+       this.question = QuestionComponent.company.quiz.getQuestion(newV);
+       this.setTable();
+     }
+   };
+
+   NMTextsQuestionComponent = document.registerElement('beenov-nmtexts-question',{
+     prototype : nMTextsQuestionPrototype
+   });
+
+ })();
+
+</script>

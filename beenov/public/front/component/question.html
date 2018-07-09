@@ -1,6 +1,7 @@
 <link rel="import" href="oneChoiceQuestion.html">
 <link rel="import" href="textQuestion.html">
 <link rel="import" href="nTextsQuestion.html">
+<link rel="import" href="nMTextsQuestion.html">
 
 <template id="template">
   <div id="question">
@@ -41,6 +42,10 @@
         case CONST.questionType.nTexts :
         questionComponent = new NTextsQuestionComponent();
         break;
+
+        case CONST.questionType.nMTexts :
+        questionComponent = new NMTextsQuestionComponent();
+        break;
       }
 
       if(questionComponent){
@@ -59,7 +64,7 @@
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
         this.question = QuestionComponent.company.quiz.getQuestion(newV);
-        console.log(question);
+        console.log(this.question);
         this.setLabel();
 
         var newC = createQuestionComponent(this.question.type, newV);
