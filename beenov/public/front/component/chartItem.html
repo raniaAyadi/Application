@@ -44,12 +44,16 @@
       this.querySelector("#image").setAttribute("style","float:left");
     };
 
-    chartItemPrototype.setImageSrc = function(){
+    chartItemPrototype.setImage = function(){
+      this.querySelector("#image").onerror =()=>{
+        //image = this
+        console.log("load not done");
+      }
+
       this.chartItem.setData().done((data)=>{
         var src = CONST.chart.data + Operation.base64ArrayBuffer(this.chartItem.data);
         this.querySelector("#image").setAttribute("src",src);
       });
-
     };
 
     chartItemPrototype.attributeChangedCallback = function(attr, oldV, newV){
@@ -57,7 +61,7 @@
         var index = newV.split("/");
         this.chartItem = ReportTemplate.allCurrent[index[0]].getItem(index[1], index[2]);
         this.querySelector("#title").innerHTML = this.chartItem.title;
-        this.setImageSrc();
+        this.setImage();
 
         var legendData = this.chartItem.legend();
         this.legend(legendData.colors, legendData.names);
