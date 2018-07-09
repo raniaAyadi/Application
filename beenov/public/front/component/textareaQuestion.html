@@ -2,7 +2,7 @@
   <div id="question">
     <!-- question.textLabels -->
     <!-- beenov-text-question[question = question.id] -->
-    <div class="col-md-9" id="text" style="display:none">
+    <div class="col-md-9" id="text">
          <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
          <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
          <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
@@ -15,6 +15,15 @@
 <script>
   var TextareaQuestionComponent = {};
 
+  function commande(nom, argument) {
+  if (typeof argument === 'undefined') {
+    argument = '';
+  }
+
+  // Exécuter la commande
+  document.execCommand(nom, false, argument);
+ }
+
   (function(){
     var currentDoc = document.currentScript.ownerDocument;
     var textareaQuestionPrototype = Object.create(HTMLElement.prototype);
@@ -22,40 +31,17 @@
     textareaQuestionPrototype.createdCallback = function(){
       Operation.appendTemplate (this, currentDoc, "#template");
       this.question = {};
-    };
+    }
 
-    textareaQuestionPrototype.setTexts = function(){
-      var labels = this.question.typeOptions.textLabels;
-      var elt = this.querySelector("#question");
-
-      for(var i in labels){
-        var div = document.createElement("div");
-        var label= document.createElement("label");
-        var input= document.createElement("input");
-        var br = document.createElement("br");
-
-        input.type = "text";
-        input.setAttribute("class", "free");
-        input.value = this.question.answer ? this.question.answer[i] : "";
-
-        label.innerText =  labels[i];
-        label.appendChild(br);
-        label.appendChild(input);
-
-        div.appendChild(label);
-
-        elt.append(div);
-      }
-    };
 
     textareaQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
-        this.setTexts();
+        this.querySelector("#editeur").value = this.question.answer ? this.question.answer : "";
       }
     };
 
-    NTextsQuestionComponent = document.registerElement("beenov-textarea-question", {
+    TextareaQuestionComponent = document.registerElement("beenov-textarea-question", {
       prototype : textareaQuestionPrototype
     });
 
