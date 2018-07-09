@@ -50,6 +50,13 @@
         this.setQuestions();
       }
 
+      if(attr === "question"){
+        var q = new QuestionComponent();
+        q.setAttribute("question", newV);
+
+        var elt = this.querySelector("#question");
+        elt.append(q);
+      }
     };
 
     QuestionnaireSectionComponent = document.registerElement('beenov-questionnaire-section',{
