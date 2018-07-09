@@ -22,7 +22,7 @@ Company.getBySiret = function(siret){
 Company.prototype.setReply = function(id){
   var deferred = new $.Deferred();
 
-  if(isNaN(this.infoQuestionnaireReply))
+  if(isNaN(this.infoQuestionnaireReply) || this.infoQuestionnaireReply < 0)
     deferred.resolve();
   else{
     var idReply = id ? id : this.infoQuestionnaireReply;

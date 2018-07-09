@@ -1,0 +1,33 @@
+<template id="template">
+  <label> <!-- question.title --> </label>
+  <input type="text"/>  <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+var FreeTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var freeTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  freeTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  freeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.company.quiz.getQuestion(newV);
+
+      this.querySelector("label").innerText = this.question.title;
+      this.querySelector("input").value = this.question.answer ? this.questionAnswer : "";
+    }
+  };
+
+  FreeTextQuestionComponent = document.registerElement("beenov-free-text-question",{
+    prototype : freeTextQuestionPrototype
+  });
+
+})();
+</script>

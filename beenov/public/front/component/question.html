@@ -1,4 +1,5 @@
 <link rel="import" href="oneChoiceQuestion.html">
+<link rel="import" href="textQuestion.html">
 
 <template id="template">
   <div id="question">
@@ -23,12 +24,16 @@
       });
     };
 
-    var createQuestionComponent = function(type, typeOptions, idQuestion){
+    var createQuestionComponent = function(type, idQuestion){
       var questionComponent = null;
 
       switch(type){
         case CONST.questionType.choice :
         questionComponent = new OneChoiceQuestionComponent();
+        break;
+
+        case CONST.questionType.text :
+        questionComponent = new TextQuestionComponent();
         break;
       }
 
@@ -42,7 +47,7 @@
       if(att === "question"){
         var question = QuestionComponent.company.quiz.getQuestion(newV);
         console.log(question);
-        var newC = createQuestionComponent(question.type, question.typeOptions, newV);
+        var newC = createQuestionComponent(question.type, newV);
 
         this.querySelector("#question").append(newC);
       }

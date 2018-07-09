@@ -91,7 +91,11 @@ var CONST = {
       n1Choice : 'n1Choice',
       city : 'city',
       groupableComment : 'groupableComment',
-      cfa : 'cfa'
+      cfa : 'cfa',
+      textType : {
+        free : 'free',
+        siret : 'siret'
+      }
 
     },
 

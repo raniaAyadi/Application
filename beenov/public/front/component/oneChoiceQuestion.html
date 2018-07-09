@@ -36,8 +36,9 @@
         var span = document.createElement("span");
         var br = document.createElement("br");
 
-        radio.setAttribute('type', 'radio');
-        radio.checked = i === this.question.answer;
+        radio.type = 'radio';
+        radio.checked = (i+1) === this.question.answer;
+        radio.name = "choice";
 
         span.innerText = tab[i];
 

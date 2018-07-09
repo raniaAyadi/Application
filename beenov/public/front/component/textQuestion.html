@@ -1,0 +1,51 @@
+<link rel="import" href="freeTextQuestion.html">
+
+<template id="template">
+  <div id="question">
+
+  </div>
+</template>
+
+<script>
+var TextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var textQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  textQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  function createTextComponent(type, id){
+    var newC = null;
+
+    switch (type){
+      case CONST.questionType.textType.free :
+      newC = new FreeTextQuestionComponent();
+      break;
+    }
+
+    if(newC){
+      newC.setAttribute("question", id);
+      return newC;
+    }
+  }
+
+  textQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.company.quiz.getQuestion(newV);
+      var type = this.question.typeOptions.textType;
+
+      var newC = createTextComponent(type, newV);
+      this.querySelector("#question").append(newC);
+    }
+  };
+
+  TextQuestionComponent = document.registerElement("beenov-text-question",{
+    prototype : textQuestionPrototype
+  });
+
+})();
+</script>
