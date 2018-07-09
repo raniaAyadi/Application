@@ -5,7 +5,7 @@
     <p style="font-style: italic" id="label"></br>
       <!-- commentItem.label -->
     </p></br>
-    <div style="font-style: italic" id="image"></div></br></br>
+    <div style="font-style: italic" class="title" id="image"></div></br></br>
   </div>
 </template>
 
@@ -25,11 +25,15 @@
 
     smileyRankItemPrototype.setVariableValue = function(){
     this.smileyRankItem.setVariableValue().done(()=>{
-     this.querySelector("#image").innerHTML = this.smileyRankItem.variableValue ;
+     // this.querySelector("#image").innerHTML = this.smileyRankItem.variableValue ;
 
        let picture = ["sad0-1.png", "sad0-1.png", "sceptical2-3.png", "sceptical2-3.png", "happy4-5.png","happy4-5.png"]
-
-    this.querySelector("#image").innerHTML= '<img src="' + picture[this.smileyRankItem.variableValue] + '">';
+       if (this.smileyRankItem.variableValue){
+         this.querySelector("#image").innerHTML= '<img src="' + picture[this.smileyRankItem.variableValue] + '">';
+       }
+       else {
+         this.querySelector("#image").innerHTML = 'pas de réponse';
+       }
 
       });
     };
