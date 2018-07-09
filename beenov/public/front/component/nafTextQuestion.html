@@ -1,0 +1,30 @@
+<template id="template">
+  <input type="text"style="text-align: right"/>  <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+var NafTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var nafTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  nafTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  nafTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.quiz.getQuestion(newV);
+      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+    }
+  };
+
+  NafTextQuestionComponent = document.registerElement("beenov-naf-text-question",{
+    prototype : nafTextQuestionPrototype
+  });
+
+})();
+</script>
