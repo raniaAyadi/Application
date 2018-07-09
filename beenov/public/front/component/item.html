@@ -49,6 +49,20 @@
 <script>
   var ItemComponent = {};
 
+  function commande(nom, argument) {
+  if (typeof argument === 'undefined') {
+    argument = '';
+  }
+
+  // Exécuter la commande
+  document.execCommand(nom, false, argument);
+}
+
+function resultat() {
+  document.getElementById("resultat").value = document.getElementById("editeur").innerHTML;
+}
+
+
   (function(){
     var currentDoc = document.currentScript.ownerDocument;
     var itemPrototype = Object.create(HTMLElement.prototype);
@@ -185,7 +199,7 @@
         if (this.item.comment){
             this.querySelector("#modifier").removeAttribute("style","display:none");
             this.querySelector("#commentaire").setAttribute("style","display:none");
-            this.querySelector("#textcomment").innerText = this.item.comment;
+            this.querySelector("#textcomment").innerHTML = this.item.comment;
          }
 
          if (this.item.comment == "")
@@ -195,10 +209,10 @@
        }
 
     var terminer = function(elt) {
-      var texte  = elt.querySelector("#editeur").innerText;
+      var texte  = elt.querySelector("#editeur").innerHTML;
       elt.querySelector("#text").setAttribute("style","display:none");
       elt.querySelector("#textcomment").removeAttribute("style","display:none");
-      elt.querySelector("#textcomment").innerText = texte;
+      elt.querySelector("#textcomment").innerHTML = texte;
       elt.item.comment = texte;
       elt.querySelector("#annuler").setAttribute("style","display:none");
       elt.querySelector("#terminer").setAttribute("style","display:none");
