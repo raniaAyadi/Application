@@ -75,7 +75,7 @@ function	printcons(index)
 	    ++i;
 	}
 	index += 1;
-	toAppend += '<a onclick="dunkcons(' + index + ')">Ajouter au panier</a>';
+	toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkcons(' + index + ')">Ajouter au panier</button>';
 	$('#listcons').append(toAppend);
     }
 }
@@ -112,7 +112,7 @@ function	printprod(index)
 	    ++i;
 	}
 	index += 1;
-	toAppend += '<a onclick="dunkprod(' + index + ')">Ajouter au panier</a>';
+	toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkprod(' + index + ')">Ajouter au panier</button>';
 	$('#listprod').append(toAppend);
     }
 }
@@ -156,7 +156,7 @@ function	printhelp(id1, id2, index)
 			       ++i;
 			   }
 			   var topkek = ('_' + id1 + '_' + id2);
-			   toAppend += '<a onclick="dunkhelp(\'' + topkek + '\', ' + index + ')">Ajouter au panier</a>';
+			   toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkhelp(\'' + topkek + '\', ' + index + ')">Ajouter au panier</button>';
 			   $('#listhelp').append(toAppend);
 		       }),
 	    error : (function(err)
