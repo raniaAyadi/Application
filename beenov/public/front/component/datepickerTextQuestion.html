@@ -4,26 +4,26 @@
 </template>
 
 <script>
-var FreeTextQuestionComponent = {};
+var DatepickerTextQuestionComponent = {};
 
 (function(){
   var currentDoc = document.currentScript.ownerDocument;
-  var freeTextQuestionPrototype = Object.create(HTMLElement.prototype);
+  var datepickerTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
-  freeTextQuestionPrototype.createdCallback = function(){
+  datepickerTextQuestionPrototype.createdCallback = function(){
     Operation.appendTemplate(this, currentDoc, "#template");
     this.question = {};
   };
 
-  freeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+  datepickerTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
     }
   };
 
-  FreeTextQuestionComponent = document.registerElement("beenov-free-text-question",{
-    prototype : freeTextQuestionPrototype
+  DatepickerTextQuestionComponent = document.registerElement("beenov-datepicker-text-question",{
+    prototype : datepickerTextQuestionPrototype
   });
 
 })();

@@ -1,0 +1,31 @@
+<template id="template">
+  <input type="text" style="text-align: right"/> <span>%</span>
+   <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+var PercentTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var percentTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  percentTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  percentTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.quiz.getQuestion(newV);
+      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+    }
+  };
+
+  PercentTextQuestionComponent = document.registerElement("beenov-percent-text-question",{
+    prototype : percentTextQuestionPrototype
+  });
+
+})();
+</script>

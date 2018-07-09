@@ -1,0 +1,31 @@
+<template id="template">
+  <input type="text" style="text-align: right"/>
+   <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+var NumericTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var numericTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  numericTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  numericTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.quiz.getQuestion(newV);
+      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+    }
+  };
+
+  NumericTextQuestionComponent = document.registerElement("beenov-numeric-text-question",{
+    prototype : numericTextQuestionPrototype
+  });
+
+})();
+</script>

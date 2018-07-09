@@ -1,4 +1,12 @@
 <link rel="import" href="freeTextQuestion.html">
+<link rel="import" href="siretTextQuestion.html">
+<link rel="import" href="zipcodeTextQuestion.html">
+<link rel="import" href="percentTextQuestion.html">
+<link rel="import" href="emailTextQuestion.html">
+<link rel="import" href="nafTextQuestion.html">
+<link rel="import" href="datepickerTextQuestion.html">
+<link rel="import" href="numericTextQuestion.html">
+
 
 <template id="template">
   <div id="question">
@@ -22,10 +30,38 @@ var TextQuestionComponent = {};
     var newC = null;
 
     switch (type){
-      case CONST.questionType.textType.free :
-      newC = new FreeTextQuestionComponent();
-      break;
-    }
+        case CONST.questionType.textType.free :
+        newC = new FreeTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.siret :
+        newC = new SiretTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.zipcode :
+        newC = new ZipcodeTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.email :
+        newC = new EmailTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.datepicker :
+        newC = new DatepickerTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.naf :
+        newC = new NafTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.percent :
+        newC = new PercentTextQuestionComponent();
+        break;
+
+        case CONST.questionType.textType.numeric :
+        newC = new NumericTextQuestionComponent();
+        break;
+      }
 
     if(newC){
       newC.setAttribute("question", id);

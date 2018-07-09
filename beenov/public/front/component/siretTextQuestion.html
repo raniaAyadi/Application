@@ -1,0 +1,30 @@
+<template id="template">
+  <input type="text"/>  <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+var SiretTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var siretTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  siretTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  siretTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.quiz.getQuestion(newV);
+      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+    }
+  };
+
+  SiretTextQuestionComponent = document.registerElement("beenov-siret-text-question",{
+    prototype : siretTextQuestionPrototype
+  });
+
+})();
+</script>

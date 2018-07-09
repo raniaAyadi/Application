@@ -1,0 +1,30 @@
+<template id="template">
+  <input type="text"/>  <!-- input.value = question.answer -->
+  <br/>
+</template>
+
+<script>
+varZipcodeTextQuestionComponent = {};
+
+(function(){
+  var currentDoc = document.currentScript.ownerDocument;
+  var zipcodeTextQuestionPrototype = Object.create(HTMLElement.prototype);
+
+  zipcodeTextQuestionPrototype.createdCallback = function(){
+    Operation.appendTemplate(this, currentDoc, "#template");
+    this.question = {};
+  };
+
+  zipcodeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+    if(attr === "question"){
+      this.question = QuestionComponent.quiz.getQuestion(newV);
+      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+    }
+  };
+
+ ZipcodeTextQuestionComponent = document.registerElement("beenov-zipcode-text-question",{
+    prototype : zipcodeTextQuestionPrototype
+  });
+
+})();
+</script>
