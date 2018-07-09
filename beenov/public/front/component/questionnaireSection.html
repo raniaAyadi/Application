@@ -1,0 +1,61 @@
+<link rel="import" href="question.html">
+
+<template id="template">
+
+  <br/>
+  <b id="title"> <!-- section.title --> </b>
+  <br/>
+
+  <div id="question">
+    <!-- section.questions -->
+  </div>
+
+</template>
+
+<script>
+  var QuestionnaireSectionComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var questionnaireSectionPrototype = Object.create(HTMLElement.prototype);
+
+    questionnaireSectionPrototype.createdCallback = function(){
+      Operation.appendTemplate(this, currentDoc, "#template");
+
+      this.company = {};
+      Company.getBySiret("00000000000000").done((data)=>{
+        QuestionnaireSectionComponent.company = new Company(data.resources[0]);
+        QuestionnaireSectionComponent.company.setQuizReply().done(()=>console.log("done"));
+      });
+    };
+
+    questionnaireSectionPrototype.setQuestions = function(){
+      var elt = this.querySelector("#question");
+      var questions = this.section.questions;
+
+      for(var i in questions){
+        var q = new QuestionComponent();
+        var id = questions[i].id;
+
+        q.setAttribute("question", id);
+        elt.append(q);
+      }
+    };
+
+    questionnaireSectionPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      if(attr === "index"){
+        this.section = QuestionnaireSectionComponent.company.quiz.sections[newV];
+
+        this.querySelector("#title").innerText = this.section.title;
+        this.setQuestions();
+      }
+
+    };
+
+    QuestionnaireSectionComponent = document.registerElement('beenov-questionnaire-section',{
+      prototype : questionnaireSectionPrototype
+    });
+
+  })();
+
+</script>

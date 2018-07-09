@@ -35,7 +35,7 @@ var TextQuestionComponent = {};
 
   textQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
-      this.question = QuestionComponent.company.quiz.getQuestion(newV);
+      this.question = QuestionComponent.quiz.getQuestion(newV);
       var type = this.question.typeOptions.textType;
 
       var newC = createTextComponent(type, newV);

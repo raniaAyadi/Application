@@ -19,12 +19,7 @@
 
     questionPrototype.createdCallback = function(){
       Operation.appendTemplate(this, currentDoc, "#template");
-
-      this.company = {};
-      Company.getBySiret("00000000000000").done((data)=>{
-        QuestionComponent.company = new Company(data.resources[0]);
-        QuestionComponent.company.setQuizReply().done(()=>console.log("done"));
-      });
+      QuestionComponent.quiz = QuestionnaireSectionComponent.company.quiz;
     };
 
     var createQuestionComponent = function(type, idQuestion){
@@ -57,13 +52,13 @@
 
     questionPrototype.setLabel = function(){
       var label = this.querySelector("label");
-      label.innerText = this.question.title;
+      label.innerText = this.question ? this.question.title : "";
     };
 
 
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
-        this.question = QuestionComponent.company.quiz.getQuestion(newV);
+        this.question = QuestionComponent.quiz.getQuestion(newV);
         console.log(this.question);
         this.setLabel();
 

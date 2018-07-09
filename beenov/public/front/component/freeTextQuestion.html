@@ -17,7 +17,7 @@ var FreeTextQuestionComponent = {};
 
   freeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
-      this.question = QuestionComponent.company.quiz.getQuestion(newV);
+      this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.questionAnswer : "";
     }
   };
