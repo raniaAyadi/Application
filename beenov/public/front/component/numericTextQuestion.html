@@ -20,6 +20,7 @@ var NumericTextQuestionComponent = {};
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+      console.log(this.question);
     }
   };
 

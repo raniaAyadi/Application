@@ -2,7 +2,7 @@
 <link rel="import" href="textQuestion.html">
 <link rel="import" href="nTextsQuestion.html">
 <link rel="import" href="nMTextsQuestion.html">
-<link rel="import" href="textareaQuestion.html">
+<!-- <link rel="import" href="textareaQuestion.html"> -->
 <template id="template">
 
   <div id="question">
@@ -49,9 +49,9 @@
         questionComponent = new NMTextsQuestionComponent();
         break;
 
-        case CONST.questionType.textarea :
-        questionComponent = new TextareasQuestionComponent();
-        break;
+        // case CONST.questionType.textarea :
+        // questionComponent = new TextareasQuestionComponent();
+        // break;
       }
 
       if(questionComponent){

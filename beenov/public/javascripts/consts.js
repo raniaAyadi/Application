@@ -94,7 +94,13 @@ var CONST = {
       cfa : 'cfa',
       textType : {
         free : 'free',
-        siret : 'siret'
+      siret : 'siret',
+      datepicker : 'datepicker',
+      naf : 'naf',
+      percent : 'percent',
+      zipcode : 'zipcode',
+      email : 'email',
+      numeric : 'numeric'
       }
 
     },
