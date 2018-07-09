@@ -18,7 +18,7 @@
 
    <span class="title"> Moyenne régionale: </span>
    <span id="moyReg">  </span>
-   <span> / </span>
+   <span id="slach"> / </span>
    <span style="font-style: italic" id="maxValueAverage">
           <!-- valeur max -->
 
@@ -46,7 +46,17 @@
         try {
 
           this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue.toFixed(2);
-          this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage.toFixed(2);
+          var maxValueAverage = "4.00";
+          if (parseInt(this.variableValueItem.variableValue)== 0)
+          {
+            this.querySelector("#moyReg").innerHTML = "N/C";
+            this.querySelector("#slach").setAttribute("style", "display:none")
+          }
+          else
+          {
+            this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage.toFixed(2);
+            this.querySelector("#maxValueAverage").innerHTML = maxValueAverage ;
+          }
         } catch (e) {
             alert("Une erreur s'est produite dans le questionnaire avec les globales variables. Veuillez contacter votre administrateur.");
         }
@@ -62,8 +72,8 @@
         this.querySelector("#title").innerHTML = this.variableValueItem.name ;
         this.setVariableValue();
         this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue.toFixed(2);
-        var maxValueAverage = "4.00";
-        this.querySelector("#maxValueAverage").innerHTML = maxValueAverage ;
+
+
 
       }
     }
