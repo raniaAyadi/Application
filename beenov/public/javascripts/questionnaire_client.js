@@ -126,7 +126,7 @@ function	loadhelp(info)
     {
 	valuesheet = info.resources[i].id.split("-");
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="nav_ar"><span id="aide' + (i + 1) + '" onclick="printhelp(' + valuesheet[0] + ', ' + valuesheet[1] + ', ' + (i + 1) + ')">';
+	toAppend += '<p class="navbar"><span id="aide' + (i + 1) + '" onclick="printhelp(' + valuesheet[0] + ', ' + valuesheet[1] + ', ' + (i + 1) + ')">';
 	toAppend += info.resources[i].title.toUpperCase() + '</span></p></div></div>';
 	++i;
     }
