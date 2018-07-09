@@ -15,13 +15,13 @@
     <script type="text/javascript" src="langs/fr.min.js"></script>
     <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="question_handling.js"></script>
+    <!-- <script type="text/javascript" src="question_handling.js"></script> -->
     <script type="text/javascript" src="api_entreprise.js"></script>
     <script type="text/javascript" src="global_rules.js"></script>
     <script type="text/javascript" src="question_values.js"></script>
     <script type="text/javascript" src="question_rules.js"></script>
     <script type="text/javascript" src="send_questionnaire.js"></script>
-    <script type="text/javascript" src="company.js"></script>
+    <!-- <script type="text/javascript" src="company.js"></script> -->
     <script type="text/javascript" src="logo_entity.js"></script>
     <script type="text/javascript" src="user_name.js"></script>
 
@@ -58,6 +58,9 @@
     <script type="text/javascript" src="model/ruleSetVarCond.js"></script>
     <script type="text/javascript" src="model/globalRuleSetVar.js"></script>
     <script type="text/javascript" src="model/globalRuleSetVarCond.js"></script>
+    <script type="text/javascript" src="model/company.js"></script>
+
+    <link rel="import" href="component/quiz.html">
 
     <title>Beenov' - Company</title>
   </head>
@@ -85,12 +88,14 @@
       </div>
       <form method="post" action="#">
 	<div class="row">
-	  <div class="col-md-8" id="settings">
-	    <p id="questionnairecmpn">
+
+    <div class="col-md-8" id="settings">
+	   <beenov-quiz>
 	      <!-- Here is inserted the questionnaire -->
-	    </p>
+	    </beenov-quiz>
 	  </div>
-	  <div class="col-md-3" id="loader">
+
+    <div class="col-md-3" id="loader">
 	    <label>Logo de l'entreprise</label>
 	    <br />
 	    <input type="button" value="Parcourir" id="btninputfile">
