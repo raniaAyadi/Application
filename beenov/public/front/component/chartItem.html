@@ -9,6 +9,7 @@
   <div class="row">
     <img class="col-md-8" id="image"> </img><!-- src charItem.data -->
     <div class="row-md-4" id="legend"> </div>  <!-- charItem.legend -->
+    <div class="title" style="display:none" id="msg"> Pas assez de données pour genèrer le graphe  </div>
  </div>
 </br>
 
@@ -45,8 +46,13 @@
     };
 
     chartItemPrototype.setImage = function(){
+
       this.querySelector("#image").onerror =()=>{
         //image = this
+      this.querySelector("#image").setAttribute("style","display:none");
+      this.querySelector("#legend").setAttribute("style","display:none");
+      this.querySelector("#msg").removeAttribute("style","display:none");
+
         console.log("load not done");
       }
 
