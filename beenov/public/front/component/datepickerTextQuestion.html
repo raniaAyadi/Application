@@ -18,7 +18,7 @@ var DatepickerTextQuestionComponent = {};
   datepickerTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
-      this.querySelector("#label").value = this.question.answer ? this.question.answer : "";
+      this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
     }
   };
 
