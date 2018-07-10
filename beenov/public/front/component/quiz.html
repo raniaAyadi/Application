@@ -17,21 +17,15 @@
       Operation.appendTemplate(this, currentDoc, "#template");
     };
 
-    function setCompany(siret){
-      var deferred = new $.Deferred();
-
-      Company.getBySiret("00000000000000").done((data)=>{
-        QuizComponent.company = new Company(data.resources[0]);
-        QuizComponent.company.setQuizReply().done(()=>deferred.resolve());
-      });
-
-      return deferred;
+    function setCompany(){
+      QuizXCo
     }
 
     quizPrototype.setSections = function(){
       var elt = this.querySelector("#sections");
 
       for(var i in this.sections){
+        console.log(i);
         var s = new QuizSectionComponent();
         s.setAttribute("index", i);
 
@@ -39,12 +33,12 @@
       }
     };
 
-    quizPrototype.attributeChangedCallback = function(attr, oldV, newV){
-      if(attr === "siret")
-        setCompany(newV).done(()=>{
-          this.sections = QuizComponent.company.quiz.sections;
-          this.setSections();
-        });
+    quizPrototype.attachedCallback = function(){
+      var json = JSON.parse(localStorage.getItem("company"));;
+      QuizComponent.company = Company.getCompanyByJSON(json);
+
+      this.sections = QuizComponent.company.quiz.sections;
+      this.setSections();
     }
 
     QuizComponent = document.registerElement('beenov-quiz',{

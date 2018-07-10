@@ -123,29 +123,25 @@ function	siret_data(e)
     if ((!e.shiftKey && (e.keyCode < 48 || e.keyCode > 57)) || (e.keyCode < 96 || e.keyCode > 105)) {
 	e.preventDefault();
     }
-    
+
 }
 
 /* To create a new meeting -> drives to the company page */
 function	create_button()
 {
     let siret = $('#siret_data')[0].value;
-    console.log( $('#diag').val());
-    if (siret.length != 14 || check_siret(siret) != 0)
-    {
-	alert("Saisissez un SIRET");
-    }
-    else
-    {
-	window.location.replace('/company?siret=' + siret + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1]);
-	}
+		var obj = {};
+
+		Company.setCompany(siret).done(()=>
+		window.location.replace('/company?' + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1])
+	).fail(()=>alert("Saisissez un SIRET"));
 }
 
 function	openQuestionnaire(data)
 {
 
     let json = {
-	theme:data[0], 
+	theme:data[0],
 	company: data[2],
 	advisor: data[6],
 	quest: data[8],
@@ -178,19 +174,19 @@ function	transfert(tableau)
 		toAppend = toAppend.sort();
 		toAppend = toAppend.join();
 		$('#adviser').append(toAppend);
-	    } 
+	    }
 	});
     $('#newadv').click(function()
 		       {
 			   let idMeeting = tableau.rows({selected:true}).data()[0][8]; //getQueryVariable('met');
 			   let idQuest = tableau.rows({selected:true}).data()[0][9]; //getQueryVariable('qst')
-			   
-			   
+
+
 			   let user = /*$('#adviser').value;*/ document.getElementById("adviser");
 			   user = user.options[user.selectedIndex].value;
 			   console.log(user);
-			   
-			   
+
+
 			   if (idMeeting && user && idQuest)
 			   {
 			       idMeeting = idMeeting.split('/')[1]
@@ -199,7 +195,7 @@ function	transfert(tableau)
 			   }
 			   /* requete POST & redirection meeting_list */
 			   let target = "users/" + user;
-			   let data = {'owner' : {'resource' : target, 'idmet' : idQuest}}; 
+			   let data = {'owner' : {'resource' : target, 'idmet' : idQuest}};
 			   console.log(data);
 			   $.ajax(
 			       {
@@ -223,7 +219,7 @@ function	transfert(tableau)
 
 /* get the user's ID. For transfert() function */
 function lastword(user)
-{	
+{
     var i = 0;
     var word = 0;
 
@@ -304,7 +300,7 @@ $(document).ready(function()
 			      event.preventDefault();
 			  }
 		      });
-		      
+
 		      $.ajax(
 			  { /* liste des thèmes */
 			      type: "GET",
@@ -321,8 +317,8 @@ $(document).ready(function()
 						{
 						    create_button();
 						});
-		      
-		      
+
+
 		      $.ajax(
 			  { /* requète GET pour récupérer infos entretiens */
 			      type: "GET",
@@ -377,7 +373,7 @@ $(document).ready(function()
 							{
 							    transfert(tableau);
 							});
-				  
+
 				  $('#exportgrc').click(function()
 							{
 							    exportgrc(tableau);
@@ -419,7 +415,7 @@ function openDialog(dialogId,lastFocused, id)
 
     var children = document.getElementsByTagName("body")[0].children;
     var hiddens = [];
-    
+
     for(var i=0,el;el=children[i];i++){
 	if(el != dialog){
 

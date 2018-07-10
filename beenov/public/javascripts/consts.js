@@ -30,7 +30,17 @@ var CONST = {
       addReport : 'addReport',
       getAverage : 'getAverage',
       getCompany : "getCompany",
-      getQuestReply : "getQuestReply"
+      getQuestReply : "getQuestReply",
+    },
+
+    APIEntreprise :{
+      url : "https://entreprise.api.gouv.fr/v2/etablissements/",
+      CCI_AQUITAINE_SIRET : "13002249400012",
+      RENAULT_BORD_SIRET : "31221230102076",
+      token : "ttlJM3OyWi8WM07CO5i674yv5pqVh13g",
+      context : 'APS',
+      recipient : '0',
+      object : 'dev'
     },
 
     cookie : {
@@ -42,6 +52,16 @@ var CONST = {
       advice : "advice-info-sheets",
       semaphore : "semaphore-info-sheet-descriptors",
       product : "product-info-sheets"
+    },
+
+    companyQuizTitles : {
+      date : 'Date de création',
+      NAF : 'Code NAF',
+      name : "Dénomination sociale / Nom de l'entreprise",
+      SIRET : 'Numéro SIRET',
+      address : 'Adresse',
+      city : 'Localité / Ville',
+      postalCode : 'Code postal',
     },
 
     itemType : {

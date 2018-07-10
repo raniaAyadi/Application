@@ -432,5 +432,16 @@ var Operation = {
             return (toAppend);
     },
 
+    getDate : function(timestamp){
+      let day = new Date(timestamp);
+      let dd = day.getDate();
+      let mm = day.getMonth() + 1;
+      let yyyy = day.getFullYear();
 
+      if(dd<10)
+        dd = '0'+dd
+      if(mm<10)
+        mm = '0'+mm
+      return(dd + '/' + mm + '/' + yyyy);
+    },
 }

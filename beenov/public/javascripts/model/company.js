@@ -37,6 +37,13 @@ Company.prototype.setReply = function(id){
   }
 };
 
+Company.getCompanyByJSON = function(json){
+  json.__proto__ = Company.prototype;
+  json.quiz = Quiz.getQuizByJSON(json.quiz);
+
+  return json;
+}
+
 Company.prototype.setQuiz = function(){
   var deferred = new $.Deferred();
 
@@ -57,6 +64,64 @@ Company.prototype.setQuizReply = function(idReply){
 
     deferred.resolve();
   });
+
+  return deferred;
+};
+
+Company.verifyByAPI = function(siret){
+  var url = CONST.APIEntreprise.url + siret;
+  var data = {
+    token : CONST.APIEntreprise.token,
+    context : CONST.APIEntreprise.context,
+    object : CONST.APIEntreprise.object,
+    recipient : CONST.APIEntreprise.recipient
+  };
+
+  return $.get(url , data);
+};
+
+Company.setCompany = function(siret){
+  var deferred = new $.Deferred();
+
+  Company.getBySiret(siret).done((data)=>{
+    var obj;
+
+    if(data.resources[0]){
+      obj = new Company(data.resources[0]);
+      obj.setQuizReply().done(()=> {
+        localStorage.setItem("company", JSON.stringify(obj));
+        deferred.resolve();
+      });
+    }
+
+    else{
+      obj = new Company();
+      $.when(obj.setQuiz(), obj.setAnswersByAPI(siret)).done(()=> {
+        localStorage.setItem("company", JSON.stringify(obj));
+        deferred.resolve();
+      }).fail(()=> deferred.reject());
+    }
+  });
+
+  return deferred;
+};
+
+Company.prototype.setAnswersByAPI = function(siret){
+  var deferred = new $.Deferred();
+
+  Company.verifyByAPI(siret).done((data)=>{
+    var c = data.etablissement;
+
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.name).answer = c.adresse.l1;
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.date).answer = Operation.getDate(c.date_creation_etablissement);
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.SIRET).answer = c.siret;
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.address).answer = c.adresse.l4;
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.city).answer = c.commune_implantation.value;
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.postalCode).answer = c.commune_implantation.code;
+    this.quiz.getQuestionByTitle(CONST.companyQuizTitles.NAF).answer = c.naf;
+
+    deferred.resolve();
+  }).fail(()=>deferred.reject());
 
   return deferred;
 };

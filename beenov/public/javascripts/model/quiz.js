@@ -96,7 +96,16 @@ Quiz.prototype.appQuizRules = function(){
 Quiz.prototype.appRules = function(){
   this.appQuestionRules();
   this.appQuizRules();
-}
+};
+
+Quiz.getQuizByJSON = function(json){
+  json.__proto__ = Quiz.prototype;
+
+  for(var i in json.sections)
+    json.sections[i] = Section.getSectionByJSON(json.sections[i]);
+
+  return json;
+};
 
 Quiz.prototype.upadteAnswers = function(tab){
   if(!tab)
@@ -109,4 +118,15 @@ Quiz.prototype.upadteAnswers = function(tab){
 
     q.answer = elt.answer;
   });
-}
+};
+
+Quiz.prototype.getQuestionByTitle = function(title){
+  for(var i in this.sections){
+    var q = this.sections[i].getQuestionByTitle(title);
+
+    if(q)
+      return q;
+  }
+
+  return null;
+};

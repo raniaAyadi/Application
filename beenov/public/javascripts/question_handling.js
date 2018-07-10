@@ -360,6 +360,7 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
     {
 	balise += '><br /><input type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off"></div>';
     }
+
     return (balise);
 }
 
@@ -712,7 +713,8 @@ function        question_type_1Choice(question, toReturn, answers, type)
 	    toReturn.push(balise);
 	}
     }
-    return(toReturn);
+
+  return(toReturn);
 
 }
 

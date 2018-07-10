@@ -31,4 +31,21 @@ Section.prototype.appRules = function(){
 
   for(var i=0; i<l; i++)
     this.questions[i].appRules();
+};
+
+Section.prototype.getQuestionByTitle = function(title){
+  for(var i in this.questions)
+    if(this.questions[i].title === title)
+      return this.questions[i];
+
+  return null;
+};
+
+Section.getSectionByJSON = function(json){
+  json.__proto__ = Section.prototype;
+
+  for(var i in json.questions)
+    json.questions[i] = Question.getQuestionByJSON(json.questions[i]);
+
+  return json;
 }

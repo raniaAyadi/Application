@@ -81,3 +81,8 @@ Question.prototype.appRules = function(){
   for(var i in this.rules)
     this.rules[i].appRule(this.answer);
 }
+
+Question.getQuestionByJSON = function(json){
+  json.__proto__ = Question.prototype;
+  return json;
+};
