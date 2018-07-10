@@ -2,14 +2,14 @@
   <div id="question">
     <!-- question.textLabels -->
     <!-- beenov-text-question[question = question.id] -->
-    <div class="col-md-9" id="text">
+    <div class="col-md-9" id="text" style="margin-left:25px">
          <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
          <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
          <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
          <div id="editeur" ></div>
    </div>
   </div>
-  <div id="label" style="display:none"></div>
+  <div id="label" style="margin-left:25px" hidden="true"></div>
 </template>
 
 <script>
@@ -48,7 +48,7 @@
                 var res = x.innerText;
                 this.querySelector("#label").value = res;
                 this.querySelector("#text").setAttribute("style","display:none");
-                this.querySelector("#label").removeAttribute("style","display:none");
+                this.querySelector("#label").removeAttribute("hidden","true");
             }
       }
     };

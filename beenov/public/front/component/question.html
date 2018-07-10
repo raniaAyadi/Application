@@ -67,60 +67,21 @@
       label.innerText = this.question ? this.question.title : "";
     };
 
-    questionPrototype.setEvents = function(){
-      var elt = this.querySelector("#question");
-      var me = this;
-
-      if(this.question.mandatory){
-        var inputs = elt.querySelectorAll("input");
-        var isFilled = true;
-
-        for(var i in inputs){
-          inputs[i].oninput = function(){
-            var isFilled = true;
-
-            if(this.value === "")
-              isFilled = false;
-
-            else
-              for(var i in inputs){
-                isFilled = isFilled && (inputs[i].value != "");
-                if(!isFilled)
-                  break;
-              }
-
-              me.setAttribute("is-filled", isFilled);
-          };
-        }
-      }
-    };
-
-    questionPrototype.check = function(){
-      var span = this.querySelector("#error");
-      var isFilled = this.getAttribute("is-filled");
-
-      span.style.display = (isFilled === "true") ? "none" : "inline";
-    };
 
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
-        console.log(this.question);
         this.setLabel();
 
         var newC = createQuestionComponent(this.question.type, newV);
 
         this.querySelector("#question").append(newC);
-        this.setEvents();
 
         if (this.question.title === "Dirigeant" || this.question.title === "Fax" ||this.question.title=== "Téléphone" || this.question.title === "Adresse électronique de l'entreprise ou du dirigeant"){
           this.querySelector("#question").setAttribute("hidden" , "true");
         }
       }
 
-      if(att === "is-filled"){
-        this.check();
-      }
     };
 
     QuestionComponent = document.registerElement("beenov-question",{

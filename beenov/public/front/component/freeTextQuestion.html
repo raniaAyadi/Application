@@ -1,9 +1,9 @@
 <template id="template">
-  <input type="text"/>  <!-- input.value = question.answer -->
-  <p id="label" style="display:none">
+  <input type="text" style="margin-left:25px"/>  <!-- input.value = question.answer -->
+  <p id="label" style="margin-left:25px" hidden="true">
 
   </p>
-  <br/>
+
 </template>
 
 <script>
@@ -23,16 +23,20 @@ var FreeTextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
 
       console.log(this.question.title);
-      if (this.question.title === "Localité / Ville") {
+      if (this.question.title === "Localité / Ville" || this.question.title === "Dénomination sociale / Nom de l'entreprise") {
         this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
         console.log(this.querySelector("#label"));
-          this.querySelector("#label").removeAttribute("style","display:none");
+          this.querySelector("#label").removeAttribute("hidden","true");
           this.querySelector("input").setAttribute("style","display:none");
 
       }
       else {
 
         this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+      }
+
+      if (true) {
+
       }
 
     }

@@ -1,5 +1,5 @@
 <template id="template">
-  <div id="question">
+  <div id="question" style="margin-left:25px">
     <!-- question.typeOptions.options -->
   </div>
 </template>
@@ -24,20 +24,36 @@
 
       for(var i=0; i<l; i++){
         var radio = document.createElement('input');
+        radio.setAttribute("type","radio")
         var span = document.createElement("span");
         var br = document.createElement("br");
 
         radio.type = 'radio';
         radio.checked = (i+1) === this.question.answer;
-        radio.name = "choice";
+        radio.name = "choice" +this.question.id;
 
         span.innerText = tab[i];
 
         elt.appendChild(radio);
         elt.appendChild(span);
         elt.appendChild(br);
+
+        if (this.question.mandatory){
+          radio.setAttribute("required","true");
+
+        }
       }
     };
+
+    oneChoiceQuestionPrototype.updateAnswer = function(){
+      var inputs = this.querySelector("input");
+      for(var i in inputs)
+        if(inputs[i].checked){
+          this.question.answer = i+1;
+          break;
+        }
+    };
+
 
     oneChoiceQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "question"){
