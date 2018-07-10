@@ -6,6 +6,11 @@
   </div>
 </template>
 
+<template id="actions">
+  <input type="button" value="Mettre à jour" id="save-company-sheet">
+  <input type="button" name="save" value="Annuler" href="meeting_list">
+</template>
+
 <script>
   var QuizComponent = {};
 
@@ -15,17 +20,34 @@
 
     quizPrototype.createdCallback = function(){
       Operation.appendTemplate(this, currentDoc, "#template");
+
+      var elt = document.querySelector("#buttonzone");
+      Operation.appendTemplate(elt, currentDoc, "#actions");
     };
 
     function setCompany(){
       QuizXCo
     }
 
+    quizPrototype.setActions = function(){
+      var save = document.querySelector("#save-company-sheet");
+      var reply =  QuizComponent.company.infoQuestionnaireReply;
+      var me = this;
+
+      save.value = (reply === -1) ? "Enregistrer" : "Mettre à jour";
+      save.onclick = ()=> this.updateAnswers();
+    };
+
+    quizPrototype.updateAnswers = function(){
+      var questions = this.querySelectorAll("beenov-question");
+
+      questions.forEach(elt => elt.updateAnswer());
+    };
+
     quizPrototype.setSections = function(){
       var elt = this.querySelector("#sections");
 
       for(var i in this.sections){
-        console.log(i);
         var s = new QuizSectionComponent();
         s.setAttribute("index", i);
 
@@ -38,6 +60,7 @@
       QuizComponent.company = Company.getCompanyByJSON(json);
 
       this.sections = QuizComponent.company.quiz.sections;
+      this.setActions();
       this.setSections();
     }
 
