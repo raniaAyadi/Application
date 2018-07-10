@@ -1,5 +1,8 @@
 <template id="template">
   <input type="text"/>  <!-- input.value = question.answer -->
+  <p id="label" style="display:none">
+
+  </p>
   <br/>
 </template>
 
@@ -18,7 +21,20 @@ var FreeTextQuestionComponent = {};
   freeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
-      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+
+      console.log(this.question.title);
+      if (this.question.title === "Localité / Ville") {
+        this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
+        console.log(this.querySelector("#label"));
+          this.querySelector("#label").removeAttribute("style","display:none");
+          this.querySelector("input").setAttribute("style","display:none");
+
+      }
+      else {
+
+        this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+      }
+
     }
   };
 

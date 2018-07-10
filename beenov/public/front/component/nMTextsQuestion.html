@@ -23,6 +23,8 @@
      var columns = this.question.typeOptions.columnLabels;
      var rows = this.question.typeOptions.rowLabels;
 
+     var td1= document.createElement("td");
+     elt.append(td1);
      for(var i in columns){
        var th = document.createElement("th");
        th.innerText = columns[i];

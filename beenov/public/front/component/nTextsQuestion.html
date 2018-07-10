@@ -32,7 +32,7 @@
         input.value = this.question.answer ? this.question.answer[i] : "";
 
         label.innerText =  labels[i];
-        label.appendChild(br);
+        label.innerHTML += '&nbsp';
         label.appendChild(input);
 
         div.appendChild(label);

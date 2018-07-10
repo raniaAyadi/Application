@@ -1,5 +1,5 @@
 <template id="template">
-  <input type="text"/>  <!-- input.value = question.answer -->
+<p id="label"></p>  <!-- input.value = question.answer -->
   <br/>
 </template>
 
@@ -18,7 +18,7 @@ varZipcodeTextQuestionComponent = {};
   zipcodeTextQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
-      this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+      this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
     }
   };
 

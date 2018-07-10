@@ -3,13 +3,13 @@
     <!-- question.textLabels -->
     <!-- beenov-text-question[question = question.id] -->
     <div class="col-md-9" id="text">
-         <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
          <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
          <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
          <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
-         <div id="editeur" contentEditable></div>
+         <div id="editeur" ></div>
    </div>
   </div>
+  <div id="label" style="display:none"></div>
 </template>
 
 <script>
@@ -37,7 +37,19 @@
     textareaQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
-        this.querySelector("#editeur").value = this.question.answer ? this.question.answer : "";
+        this.querySelector("#editeur").innerHTML = this.question.answer ? this.question.answer : "";
+
+
+          if (this.question.title === "Adresse"){
+                this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
+                var x = document.createElement("div");
+                var y = this.querySelector("#label").value;
+                x.innerHTML = y;
+                var res = x.innerText;
+                this.querySelector("#label").value = res;
+                this.querySelector("#text").setAttribute("style","display:none");
+                this.querySelector("#label").removeAttribute("style","display:none");
+            }
       }
     };
 

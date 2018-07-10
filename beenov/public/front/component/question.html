@@ -112,6 +112,10 @@
 
         this.querySelector("#question").append(newC);
         this.setEvents();
+
+        if (this.question.title === "Dirigeant" || this.question.title === "Fax" ||this.question.title=== "Téléphone" || this.question.title === "Adresse électronique de l'entreprise ou du dirigeant"){
+          this.querySelector("#question").setAttribute("hidden" , "true");
+        }
       }
 
       if(att === "is-filled"){
