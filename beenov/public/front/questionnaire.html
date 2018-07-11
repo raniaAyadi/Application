@@ -82,11 +82,11 @@
     <div class="container-fluid">
       <nav>
 	<span class="nav_bar">
-	  <span id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
-	  <span class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
-	  <span onclick="changeOnglet(2)"> FICHES CONSEIL </span>
-	  <span onclick="changeOnglet(3)"> FICHES PRODUIT </span>
-	  <span onclick="changeOnglet(4)"> FICHES AIDE </span>
+	  <span style="cursor:pointer" id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
+	  <span style="cursor:pointer" class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
+	  <span style="cursor:pointer" onclick="changeOnglet(2)"> FICHES CONSEIL </span>
+	  <span style="cursor:pointer" onclick="changeOnglet(3)"> FICHES PRODUIT </span>
+	  <span style="cursor:pointer" onclick="changeOnglet(4)"> FICHES AIDE </span>
 	  <button type="button" onclick="#" id="meeting">Acceuil</button>
 	</span>
       </nav>
@@ -103,7 +103,7 @@
 	  <div class="col-md-3">
 	    <div id="company">
 	      <h2>
-		<span class="sectionTitle" id="cmpn"></span>
+		<span  class="sectionTitle" id="cmpn"></span>
 		<img src="btn_edit_up.png" class="modify" onclick="modifycomp()">
 	      </h2>
 	    </div>
@@ -118,7 +118,7 @@
 		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br />
 	      </form>
 	    </div><br />
-	    <div id="section">
+	    <div style="cursor:pointer" id="section">
 
 	      <!-- Inserer ici les liens des differentes sections dispo -->
 	    </div>
@@ -154,10 +154,10 @@
       <div id="onglet2" style="display:none;">
 	<div class="row" id="options">
 	  <div class="col-md-3">
-	    <div id="conseil">
+	    <div style="cursor:pointer" id="conseil">
 	    </div>
 	  </div>
-	  <div class="col-md-9" id="listcons">
+	  <div  class="col-md-9" id="listcons">
 	  </div>
 	</div>
       </div>
@@ -166,7 +166,7 @@
 	<!-- <h1>Onglet 3</h1> -->
 	<div class="row" id="option">
 	  <div class="col-md-3">
-	    <div id="produit">
+	    <div style="cursor:pointer" id="produit">
 	    </div>
 	  </div>
 	  <div class="col-md-9" id="listprod">
@@ -194,7 +194,7 @@
 		<select name="filiere" id="filiere"></select><br />
 		<br /><button type="button" onclick="needhalp()">Rechercher</button>
 		<form>
-		  <div id="helpsheet">
+		  <div style="cursor:pointer" id="helpsheet">
 		  </div>
 	    </div>
 	  </div>

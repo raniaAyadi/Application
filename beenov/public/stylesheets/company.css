@@ -59,6 +59,11 @@
     box-shadow: 0 0 0 1px red;
 }
 
+.greeninput
+{
+    box-shadow: 0 0 0 1px green;
+}
+
 h1
 {
 	font-size: 2vw;
@@ -80,5 +85,5 @@ label
 	font-size: 1.2vw;
 	font-weight: bold;
 	margin-left: 1vw;
-	color: #003c74;	
+	color: #003c74;
 }

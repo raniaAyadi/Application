@@ -38,14 +38,21 @@
         elt.appendChild(span);
         elt.appendChild(br);
 
-        if (this.question.mandatory)
-          radio.oninput = ()=>this.factory.validate = true;
-      }
+        if (this.question.mandatory){
+            radio.oninput = ()=>this.factory.validate = true;
+            radio.setAttribute("required","true");
+                if (radio.validity.valid === false)
+                      radio.setAttribute("class","redinput")
+                else
+                      radio.setAttribute("class","greeninput");
+
+                  }
+
     };
 
     oneChoiceQuestionPrototype.updateAnswer = function(){
       var inputs = this.querySelectorAll("input");
-      
+
       for(var i in inputs)
         if(inputs[i].checked){
           this.question.answer = i+1;
