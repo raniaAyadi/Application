@@ -33,7 +33,7 @@ var NumericTextQuestionComponent = {};
         input.placeholder="Entre 1900 et 2018";
         input.setAttribute("class", "controle");
 
-        this.oninput = ()=>{
+        input.oninput = ()=>{
           var validity = input.checkValidity() ? true : false ;
             this.factory.setAttribute("validity", validity);
             var quiz = document.querySelector("beenov-quiz")
@@ -47,7 +47,7 @@ var NumericTextQuestionComponent = {};
           input.min = 0 ;
           input.placeholder = "supérieur à 0 ";
           input.setAttribute("class", "controle");
-          this.oninput = ()=>{
+          input.oninput = ()=>{
             var validity = input.checkValidity() ? true : false ;
               this.factory.setAttribute("validity", validity);
               var quiz = document.querySelector("beenov-quiz")

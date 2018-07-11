@@ -29,7 +29,7 @@ var PercentTextQuestionComponent = {};
         var input = this.querySelector("input");
         input.setAttribute("required" ,"true");
       }
-      this.oninput = ()=>{
+    input.oninput = ()=>{
           var validity = input.checkValidity() ? true : false ;
             this.factory.setAttribute("validity", validity);
             var quiz = document.querySelector("beenov-quiz")
