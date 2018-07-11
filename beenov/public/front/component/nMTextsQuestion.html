@@ -54,15 +54,29 @@
          var td = document.createElement("td");
          var input = document.createElement("input");
 
-         input.type = "text";
+         input.type = "number";
+         input.min = 0;
          input.value = this.question.answer ? this.question.answer[j] : "";
 
          td.append(input);
          elt.append(td);
+
+         if (this.question.mandatory === true)
+         {
+           input.oninput = ()=>this.factory.validate = true;
+           input.setAttribute("required",true);
+           input.setAttribute("class","controle");
+         }
+
        }
 
        k = j;
      }
+
+
+
+
+
    };
 
    nMTextsQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){

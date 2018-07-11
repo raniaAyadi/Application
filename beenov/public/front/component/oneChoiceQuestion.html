@@ -39,13 +39,14 @@
         elt.appendChild(br);
 
         if (this.question.mandatory){
-            radio.oninput = ()=>this.factory.validate = true;
+          // var radio = document.querySelector("input");
+            // radio.oninput = ()=>this.factory.validate = true;
             radio.setAttribute("required","true");
-                if (radio.validity.valid === false)
+                if (radio.validity.valid === false){
                       radio.setAttribute("class","redinput")
+                    }
                 else
-                      radio.setAttribute("class","greeninput");
-
+                   radio.setAttribute("class","greeninput");
         }
       }
     };

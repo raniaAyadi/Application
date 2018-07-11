@@ -43,8 +43,15 @@
         label.appendChild(input);
 
         div.appendChild(label);
-
         elt.append(div);
+
+        if (this.question.mandatory === true)
+        {
+          input.oninput = ()=>this.factory.validate = true;
+          input.setAttribute("required",true);
+          input.setAttribute("class","controle");
+        }
+
       }
     };
 

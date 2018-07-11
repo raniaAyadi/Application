@@ -56,12 +56,12 @@
 
 .redinput
 {
-    box-shadow: 0 0 0 1px red;
+    box-shadow: 0 0 0 2px #a00;
 }
 
 .greeninput
 {
-    box-shadow: 0 0 0 1px green;
+    box-shadow: 0 0 0 2px #0a0;
 }
 
 h1

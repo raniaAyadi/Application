@@ -1,6 +1,6 @@
 <template id="template">
   <input type="text" style="margin-left:25px"/>  <!-- input.value = question.answer -->
-  <p id="label" style="margin-left:25px" hidden="true">
+   <p id="label" style="margin-left:25px" hidden="true">
 
   </p>
 
@@ -22,19 +22,33 @@ var FreeTextQuestionComponent = {};
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
 
-      console.log(this.question.title);
-      if (this.question.title === "Localité / Ville" || this.question.title === "Dénomination sociale / Nom de l'entreprise") {
-        this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
-        console.log(this.querySelector("#label"));
+      if (this.question.title === "Localité / Ville" || this.question.title === "Dénomination sociale / Nom de l'entreprise")
+      {
+          this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
           this.querySelector("#label").removeAttribute("hidden","true");
           this.querySelector("input").setAttribute("style","display:none");
-
       }
-      else {
 
-        this.querySelector("input").value = this.question.answer ? this.question.answer : "";
-      }
-      
+      else
+        {
+            this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+              if (this.question.title === "Adresse du site Internet de l'entreprise")
+                {
+                      var input = this.querySelector("input");
+                      input.setAttribute("type","url");
+                      input.placeholder = "https://example.com";
+                      input.pattern ="https://.*" ;
+                      input.setAttribute("size","20");
+                      input.setAttribute("class", "controle");
+                }
+
+              if (this.question.mandatory){
+                input.setAttribute("required",true);
+                
+              }
+        }
+        var input = this.querySelector("input");
+          input.oninput = ()=> this.validate = input.validity.valid;
     }
   };
 

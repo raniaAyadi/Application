@@ -22,27 +22,34 @@ var NumericTextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
 
+
     if (this.question.title === "Année de naissance du dirigeant") {
         var input = this.querySelector("input");
-        input.setAttribute("class", "controle");
         input.min = 1900;
         input.max = 2018;
         input.placeholder="Entre 1900 et 2018";
-        // input.setAttribute("required","false")
-
+        input.setAttribute("class", "controle");
       }
+
       else {
-        var input = this.querySelector("input");
-        input.setAttribute("required",true);
-        input.setAttribute("class","controle");
-        input.min = 0 ;
-        input.placeholder = "supérieur à 0 "
+        if (this.question.title === "Nombre de salariés") {
+          var input = this.querySelector("input");
+          input.min = 0 ;
+          input.placeholder = "supérieur à 0 ";
+          input.setAttribute("class", "controle");
+        }
       }
 
+      if (this.question.mandatory){
+          var input = this.querySelector("input");
+          input.setAttribute("required",true);
+          input.setAttribute("class", "controle");
+      }
+      var input = this.querySelector("input");
       input.oninput = ()=> this.validate = input.validity.valid;
     }
   };
-  
+
   NumericTextQuestionComponent = document.registerElement("beenov-numeric-text-question",{
     prototype : numericTextQuestionPrototype
   });
