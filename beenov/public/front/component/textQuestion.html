@@ -26,6 +26,13 @@ var TextQuestionComponent = {};
     this.question = {};
   };
 
+  textQuestionPrototype.updateAnswer = function(){
+    var input = this.made.querySelector("input");
+
+    if(input)
+      this.question.answer = input.value;
+  };
+
   function createTextComponent(type, id){
     var newC = null;
 
@@ -78,6 +85,9 @@ var TextQuestionComponent = {};
       var type = this.question.typeOptions.textType;
 
       var newC = createTextComponent(type, newV);
+      newC.factory = this;
+      this.made = newC;
+
       this.querySelector("#question").append(newC);
     }
   };

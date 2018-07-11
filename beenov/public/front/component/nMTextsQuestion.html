@@ -18,6 +18,14 @@
      this.question = {};
    };
 
+   nMTextsQuestionPrototype.updateAnswer = function(){
+     var inputs = this.querySelectorAll("input");
+     this.question.answer = new Array();
+
+     for(var i in inputs)
+      this.question.answer.push(inputs[i].value);
+   };
+
    nMTextsQuestionPrototype.setTable = function(){
      var elt = this.querySelector("#table");
      var columns = this.question.typeOptions.columnLabels;

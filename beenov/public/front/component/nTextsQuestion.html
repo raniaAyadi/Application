@@ -17,6 +17,13 @@
       this.question = {};
     };
 
+    nTextsQuestionPrototype.updateAnswer = function(){
+      var inputs = this.querySelectorAll("input");
+      this.question.answer = new Array();
+
+      inputs.forEach(elt => this.question.answer.push(elt.value));
+    };
+
     nTextsQuestionPrototype.setTexts = function(){
       var labels = this.question.typeOptions.textLabels;
       var elt = this.querySelector("#question");

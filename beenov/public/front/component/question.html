@@ -67,13 +67,20 @@
       label.innerText = this.question ? this.question.title : "";
     };
 
+    questionPrototype.updateAnswer = function(){
+      this.made.updateAnswer();
+    };
 
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
+        this.validate = !this.question.mandatory;
+
         this.setLabel();
 
         var newC = createQuestionComponent(this.question.type, newV);
+        newC.factory = this;
+        this.made = newC;
 
         this.querySelector("#question").append(newC);
 
