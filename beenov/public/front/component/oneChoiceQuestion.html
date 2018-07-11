@@ -32,7 +32,7 @@
         radio.checked = (i+1) === this.question.answer;
         radio.name = "choice" +this.question.id;
 
-        span.innerText = tab[i];
+        span.innerHTML = "&nbsp"+tab[i];
 
         elt.appendChild(radio);
         elt.appendChild(span);
@@ -46,8 +46,8 @@
                 else
                       radio.setAttribute("class","greeninput");
 
-                  }
-
+        }
+      }
     };
 
     oneChoiceQuestionPrototype.updateAnswer = function(){
