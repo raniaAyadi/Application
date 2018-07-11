@@ -52,8 +52,7 @@
     };
 
     quizPrototype.attachedCallback = function(){
-      var json = JSON.parse(localStorage.getItem("company"));;
-      QuizComponent.company = Company.getCompanyByJSON(json);
+      QuizComponent.company = Company.getCurrentCompany();
 
       this.sections = QuizComponent.company.quiz.sections;
       this.setActions();

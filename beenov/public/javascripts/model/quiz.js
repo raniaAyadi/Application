@@ -104,6 +104,9 @@ Quiz.getQuizByJSON = function(json){
   for(var i in json.sections)
     json.sections[i] = Section.getSectionByJSON(json.sections[i]);
 
+  for(var i in json.rules)
+      json.rules[i] = RuleFactory.getRuleByJSON(json.rules[i]);
+
   return json;
 };
 
@@ -129,4 +132,12 @@ Quiz.prototype.getQuestionByTitle = function(title){
   }
 
   return null;
+};
+
+Quiz.prototype.getReplyJSON = function(){
+  var tab = new Array();
+
+  this.sections.forEach(s => tab = tab.concat(s.getReplyJSON()));
+
+  return tab;
 };

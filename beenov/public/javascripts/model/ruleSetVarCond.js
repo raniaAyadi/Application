@@ -1,6 +1,7 @@
 function RuleSetVarCond(tab){
   this.action = tab[2];
   this.cond = tab[1];
+  this.type = CONST.rule.RuleSetVarCond;
 }
 
 RuleSetVarCond.prototype.evaluateCond = function(answer){

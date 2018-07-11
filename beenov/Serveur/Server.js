@@ -62,6 +62,11 @@ app.post('/addReport', function(req, res){
 	questionnaire.addReport(req, res, base_url, data);
 });
 
+app.post('/addCompany', function(req, res){
+	let data = req.body;
+	meeting.addCompany(req, res, base_url, data);
+});
+
 	app.post('/updateReport/*', function(req, res){
 		let data = req.body;
 		questionnaire.updateReport(req, res, base_url, data);
@@ -283,11 +288,14 @@ app.post('/questionnaire-replies', function(req, res){
 });
 
 app.post('/updateReply/*', function(req, res){
-	console.log("okkkkkkkkkkkkk")
 	let data = req.body;
 	meeting.updateMeetingReply(req, res, base_url, data);
 });
 
+app.post("/updateCompany/*", function(req, res){
+	let data = req.body;
+	meeting.updateCompany(req, res, base_url, data);
+});
 
 app.get('/info-entreprise', function(req, res)
 	{

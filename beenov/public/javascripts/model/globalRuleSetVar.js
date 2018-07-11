@@ -1,6 +1,7 @@
 function GlobalRuleSetVar(tab){
   this.varDest = tab[1];
   this.action = tab[2];
+  this.type = CONST.rule.globalRuelSetVar;
 }
 
 GlobalRuleSetVar.prototype.appRule = function(){

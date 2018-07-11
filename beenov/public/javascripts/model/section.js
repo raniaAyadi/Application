@@ -48,4 +48,13 @@ Section.getSectionByJSON = function(json){
     json.questions[i] = Question.getQuestionByJSON(json.questions[i]);
 
   return json;
-}
+};
+
+Section.prototype.getReplyJSON = function(){
+  var tab = new Array();
+
+  for(var q in this.questions)
+    tab.push(this.questions[q].getReplyJSON());
+
+  return tab;
+};

@@ -24,6 +24,18 @@ Question.prototype.setRules = function(tab){
   }
 };
 
+Question.prototype.getReplyJSON = function(){
+  var json = {};
+  var me = this;
+
+  json.answer = this.answer;
+  json.question = {
+    resource : "questions/" + me.id
+  };
+
+  return json;
+}
+
 Question.prototype.getAnswerData = function(){
   var answerData = {
     answer : null,
@@ -84,5 +96,8 @@ Question.prototype.appRules = function(){
 
 Question.getQuestionByJSON = function(json){
   json.__proto__ = Question.prototype;
+  for(var i in json.rules)
+    json.rules[i] = RuleFactory.getRuleByJSON(json.rules[i]);
+
   return json;
 };

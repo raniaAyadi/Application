@@ -1,6 +1,7 @@
 function GlobalRuleSetVarCond(tab){
   this.action = tab[2];
   this.cond = tab[1];
+  this.type = CONST.rule.globalRuelSetVarCond;
 }
 
 GlobalRuleSetVarCond.prototype.evaluateCond = function(){

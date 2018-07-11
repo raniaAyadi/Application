@@ -19,6 +19,72 @@ Company.getBySiret = function(siret){
   });
 };
 
+Company.prototype.saveReply = function(isNew){
+  var url = isNew ? CONST.url.addReply : CONST.url.updateReply + this.infoQuestionnaireReply.id;
+
+  var data = this.getReplyJSON();
+  var deferred = new $.Deferred();
+
+  $.ajax({
+    type : "POST",
+    url : url,
+    contentType : "application/json",
+    data : JSON.stringify(data)
+  }).done((data)=>{
+    if(data.status === "ok"){
+      this.infoQuestionnaireReply = isNew ? {id : data.id} : this.infoQuestionnaireReply;
+      deferred.resolve();
+    }
+    else
+      deferred.reject();
+  });
+
+  return deferred;
+};
+
+Company.prototype.addCompany = function(){
+  var deferred = new $.Deferred();
+  var me = this;
+
+  $.post(CONST.url.addCompany, {
+    siret : me.siret
+  }).done((data)=>{
+    data = JSON.parse(data);
+    if(data.status === "ok"){
+      this.id = data.id;
+      deferred.resolve();
+    }
+    else
+      deferred.reject();
+  });
+
+  return deferred;
+};
+
+Company.prototype.updateCompany = function(){
+  var json = this.getCompanyJSON();
+  var id = this.id;
+
+  return $.ajax({
+    type : "POST",
+    url : CONST.url.updateCompany + id,
+    data : JSON.stringify(json),
+    contentType : "application/json"
+  });
+};
+
+Company.prototype.save = function(){
+  if(this.id)
+    return this.saveReply();
+  else{
+    var deferred = new $.Deferred();
+
+    this.addCompany().done(()=>this.saveReply(true).done(()=>this.updateCompany().done(()=>deferred.resolve())));
+
+    return deferred;
+  }
+};
+
 Company.prototype.setReply = function(id){
   var deferred = new $.Deferred();
 
@@ -96,6 +162,8 @@ Company.setCompany = function(siret){
 
     else{
       obj = new Company();
+      obj.siret = siret;
+
       $.when(obj.setQuiz(), obj.setAnswersByAPI(siret)).done(()=> {
         localStorage.setItem("company", JSON.stringify(obj));
         deferred.resolve();
@@ -104,6 +172,11 @@ Company.setCompany = function(siret){
   });
 
   return deferred;
+};
+
+Company.getCurrentCompany = function(){
+  var json = JSON.parse(localStorage.getItem("company"));
+  return Company.getCompanyByJSON(json);
 };
 
 Company.prototype.setAnswersByAPI = function(siret){
@@ -124,4 +197,44 @@ Company.prototype.setAnswersByAPI = function(siret){
   }).fail(()=>deferred.reject());
 
   return deferred;
+};
+
+Company.prototype.getCompanyJSON = function(){
+  var json = {};
+  var me = this;
+
+  json["info-questionnaire-reply"] = {
+    resource : "questionnaire-replies/" + me.infoQuestionnaireReply.id
+  };
+  json.siret = this.siret;
+
+  return json;
+};
+
+Company.prototype.getReplyJSON = function(){
+  var json = {};
+  var me = this;
+
+  json.company = {
+    resource : "companies/" + me.id
+  };
+  json.owner = {
+    resource : "users/" + window.getCookie(CONST.cookie.currentUser)
+  };
+  json.questionnaire = {
+    resource : "questionnaires/" + me.quiz.id
+  };
+
+  json.contactEmail = null;
+  json.contactFirstName = null;
+  json.contactLastName = null;
+  json.validatedP = false;
+  json.sectionActions = [];
+  json.comments = [];
+
+  json.date = Operation.getDate(new Date());
+  json.globalVariableValues = this.quiz.globalVariableValues;
+  json.questionAnswers = this.quiz.getReplyJSON();
+
+  return json;
 };

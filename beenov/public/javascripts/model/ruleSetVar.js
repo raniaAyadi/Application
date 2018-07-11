@@ -2,6 +2,7 @@ function RuleSetVar(tab){
   this.varDest = tab[1];
   this.action = tab[0];
   this.varSource = tab[2];
+  this.type = CONST.rule.ruleSetVar;
 }
 
 RuleSetVar.prototype.appRule = function(answer){
