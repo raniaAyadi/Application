@@ -22,6 +22,9 @@ var NumericTextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
 
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+            this.factory.setAttribute("validity", validity);
+
 
     if (this.question.title === "Année de naissance du dirigeant") {
         var input = this.querySelector("input");
@@ -29,6 +32,13 @@ var NumericTextQuestionComponent = {};
         input.max = 2018;
         input.placeholder="Entre 1900 et 2018";
         input.setAttribute("class", "controle");
+
+        this.oninput = ()=>{
+          var validity = input.checkValidity() ? true : false ;
+            this.factory.setAttribute("validity", validity);
+            var quiz = document.querySelector("beenov-quiz")
+            quiz.check();
+        }
       }
 
       else {
@@ -37,6 +47,12 @@ var NumericTextQuestionComponent = {};
           input.min = 0 ;
           input.placeholder = "supérieur à 0 ";
           input.setAttribute("class", "controle");
+          this.oninput = ()=>{
+            var validity = input.checkValidity() ? true : false ;
+              this.factory.setAttribute("validity", validity);
+              var quiz = document.querySelector("beenov-quiz")
+              quiz.check();
+          }
         }
       }
 
@@ -45,8 +61,6 @@ var NumericTextQuestionComponent = {};
           input.setAttribute("required",true);
           input.setAttribute("class", "controle");
       }
-      var input = this.querySelector("input");
-      input.oninput = ()=> this.validate = input.validity.valid;
     }
   };
 

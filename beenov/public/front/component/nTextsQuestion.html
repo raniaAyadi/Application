@@ -28,6 +28,9 @@
       var labels = this.question.typeOptions.textLabels;
       var elt = this.querySelector("#question");
 
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      this.factory.setAttribute("validity", validity);
+
       for(var i in labels){
         var div = document.createElement("div");
         var label = document.createElement("label");
@@ -45,12 +48,19 @@
         div.appendChild(label);
         elt.append(div);
 
-        if (this.question.mandatory === true)
-        {
-          input.oninput = ()=>this.factory.validate = true;
+
+        if (this.question.mandatory){
           input.setAttribute("required",true);
           input.setAttribute("class","controle");
         }
+
+          this.oninput = ()=>{
+            var validity = input.checkValidity() ? true : false ;
+             this.factory.setAttribute("validity", validity);
+             var quiz = document.querySelector("beenov-quiz")
+             quiz.check();
+        }
+
 
       }
     };

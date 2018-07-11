@@ -31,6 +31,7 @@
       var me = this;
 
       save.value = (reply === -1) ? "Enregistrer" : "Mettre à jour";
+      save.setAttribute("class","btn disabled");
       save.onclick = ()=> this.updateAnswers();
     };
 
@@ -38,6 +39,20 @@
       var questions = this.querySelectorAll("beenov-question");
 
       questions.forEach(elt => elt.updateAnswer());
+    };
+
+    quizPrototype.check = function(){
+      var save = document.querySelector("#save-company-sheet");
+
+        var questions = this.querySelector("beenov-question[validity='false']");
+        console.log(questions);
+        if(!questions){
+        console.log("il entre");
+          save.removeAttribute("class");
+        }
+
+        else
+          save.setAttribute("class", "btn disabled");
     };
 
     quizPrototype.setSections = function(){
@@ -57,6 +72,7 @@
       this.sections = QuizComponent.company.quiz.sections;
       this.setActions();
       this.setSections();
+        this.check();
     }
 
     QuizComponent = document.registerElement('beenov-quiz',{

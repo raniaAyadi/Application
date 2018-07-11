@@ -6,7 +6,7 @@
          <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
          <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
          <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
-         <div id="editeur" contentEditable></div>
+         <div type="textarea" id="editeur" contentEditable></div>
    </div>
 </div>
   <div id="label" style="margin-left:25px" hidden="true"></div>
@@ -54,20 +54,23 @@
                 this.querySelector("#editeur").innerHTML = this.question.answer ? this.question.answer : "";
               }
 
-            if (this.question.mandatory === false){
-                var text = this.querySelector("#editeur");
-                text.onchange = ()=>this.factory.validate = true;
-                text.setAttribute("required","true");
-                console.log(this.querySelector("#editeur"));
-                    if ( this.querySelector("#editeur").innerHTML === "" || this.querySelector("#editeur").value === null)
-                          text.setAttribute("class","redinput");
-                    else
-                          text.setAttribute("class","greeninput")
-            }
+            var editeur =   this.querySelector("#editeur");
+            var validity = this.question.mandatory ? (! this.question.answer) : true;
+              this.factory.setAttribute("validity", validity);
 
-            var input = this.querySelector("input");
-            input.oninput = ()=> this.validate = input.validity.valid;
-      }
+      if (this.question.mandatory)
+        editeur.className = (this.factory.getAttribute("validity") === "true") ? "greeninput" : "redinput";
+
+        this.onchange = ()=>{
+          var inputs = this.querySelectorAll("#editeur");
+          inputs.forEach(elt => elt.className = "greeninput");
+          var validity =  true ;
+          this.factory.setAttribute("validity", validity);
+          var quiz = document.querySelector("beenov-quiz")
+          quiz.check();
+        }
+  }
+
     };
 
     TextareaQuestionComponent = document.registerElement("beenov-textarea-question", {

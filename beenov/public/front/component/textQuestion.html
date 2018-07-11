@@ -33,7 +33,7 @@ var TextQuestionComponent = {};
       this.question.answer = input.value;
   };
 
-  function createTextComponent(type, id){
+  textQuestionPrototype.createTextComponent = function(type, id){
     var newC = null;
 
     switch (type){
@@ -74,6 +74,7 @@ var TextQuestionComponent = {};
 
 
     if(newC){
+      newC.factory = this;
       newC.setAttribute("question", id);
       return newC;
     }
@@ -84,11 +85,15 @@ var TextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
       var type = this.question.typeOptions.textType;
 
-      var newC = createTextComponent(type, newV);
-      newC.factory = this;
+      var newC = this.createTextComponent(type, newV);
       this.made = newC;
 
       this.querySelector("#question").append(newC);
+    }
+
+    if(attr === "validity"){
+      var validity = this.getAttribute("validity");
+      this.factory.setAttribute("validity", validity);
     }
   };
 

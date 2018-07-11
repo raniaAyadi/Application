@@ -29,7 +29,7 @@
       QuestionComponent.quiz = QuizSectionComponent.quiz;
     };
 
-    var createQuestionComponent = function(type, idQuestion){
+    questionPrototype.createQuestionComponent = function(type, idQuestion){
       var questionComponent = null;
 
       switch(type){
@@ -55,6 +55,7 @@
       }
 
       if(questionComponent){
+        questionComponent.factory = this;
         questionComponent.setAttribute("question", idQuestion);
         return questionComponent;
 
@@ -74,12 +75,11 @@
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
-        this.validate = !this.question.mandatory;
+        this.validity = !this.question.mandatory;
 
         this.setLabel();
 
-        var newC = createQuestionComponent(this.question.type, newV);
-        newC.factory = this;
+        var newC = this.createQuestionComponent(this.question.type, newV);
         this.made = newC;
 
         this.querySelector("#question").append(newC);

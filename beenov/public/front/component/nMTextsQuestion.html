@@ -31,6 +31,9 @@
      var columns = this.question.typeOptions.columnLabels;
      var rows = this.question.typeOptions.rowLabels;
 
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      this.factory.setAttribute("validity", validity);
+
      var td1= document.createElement("td");
      elt.append(td1);
      for(var i in columns){
@@ -55,28 +58,30 @@
          var input = document.createElement("input");
 
          input.type = "number";
+         input.setAttribute("class","controle");
          input.min = 0;
+
          input.value = this.question.answer ? this.question.answer[j] : "";
 
          td.append(input);
          elt.append(td);
 
-         if (this.question.mandatory === true)
-         {
-           input.oninput = ()=>this.factory.validate = true;
+         if (this.question.mandatory){
            input.setAttribute("required",true);
-           input.setAttribute("class","controle");
          }
+
+           this.oninput = ()=>{
+             var validity = input.checkValidity() ? true : false ;
+             this.factory.setAttribute("validity", validity);
+             var quiz = document.querySelector("beenov-quiz")
+             quiz.check();
+           }
+
 
        }
 
        k = j;
      }
-
-
-
-
-
    };
 
    nMTextsQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){

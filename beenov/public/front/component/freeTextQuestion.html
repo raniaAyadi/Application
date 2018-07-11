@@ -31,24 +31,34 @@ var FreeTextQuestionComponent = {};
 
       else
         {
+
             this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+            
+            var validity = this.question.mandatory ? (! this.question.answer) : true;
+            this.factory.setAttribute("validity", validity);
+
+
+            if (this.question.mandatory){
+              input.setAttribute("required",true);
+            }
+
               if (this.question.title === "Adresse du site Internet de l'entreprise")
                 {
                       var input = this.querySelector("input");
                       input.setAttribute("type","url");
                       input.placeholder = "https://example.com";
-                      input.pattern ="https://.*" ;
+                      input.pattern ="https://*.*" ;
                       input.setAttribute("size","20");
                       input.setAttribute("class", "controle");
-                }
 
-              if (this.question.mandatory){
-                input.setAttribute("required",true);
-                
-              }
+                      input.oninput = ()=>{
+                        var validity = input.checkValidity() ? true : false ;
+                        this.factory.setAttribute("validity", validity);
+                        var quiz = document.querySelector("beenov-quiz")
+                        quiz.check();
+                      }
+                }
         }
-        var input = this.querySelector("input");
-          input.oninput = ()=> this.validate = input.validity.valid;
     }
   };
 

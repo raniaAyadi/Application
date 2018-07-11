@@ -22,6 +22,9 @@
       var l = tab.length;
       var elt = this.querySelector("#question");
 
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      this.factory.setAttribute("validity", validity);
+
       for(var i=0; i<l; i++){
         var radio = document.createElement('input');
         radio.setAttribute("type","radio")
@@ -39,16 +42,20 @@
         elt.appendChild(br);
 
         if (this.question.mandatory){
-          // var radio = document.querySelector("input");
-            // radio.oninput = ()=>this.factory.validate = true;
-            radio.setAttribute("required","true");
-                if (radio.validity.valid === false){
-                      radio.setAttribute("class","redinput")
-                    }
-                else
-                   radio.setAttribute("class","greeninput");
+          radio.className = (this.factory.getAttribute("validity") === "true") ? "greeninput" : "redinput";
         }
       }
+
+      this.onchange = ()=>{
+        var inputs = this.querySelectorAll("input");
+        inputs.forEach(elt => elt.className = "greeninput");
+        var validity =  true ;
+          this.factory.setAttribute("validity", validity);
+          var quiz = document.querySelector("beenov-quiz")
+          quiz.check();
+
+      }
+
     };
 
     oneChoiceQuestionPrototype.updateAnswer = function(){

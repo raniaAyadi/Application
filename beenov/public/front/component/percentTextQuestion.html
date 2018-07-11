@@ -1,7 +1,7 @@
 <template id="template">
-  <input type="number" class="controle" min="0" max="100" style="text-align: right; margin-left:25px" required placeholder="Entre 0 et 100"/> <span>%</span>
+  <input type="number" class="controle" min="0" max="100" style="text-align: right; margin-left:25px" placeholder="Entre 0 et 100"/> <span>%</span>
    <!-- input.value = question.answer -->
- 
+
   <br/>
 </template>
 
@@ -21,6 +21,21 @@ var PercentTextQuestionComponent = {};
     if(attr === "question"){
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
+
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      this.factory.setAttribute("validity", validity);
+
+      if (this.question.mandatory){
+        var input = this.querySelector("input");
+        input.setAttribute("required" ,"true");
+      }
+      this.oninput = ()=>{
+          var validity = input.checkValidity() ? true : false ;
+            this.factory.setAttribute("validity", validity);
+            var quiz = document.querySelector("beenov-quiz")
+              quiz.check();
+      }
+
     }
   };
 
