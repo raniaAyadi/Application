@@ -62,6 +62,10 @@ app.post('/addReport', function(req, res){
 	questionnaire.addReport(req, res, base_url, data);
 });
 
+app.get('/verifyByAPI/*', function(req, res){
+	meeting.verifyByAPI(req, res);
+});
+
 app.post('/addCompany', function(req, res){
 	let data = req.body;
 	meeting.addCompany(req, res, base_url, data);
