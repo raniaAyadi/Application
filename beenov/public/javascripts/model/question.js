@@ -6,7 +6,7 @@ function Question(obj){
     this.type = obj.type;
     this.answer = obj.answer;
     this.typeOptions = obj.typeOptions;
-    this.mandatory = obj.mandatory;
+    this.mandatory = (obj.title === "Forme juridique") ? true : obj.mandatory;
     this.setRules(obj.rules);
   }
 }
@@ -99,5 +99,6 @@ Question.getQuestionByJSON = function(json){
   for(var i in json.rules)
     json.rules[i] = RuleFactory.getRuleByJSON(json.rules[i]);
 
+  json.mandatory = (json.title === "Forme juridique") ? true : json.mandatory;
   return json;
 };
