@@ -1,9 +1,10 @@
 <template id="template">
-  <table id="table" style="margin-left:25px">
+  <table id="table" style="margin-left:55px">
     <tr></tr>
     <th></th>
     <!-- question.typeOptions -->
   </table>
+  <br/>
 </template>
 
 <script>
@@ -31,7 +32,7 @@
      var columns = this.question.typeOptions.columnLabels;
      var rows = this.question.typeOptions.rowLabels;
 
-  
+
       var validity = this.question.mandatory ? (! this.question.answer) : true;
       this.factory.setAttribute("validity", validity);
 

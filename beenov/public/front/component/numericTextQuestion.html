@@ -1,7 +1,8 @@
 <template id="template">
-  <input id="ans" type="number"  style="margin-left:25px" />
+  <input id="ans" type="number"  style="margin-left:35px" />
    <!-- input.value = question.answer -->
    <!-- <input id="ans" hidden="true" class="controle" type="number"  min="1900" max="2018" required placeholder="Entre 1900 et 2018"> -->
+  <br/>
   <br/>
 </template>
 
@@ -28,9 +29,8 @@ var NumericTextQuestionComponent = {};
       var validity = this.question.mandatory ? (! this.question.answer) : true;
       this.factory.setAttribute("validity", validity);
         var input = this.querySelector("input");
-        input.min = 1900;
-        input.max = 2018;
-        input.placeholder="Entre 1900 et 2018";
+        input.min = 1930;
+        input.max = (new Date()).getFullYear();
         input.setAttribute("class", "controle");
 
         input.oninput = ()=>{
@@ -46,7 +46,7 @@ var NumericTextQuestionComponent = {};
         if (this.question.title === "Nombre de salariés") {
           var input = this.querySelector("input");
           input.min = 0 ;
-          input.placeholder = "supérieur à 0 ";
+
           input.setAttribute("class", "controle");
           input.oninput = ()=>{
             var validity = input.checkValidity() ? true : false ;

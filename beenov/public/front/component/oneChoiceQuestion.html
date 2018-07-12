@@ -1,7 +1,9 @@
 <template id="template">
-  <div id="question" style="margin-left:25px">
+  <br/>
+  <div id="question" style="margin-left:35px">
     <!-- question.typeOptions.options -->
   </div>
+  <br/>
 </template>
 
 <script>
@@ -22,8 +24,12 @@
       var l = tab.length;
       var elt = this.querySelector("#question");
 
-      var validity = this.question.mandatory ? (!(this.question.answer === undefined)) : true;
-      this.factory.setAttribute("validity", validity);
+      if (this.question.title== "Forme juridique" || this.question.mandatory){
+        var validity = (this.question.answer === undefined) ? false : true;
+        this.factory.setAttribute("validity",validity);
+      }
+      // var validity = this.question.mandatory ? (!(this.question.answer === undefined)) : true;
+      // this.factory.setAttribute("validity", validity);
 
       console.log(this.factory.getAttribute("validity"));
 
@@ -43,15 +49,16 @@
         elt.appendChild(span);
         elt.appendChild(br);
 
-        if (this.question.mandatory){
+        if ((this.question.mandatory) || (this.question.title = "Forme juridique")){
           radio.className = (this.factory.getAttribute("validity") === "true") ? "greeninput" : "redinput";
         }
+
       }
 
       this.onchange = ()=>{
         var inputs = this.querySelectorAll("input");
         inputs.forEach(elt => elt.className = "greeninput");
-        var validity =  true ;
+          var validity =  true ;
           this.factory.setAttribute("validity", validity);
           var quiz = document.querySelector("beenov-quiz")
           quiz.check();
@@ -62,7 +69,6 @@
 
     oneChoiceQuestionPrototype.updateAnswer = function(){
       var inputs = this.querySelectorAll("input");
-
       for(var i in inputs)
         if(inputs[i].checked){
           this.question.answer = i+1;
