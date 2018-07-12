@@ -28,7 +28,12 @@
       var labels = this.question.typeOptions.textLabels;
       var elt = this.querySelector("#question");
 
-      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      // if (this.question.title === "Dirigeant") {
+      //    this.factory.setAttribute("validity",true);
+      //    console.log("aaaaaaaa");
+      // }
+
+      var validity = this.question.mandatory ? ( ! this.question.answer) : true;
       this.factory.setAttribute("validity", validity);
 
       for(var i in labels){
@@ -54,7 +59,7 @@
           input.setAttribute("class","controle");
         }
 
-          input.oninput = ()=>{
+          this.oninput = ()=>{
             var validity = input.checkValidity() ? true : false ;
              this.factory.setAttribute("validity", validity);
              var quiz = document.querySelector("beenov-quiz")

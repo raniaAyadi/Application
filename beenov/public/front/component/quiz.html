@@ -67,12 +67,13 @@
     };
 
     quizPrototype.attachedCallback = function(){
-      QuizComponent.company = Company.getCurrentCompany();
+      var json = JSON.parse(localStorage.getItem("company"));;
+      QuizComponent.company = Company.getCompanyByJSON(json);
 
       this.sections = QuizComponent.company.quiz.sections;
       this.setActions();
       this.setSections();
-        this.check();
+      this.check();
     }
 
     QuizComponent = document.registerElement('beenov-quiz',{

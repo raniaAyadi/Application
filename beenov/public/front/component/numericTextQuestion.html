@@ -22,11 +22,11 @@ var NumericTextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
 
-      var validity = this.question.mandatory ? (! this.question.answer) : true;
-            this.factory.setAttribute("validity", validity);
 
 
     if (this.question.title === "Année de naissance du dirigeant") {
+      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      this.factory.setAttribute("validity", validity);
         var input = this.querySelector("input");
         input.min = 1900;
         input.max = 2018;
@@ -36,6 +36,7 @@ var NumericTextQuestionComponent = {};
         input.oninput = ()=>{
           var validity = input.checkValidity() ? true : false ;
             this.factory.setAttribute("validity", validity);
+            console.log(validity);
             var quiz = document.querySelector("beenov-quiz")
             quiz.check();
         }

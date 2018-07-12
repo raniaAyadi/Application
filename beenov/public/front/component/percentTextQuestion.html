@@ -22,15 +22,16 @@ var PercentTextQuestionComponent = {};
       this.question = QuestionComponent.quiz.getQuestion(newV);
       this.querySelector("input").value = this.question.answer ? this.question.answer : "";
 
-      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      var validity = this.question.mandatory ? (! (this.question.answer === undefined)) : true;
       this.factory.setAttribute("validity", validity);
 
       if (this.question.mandatory){
         var input = this.querySelector("input");
         input.setAttribute("required" ,"true");
       }
-    input.oninput = ()=>{
+      this.oninput = ()=>{
           var validity = input.checkValidity() ? true : false ;
+          console.log(validity);
             this.factory.setAttribute("validity", validity);
             var quiz = document.querySelector("beenov-quiz")
               quiz.check();

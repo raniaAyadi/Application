@@ -27,10 +27,10 @@ var TextQuestionComponent = {};
   };
 
   textQuestionPrototype.updateAnswer = function(){
-    var input = this.made.querySelector("input");
+      var input = this.made.querySelector("input");
 
-    if(input)
-      this.question.answer = input.value;
+      if(input)
+        this.question.answer = input.value;
   };
 
   textQuestionPrototype.createTextComponent = function(type, id){

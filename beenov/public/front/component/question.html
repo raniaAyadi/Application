@@ -75,17 +75,22 @@
     questionPrototype.attributeChangedCallback = function(att, oldV, newV){
       if(att === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
-        this.validity = !this.question.mandatory;
-
+        var validity = ! this.question.mandatory ? (! this.question.answer) : true;
+        this.setAttribute("validity", validity);
         this.setLabel();
 
         var newC = this.createQuestionComponent(this.question.type, newV);
         this.made = newC;
 
         this.querySelector("#question").append(newC);
+        console.log(this.querySelector("#question"));
 
         if (this.question.title === "Dirigeant" || this.question.title === "Fax" ||this.question.title=== "Téléphone" || this.question.title === "Adresse électronique de l'entreprise ou du dirigeant"){
-          this.querySelector("#question").setAttribute("hidden" , "true");
+          console.log(this);
+          // this.querySelector("#question").setAttribute("hidden" , "true");
+          this.setAttribute("validity",true);
+          var input = this.querySelector("#question");
+          input.parentNode.removeChild(input);
         }
       }
 

@@ -31,6 +31,7 @@
      var columns = this.question.typeOptions.columnLabels;
      var rows = this.question.typeOptions.rowLabels;
 
+  
       var validity = this.question.mandatory ? (! this.question.answer) : true;
       this.factory.setAttribute("validity", validity);
 
@@ -70,7 +71,7 @@
            input.setAttribute("required",true);
          }
 
-           input.oninput = ()=>{
+           this.oninput = ()=>{
              var validity = input.checkValidity() ? true : false ;
              this.factory.setAttribute("validity", validity);
              var quiz = document.querySelector("beenov-quiz")
@@ -82,6 +83,7 @@
 
        k = j;
      }
+
    };
 
    nMTextsQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){

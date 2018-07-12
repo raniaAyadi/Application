@@ -32,15 +32,18 @@
     }
 
     textareaQuestionPrototype.updateAnswer = function(){
-      var input = this.querySelector("#editeur");
-      this.question.answer = input.value;
+      // var input = this.querySelector("#editeur");
+      // this.question.answer = input.value;
     }
 
     textareaQuestionPrototype.attributeChangedCallback = function(attr, oldV, newV){
       if(attr === "question"){
         this.question = QuestionComponent.quiz.getQuestion(newV);
 
+        var validity = this.question.mandatory ? (! this.question.answer) : true;
+        this.factory.setAttribute("validity", validity);
           if (this.question.title === "Adresse"){
+              this.factory.setAttribute("validity",true);
                 this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
                 // var x = document.createElement("div");
                 // var y = this.querySelector("#label").value;
@@ -49,14 +52,14 @@
                 // this.querySelector("#label").value = res;
                 this.querySelector("#text").setAttribute("style","display:none");
                 this.querySelector("#label").removeAttribute("hidden","true");
+
               }
               else {
                 this.querySelector("#editeur").innerHTML = this.question.answer ? this.question.answer : "";
+                console.log(this.querySelector("#editeur").innerHTML);
               }
 
             var editeur =   this.querySelector("#editeur");
-            var validity = this.question.mandatory ? (! this.question.answer) : true;
-              this.factory.setAttribute("validity", validity);
 
       if (this.question.mandatory)
         editeur.className = (this.factory.getAttribute("validity") === "true") ? "greeninput" : "redinput";
@@ -69,6 +72,8 @@
           var quiz = document.querySelector("beenov-quiz")
           quiz.check();
         }
+
+
   }
 
     };

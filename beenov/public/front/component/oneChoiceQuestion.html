@@ -22,8 +22,9 @@
       var l = tab.length;
       var elt = this.querySelector("#question");
 
-      var validity = this.question.mandatory ? (! this.question.answer) : true;
+      var validity = this.question.mandatory ? (!(this.question.answer === undefined)) : true;
       this.factory.setAttribute("validity", validity);
+      console.log(this.factory.getAttribute("validity"));
 
       for(var i=0; i<l; i++){
         var radio = document.createElement('input');

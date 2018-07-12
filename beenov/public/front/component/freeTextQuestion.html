@@ -24,22 +24,25 @@ var FreeTextQuestionComponent = {};
 
       if (this.question.title === "Localité / Ville" || this.question.title === "Dénomination sociale / Nom de l'entreprise")
       {
+          this.factory.setAttribute("validity", true);
           this.querySelector("#label").innerHTML = this.question.answer ? this.question.answer : "";
           this.querySelector("#label").removeAttribute("hidden","true");
-          this.querySelector("input").setAttribute("style","display:none");
+          var input = this.querySelector("input");
+
+          input.parentNode.removeChild(input);
       }
 
       else
         {
 
             this.querySelector("input").value = this.question.answer ? this.question.answer : "";
-            
             var validity = this.question.mandatory ? (! this.question.answer) : true;
             this.factory.setAttribute("validity", validity);
 
-
             if (this.question.mandatory){
               input.setAttribute("required",true);
+              var validity = this.question.mandatory ? (! this.question.answer) : true;
+              this.factory.setAttribute("validity", validity);
             }
 
               if (this.question.title === "Adresse du site Internet de l'entreprise")
