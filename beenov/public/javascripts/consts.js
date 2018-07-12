@@ -31,6 +31,18 @@ var CONST = {
       getAverage : 'getAverage',
       getCompany : "getCompany",
       getQuestReply : "getQuestReply",
+      updateReply : "updateReply/",
+      addCompany : "addCompany",
+      addReply : "questionnaire-replies",
+      updateCompany : "updateCompany/",
+      verifyByAPI : "verifyByAPI/"
+    },
+
+    rule :{
+      globalRuelSetVar : "GlobalRuleSetVar",
+      globalRuelSetVarCond : "GlobalRuleSetVarCond",
+      ruleSetVar : "RuleSetVar",
+      ruleSetVarCond : "RuleSetVarCond"
     },
 
     APIEntreprise :{
@@ -44,7 +56,8 @@ var CONST = {
     },
 
     cookie : {
-      currentMeeting : 'infomet'
+      currentMeeting : 'infomet',
+      currentUser : "uid"
     },
 
     component :{

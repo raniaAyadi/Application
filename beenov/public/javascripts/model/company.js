@@ -2,7 +2,7 @@ function Company(obj){
   this.id = obj ? obj.id : null;
   this.siret = obj ? obj.siret : null;
   this.name = obj ? obj.name : null;
-  this.infoQuestionnaireReply = obj ? Operation.getId(obj.infoQuestionnaireReply.resource) : -1;
+  this.infoQuestionnaireReply = (obj && obj.infoQuestionnaireReply.resource) ? Operation.getId(obj.infoQuestionnaireReply.resource) : -1;
   this.logoImageUrl = obj ? obj.logoImageUrl : null;
   this.nafCode = obj ? obj.nafCode : null;
   this.industry = obj ? obj.industry : null;
@@ -20,7 +20,7 @@ Company.getBySiret = function(siret){
 };
 
 Company.prototype.saveReply = function(isNew){
-  var url = isNew ? CONST.url.addReply : CONST.url.updateReply + this.infoQuestionnaireReply.id;
+  var url = isNew ? CONST.url.addReply : CONST.url.updateReply + this.infoQuestionnaireReply;
 
   var data = this.getReplyJSON();
   var deferred = new $.Deferred();
@@ -32,7 +32,7 @@ Company.prototype.saveReply = function(isNew){
     data : JSON.stringify(data)
   }).done((data)=>{
     if(data.status === "ok"){
-      this.infoQuestionnaireReply = isNew ? {id : data.id} : this.infoQuestionnaireReply;
+      this.infoQuestionnaireReply = data.id;
       deferred.resolve();
     }
     else
@@ -88,7 +88,7 @@ Company.prototype.save = function(){
 Company.prototype.setReply = function(id){
   var deferred = new $.Deferred();
 
-  if(isNaN(this.infoQuestionnaireReply) || this.infoQuestionnaireReply < 0)
+  if(this.infoQuestionnaireReply < 0)
     deferred.resolve();
   else{
     var idReply = id ? id : this.infoQuestionnaireReply;
@@ -96,11 +96,13 @@ Company.prototype.setReply = function(id){
 
     $.get(url).done((data)=>{
       if(data.status === "ok"){
-        this.infoQuestionnaireReply = data.resources[0];
-        deferred.resolve();
+        var tab = data.resources[0].questionAnswers;
+        deferred.resolve(tab);
       }
     });
   }
+
+  return deferred;
 };
 
 Company.getCompanyByJSON = function(json){
@@ -124,9 +126,8 @@ Company.prototype.setQuiz = function(){
 Company.prototype.setQuizReply = function(idReply){
   var deferred = new $.Deferred();
 
-  $.when(this.setQuiz(), this.setReply(idReply)).done(()=>{
-    var tab = this.infoQuestionnaireReply.questionAnswers;
-    this.quiz.upadteAnswers(tab);
+  $.when(this.setQuiz(), this.setReply(idReply)).done((data1, data2)=>{
+    this.quiz.upadteAnswers(data2);
 
     deferred.resolve();
   });
@@ -135,15 +136,8 @@ Company.prototype.setQuizReply = function(idReply){
 };
 
 Company.verifyByAPI = function(siret){
-  var url = CONST.APIEntreprise.url + siret;
-  var data = {
-    token : CONST.APIEntreprise.token,
-    context : CONST.APIEntreprise.context,
-    object : CONST.APIEntreprise.object,
-    recipient : CONST.APIEntreprise.recipient
-  };
-
-  return $.get(url , data);
+  var url = CONST.url.verifyByAPI + siret;
+  return $.get(url);
 };
 
 Company.setCompany = function(siret){
@@ -183,6 +177,7 @@ Company.prototype.setAnswersByAPI = function(siret){
   var deferred = new $.Deferred();
 
   Company.verifyByAPI(siret).done((data)=>{
+    data = JSON.parse(data);
     var c = data.etablissement;
 
     this.quiz.getQuestionByTitle(CONST.companyQuizTitles.name).answer = c.adresse.l1;
@@ -204,7 +199,7 @@ Company.prototype.getCompanyJSON = function(){
   var me = this;
 
   json["info-questionnaire-reply"] = {
-    resource : "questionnaire-replies/" + me.infoQuestionnaireReply.id
+    resource : "questionnaire-replies/" + me.infoQuestionnaireReply
   };
   json.siret = this.siret;
 

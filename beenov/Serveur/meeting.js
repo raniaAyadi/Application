@@ -8,6 +8,34 @@ function        create_url(base_url, path_url, data)
     return (url);
 }
 
+var verifyByAPI = function(req, res){
+  let url = "https://entreprise.api.gouv.fr/v2/etablissements/";
+  url += req.params['0'];
+  url += "?token=ttlJM3OyWi8WM07CO5i674yv5pqVh13g&context=APS&object=dev&recipient=0"
+  // var data = {
+  //   token : "ttlJM3OyWi8WM07CO5i674yv5pqVh13g",
+  //   context : 'APS',
+  //   object : 'dev',
+  //   recipient : '0'
+  // };
+  console.log(url);
+
+  request.get(url, function(err, response, body)
+    {
+      var json = JSON.parse(body);
+      console.log(json.gateway_error);
+      if (json.gateway_error == true)
+      {
+    res.status(422).end();
+      }
+      else {
+    res.send(body);
+    res.status(200).end();
+      }
+  });
+
+};
+
 var	set_themes = function (req, res, base_url)
 {
     let url = create_url(base_url, '/theme-groups', {'session-key': req.cookies.cskey});
@@ -126,6 +154,7 @@ var	get_list = function(req, res, base_url)
 }
 
 exports.addMeeting = addMeeting;
+exports.verifyByAPI = verifyByAPI;
 exports.updateCompany = updateCompany;
 exports.updateMeetingReply = updateMeetingReply;
 exports.get_list = get_list;
