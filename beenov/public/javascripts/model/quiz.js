@@ -10,6 +10,45 @@ function Quiz(obj){
     this.setRules(obj.rules);
 }
 
+Quiz.addEmptyQuiz = function(companyId){
+  var emptyQuiz = {
+    comments : [],
+    contactEmail : "user@user.fr",
+    contactFirstName : "test",
+    contactLastName : "test",
+    globalVariableValues : {},
+    date : Operation.getDate(new Date()),
+    questionAnswers : [],
+    sectionActions : [],
+    validatedP : false
+  };
+
+  emptyQuiz.owner = {
+    resource : "users/" + window.getCookie(CONST.cookie.currentUser)
+  };
+  emptyQuiz.company = {
+    resource : "companies/" + companyId
+  };
+  emptyQuiz.questionnaire = {
+    resource : window.getParameterByName("questionnaire")
+  };
+
+  $.ajax({
+    type:"POST",
+    url : "questionnaire-replies",
+    contentType: 'application/json',
+    data : JSON.stringify(emptyQuiz)
+  }).done((data)=>{
+    var cookie = {
+      theme: getParameterByName("theme", window.location.href),
+      quest: getParameterByName("questionnaire", window.location.href),
+      questRep : "questionnaire-replies/"+data.id
+    };
+    document.cookie = "infomet=" + JSON.stringify(cookie);
+  });
+
+};
+
 Quiz.prototype.setRules = function(tab){
   if(! tab){
     this.rules = null;

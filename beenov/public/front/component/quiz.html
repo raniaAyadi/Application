@@ -8,7 +8,7 @@
 
 <template id="actions">
   <input type="button" class="btn btn-default" value="Mettre à jour" id="save-company-sheet">
-  <input type="button" class="btn btn-default" name="save" value="Annuler" href="meeting_list">
+  <input type="button" class="btn btn-default" value="Annuler" href="meeting_list">
 </template>
 
 <script>
@@ -32,7 +32,20 @@
 
       save.value = (reply === -1) ? "Enregistrer" : "Mettre à jour";
       save.setAttribute("class","btn disabled");
-      save.onclick = ()=> this.updateAnswers();
+      save.onclick = ()=> {
+        this.updateAnswers();
+        var company = QuizComponent.company;
+
+        company.save();
+        Quiz.addEmptyQuiz(company.id);
+
+        var infoCompany = {
+          companies : company.id,
+          reply : company.infoQuestionnaireReply
+        }
+        document.cookie = "company_info=" + JSON.stringify(infoCompany);
+        window.location.replace('/questionnaire?newquest=true');
+      }
     };
 
     quizPrototype.updateAnswers = function(){
