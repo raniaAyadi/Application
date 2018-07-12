@@ -24,6 +24,7 @@
 
       var validity = this.question.mandatory ? (!(this.question.answer === undefined)) : true;
       this.factory.setAttribute("validity", validity);
+
       console.log(this.factory.getAttribute("validity"));
 
       for(var i=0; i<l; i++){
@@ -33,7 +34,7 @@
         var br = document.createElement("br");
 
         radio.type = 'radio';
-        radio.checked = (i+1) === this.question.answer;
+        radio.checked = (i+1) == this.question.answer;
         radio.name = "choice" +this.question.id;
 
         span.innerHTML = "&nbsp"+tab[i];

@@ -7,8 +7,8 @@
 </template>
 
 <template id="actions">
-  <input type="button" value="Mettre à jour" id="save-company-sheet">
-  <input type="button" name="save" value="Annuler" href="meeting_list">
+  <input type="button" class="btn btn-default" value="Mettre à jour" id="save-company-sheet">
+  <input type="button" class="btn btn-default" name="save" value="Annuler" href="meeting_list">
 </template>
 
 <script>
@@ -49,6 +49,7 @@
         if(!questions){
         console.log("il entre");
           save.removeAttribute("class");
+          save.setAttribute("class","btn btn-default")
         }
 
         else
