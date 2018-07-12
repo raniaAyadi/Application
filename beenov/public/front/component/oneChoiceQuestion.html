@@ -24,7 +24,7 @@
       var l = tab.length;
       var elt = this.querySelector("#question");
 
-      if (this.question.title== "Forme juridique" || this.question.mandatory){
+      if (this.question.title == "Forme juridique" || this.question.mandatory){
         var validity = (this.question.answer === undefined) ? false : true;
         this.factory.setAttribute("validity",validity);
       }
@@ -49,7 +49,7 @@
         elt.appendChild(span);
         elt.appendChild(br);
 
-        if ((this.question.mandatory) || (this.question.title = "Forme juridique")){
+        if ((this.question.mandatory) || (this.question.title == "Forme juridique")){
           radio.className = (this.factory.getAttribute("validity") === "true") ? "greeninput" : "redinput";
         }
 
