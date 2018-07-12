@@ -44,6 +44,7 @@
           reply : company.infoQuestionnaireReply
         }
         document.cookie = "company_info=" + JSON.stringify(infoCompany);
+        sessionStorage.removeItem("company");
         window.location.replace('/questionnaire?newquest=true');
       }
     };
@@ -81,7 +82,8 @@
     };
 
     quizPrototype.attachedCallback = function(){
-      var json = JSON.parse(localStorage.getItem("company"));;
+      var json = JSON.parse(sessionStorage.getItem("company"));;
+
       QuizComponent.company = Company.getCompanyByJSON(json);
 
       this.sections = QuizComponent.company.quiz.sections;

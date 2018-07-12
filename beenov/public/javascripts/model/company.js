@@ -149,7 +149,7 @@ Company.setCompany = function(siret){
     if(data.resources[0]){
       obj = new Company(data.resources[0]);
       obj.setQuizReply().done(()=> {
-        localStorage.setItem("company", JSON.stringify(obj));
+        sessionStorage.setItem("company", JSON.stringify(obj));
         deferred.resolve();
       });
     }
