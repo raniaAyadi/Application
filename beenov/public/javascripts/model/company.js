@@ -140,6 +140,42 @@ Company.verifyByAPI = function(siret){
   return $.get(url);
 };
 
+Company.getById = function(id){
+  var deferred = $.Deferred();
+
+  $.get(CONST.url.getCompanyById + id).done((data)=>{
+    var company = new Company(data.resources[0]);
+    deferred.resolve(company);
+  });
+
+  return deferred;
+};
+
+Company.prototype.getCoord = function(){
+  var coord = {
+    postalCode : 0,
+    city : ''
+  };
+  var deferred = $.Deferred();
+
+  if(this.quiz instanceof Quiz){
+    coord.postalCode = this.quiz.getQuestion(9).answer;
+    coord.city = this.quiz.getQuestion(8).answer;
+
+    deferred.resolve(coord);
+   }
+
+   else
+    this.setQuizReply().done(()=>{
+      coord.postalCode = this.quiz.getQuestion(9).answer;
+      coord.city = this.quiz.getQuestion(8).answer;
+
+      deferred.resolve(coord);
+    });
+
+    return deferred;
+};
+
 Company.setCompany = function(siret){
   var deferred = new $.Deferred();
 
