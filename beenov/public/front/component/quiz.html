@@ -42,18 +42,20 @@
         this.updateAnswers();
         var company = QuizComponent.company;
 
-        company.save();
-        Quiz.addEmptyQuiz(company.id);
+        company.save().done(() =>
+        {
+          Quiz.addEmptyQuiz(company.id);
+          var infoCompany = {
+            companies : company.id,
+            reply : company.infoQuestionnaireReply
+          };
+          document.cookie = "company_info=" + JSON.stringify(infoCompany);
 
-        var infoCompany = {
-          companies : company.id,
-          reply : company.infoQuestionnaireReply
-        }
-        document.cookie = "company_info=" + JSON.stringify(infoCompany);
-        localStorage.removeItem("company");
-        window.location.replace('/questionnaire?newquest=true');
-      }
+          localStorage.removeItem("company");
+          window.location.replace('/questionnaire?newquest=true');
+        });
     };
+  };
 
     quizPrototype.updateAnswers = function(){
       var questions = this.querySelectorAll("beenov-question");

@@ -154,13 +154,15 @@ Company.getById = function(id){
 Company.prototype.getCoord = function(){
   var coord = {
     postalCode : 0,
-    city : ''
+    city : '',
+    nafCode : 0
   };
   var deferred = $.Deferred();
 
   if(this.quiz instanceof Quiz){
     coord.postalCode = this.quiz.getQuestion(9).answer;
     coord.city = this.quiz.getQuestion(8).answer;
+    coord.nafCode = this.quiz.getQuestion(18).answer;
 
     deferred.resolve(coord);
    }
@@ -169,6 +171,7 @@ Company.prototype.getCoord = function(){
     this.setQuizReply().done(()=>{
       coord.postalCode = this.quiz.getQuestion(9).answer;
       coord.city = this.quiz.getQuestion(8).answer;
+      coord.nafCode = this.quiz.getQuestion(18).answer;
 
       deferred.resolve(coord);
     });

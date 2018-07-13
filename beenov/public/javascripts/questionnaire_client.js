@@ -51,8 +51,8 @@ function	loadcons(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="navbar"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
+	toAppend += '<button class="navbar btn-block"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -89,8 +89,8 @@ function	loadprod(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="navbar"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
+	toAppend += '<button class="navbar btn-block"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -126,8 +126,8 @@ function	loadhelp(info)
     {
 	valuesheet = info.resources[i].id.split("-");
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="navbar"><span id="aide' + (i + 1) + '" onclick="printhelp(' + valuesheet[0] + ', ' + valuesheet[1] + ', ' + (i + 1) + ')">';
-	toAppend += info.resources[i].title.toUpperCase() + '</span></p></div></div>';
+	toAppend += '<button class="navbar btn-block"><span id="aide' + (i + 1) + '" onclick="printhelp(' + valuesheet[0] + ', ' + valuesheet[1] + ', ' + (i + 1) + ')">';
+	toAppend += info.resources[i].title.toUpperCase() + '</span></button></div></div>';
 	++i;
     }
     $('#helpsheet').append(toAppend);
@@ -525,13 +525,17 @@ function	fillfield(target, data)
 	++i;
     }
     $(target).append(toAppend);
+
 }
 
 function	needhalp()
 {
-    let ape = $('#naf').val();
+    let ape = $('#naf').text();
+		// var codePostal = $('#dept').text();
+		// var two = codePostal.substring(0,2);
 
-    let dept = $('#dept').val();
+    let dept = $('#dept').text();;
+		console.log(dept);
 
     let insee = dept * Math.pow(10, (5 - dept.toString().length));
 
@@ -578,6 +582,7 @@ function modifycomp()
 			 matrix: [],
 			 city: [] };
 	let answers = data.resources[0].questionAnswers;
+	console.log(answers);
 	toAppend.push('<span>');
 	for (let i = 0; info.sections[i] != undefined; ++i)
 	{
@@ -589,6 +594,8 @@ function modifycomp()
 	}
 	toAppend.push('</span>');
 	$('#company_questionnaire').append(toAppend.join(""));
+	$('#company_questionnaire').append(new QuizComponent());
+
 	$('#company_questionnaire .wysiwyg').trumbowyg({
 	    lang: 'fr',
 	    btns : ['formatting','bold', 'italic',
@@ -671,6 +678,18 @@ function modifycomp()
 
 $(document).ready(function()
 		  {
+
+					var id = JSON.parse(getCookie("company_info")).companies;
+					Company.getById(id).done(c => c.getCoord().done(coord =>
+						{
+						console.log(coord);
+						 $("#naf").text(coord.nafCode);
+						 $("#dept").text(coord.postalCode);
+						 $("#cmmn").text(coord.city);
+
+					}));
+
+
 		      $("#inputfile").change(function()
 					     {
 						 readURL(this);
@@ -754,7 +773,7 @@ $(document).ready(function()
 				       }),
 			  });
 
-		      /* Fiche aide: selection projet */
+		      /* Fiche aide: selection moyen intervention*/
 		      $.ajax(
 			  {
 			      type: "GET",
@@ -834,9 +853,9 @@ $(document).ready(function()
 			  window.location.replace("/meeting_list");
 		      }
 
-		      if (getParameterByName("newquest", window.location.href) == "true") {
-			  openDialog('dia',this);
-		      }
+		    //   if (getParameterByName("newquest", window.location.href) == "true") {
+			  // openDialog('dia',this);
+		    //   }
 
 		      $('.cptrd').click(function()
 					{

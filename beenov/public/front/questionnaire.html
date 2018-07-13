@@ -58,8 +58,10 @@
     <script type="text/javascript" src="model/ruleSetVarCond.js"></script>
     <script type="text/javascript" src="model/globalRuleSetVar.js"></script>
     <script type="text/javascript" src="model/globalRuleSetVarCond.js"></script>
+    <script type="text/javascript" src="model/company.js"></script>
 
     <link rel="import" href="component/report.html">
+    <!-- <link rel="import" href="component/quiz.html"> -->
 
     <title>Beenov' - Questionnaire</title>
   </head>
@@ -113,9 +115,9 @@
 		<input type="text" id="theme" disabled><br />
 		<label>Entretien réalisé par :</label><br />
 		<input type="text" id="advisor" disabled><br />
-		<label>Interlocuteur :</label><br />
+		<!-- <label>Interlocuteur :</label><br />
 		<input type="text" id="locutor" disabled>
-		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br />
+		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br /> -->
 	      </form>
 	    </div><br />
 	    <div style="cursor:pointer" id="section">
@@ -180,12 +182,16 @@
 	  <div class="col-md-3">
 	    <div id="aide">
 	      <form>
-		<label>Code NAF : </label>&emsp;
-		<input type="text" name="naf" id="naf" maxlength="5" placeholder="0000A"><br />
-		<label>Dep. : </label>&emsp;
-		<input type="number" name="dept" maxlength="3" id="dept">
-		<label>Commune : </label>&emsp;
-		<select name="Commune" id="cmmn"></select><br />
+
+    <label> Code NAF : </label>
+		<span type="text" name="naf" id="naf" maxlength="5" placeholder="0000A"></span> <br/>
+
+    <label>Code Postale : </label>
+		<span name="dept" maxlength="3" id="dept"></span><br/>
+
+    <label>Commune : </label>
+		<span name="Commune" id="cmmn"></span><br />
+    
 		<label>Projet</label><br />
 		<select name="projet" id="projet"></select><br />
 		<label>Moyen d'intervention</label><br />
@@ -195,6 +201,7 @@
 		<br /><button type="button" onclick="needhalp()">Rechercher</button>
 		<form>
 		  <div style="cursor:pointer" id="helpsheet">
+        <!-- la liste des fiches d'aides  -->
 		  </div>
 	    </div>
 	  </div>
