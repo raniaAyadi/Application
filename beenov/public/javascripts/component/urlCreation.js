@@ -25,15 +25,50 @@ UrlCreation.prototype.setEntity = function(id){
   return deferred;
 };
 
-UrlCreation.prototype.setSubentitiesUsers = function(id){
+UrlCreation.prototype.getAllThemes = function(){
   var deferred = $.Deferred();
 
-  var subentity = this.entity.subentities.find( elt => elt.id == id);
-  if(! subentity){
+  Theme.getAllThemes().done(()=>{
+    this.themes = Theme.allThemes;
+    deferred.resolve();
+  });
+
+  return deferred;
+};
+
+UrlCreation.prototype.setTheme = function(id){
+  var deferred = $.Deferred();
+
+  this.theme = this.themes.find( elt => elt.id == id);
+  if(! this.theme)
+    deferred.reject("theme not found, check your id");
+  else
+    deferred.resolve();
+
+  return deferred;
+}
+
+UrlCreation.prototype.getUsers = function(){
+  var idE = this.subentity ? this.subentity.id : this.entity.id;
+  var fn = this.subentity ? User.prototype.isMySubentity : User.prototype.isMyEntity;
+  var idTh = this.theme.id;
+
+  console.log(fn);
+  console.log(idE);
+  var users = this.entity.users.filter( elt => (elt.themes.indexOf(idTh) >= 0) && (fn.call(elt, idE))) ;
+
+  return users;
+};
+
+UrlCreation.prototype.setSubentity = function(id){
+  var deferred = $.Deferred();
+
+  this.subentity = this.entity.subentities.find( elt => elt.id == id);
+  if(! this.subentity){
     deferred.reject("subentity not found, verify your id");
     return deferred;
   }
 
-  subentity.setUsers().done(() => deferredr.resolve());
+  this.subentity.setUsers().done(() => deferred.resolve());
   return deferred;
 };
