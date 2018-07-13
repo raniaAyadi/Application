@@ -65,9 +65,14 @@
 
       for(var i in inputs)
         if(inputs[i].checked){
-          this.question.answer = i+1;
+          console.log(inputs[i].checked);
+          console.log(i);
+          this.question.answer = parseInt(i)+1;
+          console.log(this.question.answer);
           break;
+
         }
+
     };
 
 
