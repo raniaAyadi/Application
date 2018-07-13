@@ -19,16 +19,31 @@
     color: red;
 }
 
-#settings
+#settings{
+  width: 58vw;
+  height: 58vh;
+  border-radius: 23px;
+  padding: 2px 2px;
+  overflow:auto;
+  margin-left: 10px;
+
+
+}
+
+#Contsettings
 {
-	width: 80vw;
+	width: 60vw;
 	height: 60vh;
-	margin: center;
-	border: 1px black solid;
+	margin-left: 150px;
+  margin-bottom: 60px;
+  margin-top: 10px;
+	border-radius: 25px;
+  border: 2px solid gray;
 	box-shadow: 1px 1px 1px;
-	overflow-y: scroll;
+	/* overflow: auto; */
 	float: left;
-	margin-left: 2vw;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
 }
 
 #loader
@@ -44,7 +59,7 @@
 	display: block;
 	position: relative;
 	margin-top: 2vh;
-	margin-left: 2vw;
+	margin-left: 700px;
 }
 
 #pictr
@@ -58,7 +73,7 @@
 {
     box-shadow: 0 0 0 2px #a00;
 }
-/* 
+/*
 .greeninput
 {
     box-shadow: 0 0 0 2px #0a0;

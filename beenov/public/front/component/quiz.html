@@ -8,11 +8,16 @@
 
 <template id="actions">
   <input type="button" class="btn btn-default" value="Mettre à jour" id="save-company-sheet">
-  <input type="button" class="btn btn-default" value="Annuler" onClick="window.history.back()" href="meeting_list">
+  <input type="button" class="btn btn-default" value="Annuler" onClick="annuler()">
 </template>
 
 <script>
   var QuizComponent = {};
+  function annuler (){
+    if (confirm("Vous êtes sur le point d'abandonner la création de cette fiche d'entreprise. Souhaitez-vous l'abandonner ?")){
+      window.location.replace('/meeting_list');
+    }
+  }
 
 
   (function(){
