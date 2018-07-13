@@ -268,6 +268,10 @@ app.get('/themes', function (req, res)
 	    meeting.set_themes(req, res, base_url);
 	});
 
+app.get("/getCompanyById/*", function(req, res){
+	questionnaire.getCompanyById(req, res,base_url);
+})
+
 app.get('/get_meeting_list', function(req, res)
 	{
 	    console.log("AJAX Request done on get_meeting_list");
@@ -382,12 +386,22 @@ app.get('/report', function(req, res)
 	    //res.end();
 	});
 
+
+
+app.get('/user/*', function(req, res){
+	session.getUser(req, res, base_url);
+});
+
 /* 0 for entity -- 1 for subentity */
 app.get('/entity', function(req, res)
 	{
 	    userid = req.cookies.uid;
 	    session.request_userinfo(protocol_version, base_url, res, userid, req.cookies.cskey, 0);
 	});
+
+app.get("/getSubentity/*", function(req, res){
+	session.getSubentity(req, res, base_url);
+});
 
 app.get('/subentity', function(req, res)
 	{
