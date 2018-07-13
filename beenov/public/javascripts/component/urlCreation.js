@@ -37,15 +37,7 @@ UrlCreation.prototype.getAllThemes = function(){
 };
 
 UrlCreation.prototype.setTheme = function(id){
-  var deferred = $.Deferred();
-
   this.theme = this.themes.find( elt => elt.id == id);
-  if(! this.theme)
-    deferred.reject("theme not found, check your id");
-  else
-    deferred.resolve();
-
-  return deferred;
 }
 
 UrlCreation.prototype.getUsers = function(){

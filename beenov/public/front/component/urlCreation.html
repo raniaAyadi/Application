@@ -1,0 +1,136 @@
+<template id="template">
+    </br>
+
+    <div class="row col-md-11">
+
+      <h4 class="" id="label"> Veuillez choisir l'entité </h4>
+        <select id="entity" class="">
+          <!-- les entités -->
+          <option selected disabled hidden style="display: none" value="">
+            Choisissez une entité
+          </option>
+        </select>
+
+      <h4 class="" id="label"> Veuillez choisir le théme </h4>
+        <select id="themes" class="">
+          <!-- les entités -->
+          <option selected disabled hidden style="display: none" value="">
+            Choisissez un théme
+          </option>
+        </select>
+
+        <h4 class="" id="label"> Veuillez choisir la sous entité </h4>
+          <select id="subentity" class="">
+            <!-- les entités -->
+            <option selected disabled hidden style="display: none" value="">
+              Choisissez une sous entité
+            </option>
+          </select>
+
+
+
+
+    </div>
+
+    </br>
+</template>
+
+<script>
+  var UrlCreationComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var urlCreationPrototype = Object.create(HTMLElement.prototype);
+
+    urlCreationPrototype.createdCallback = function(){
+      var template = currentDoc.querySelector("#template");
+      var copie = document.importNode(template.content, true);
+      this.appendChild(copie);
+  }
+
+    urlCreationPrototype.attributeChangedCallback = function(attr, oldV, newV){}
+
+    urlCreationPrototype.setEntities = function(){
+      var select = this.querySelector("#entity");
+
+      this.urlCreationService.getAllEntities().done(()=>{
+        this.urlCreationService.entities.forEach(elt => {
+          var option = document.createElement("option");
+          option.innerText = elt.name;
+          option.setAttribute("entity-id", elt.id);
+          select.append(option);
+        });
+      });
+
+      var me = this;
+      select.onchange = function(){
+        var option = this.options[this.selectedIndex];
+        var idE = option.getAttribute("entity-id");
+
+        me.setSubentity(idE);
+      };
+    };
+
+
+    urlCreationPrototype.setThemes = function(){
+      var select = this.querySelector("#themes");
+
+      this.urlCreationService.getAllThemes().done(()=> {
+        this.urlCreationService.themes.forEach(elt => {
+          var option = document.createElement("option");
+          option.innerText= elt.name;
+          option.setAttribute("themes-id",elt.id);
+
+          select.append(option);
+
+        });
+      });
+
+      var me = this;
+      select.onchange = function(){
+        var option = this.options[this.selectedIndex];
+        var idTh = option.getAttribute("themes-id");
+
+        me.urlCreationService.setTheme(idTh);
+      };
+    };
+
+    urlCreationPrototype.setUsers = function(){
+      var users = this.urlCreationService.getUsers();
+      console.log(users);
+    }
+
+    urlCreationPrototype.setSubentity = function(id){
+      var select = this.querySelector("#subentity");
+
+      this.urlCreationService.setEntity(id).done(()=>{
+        var entity = this.urlCreationService.entity;
+
+        entity.subentities.forEach( elt => {
+          var option = document.createElement("option");
+          option.innerText= elt.name;
+          option.setAttribute("subentity-id",elt.id);
+
+          select.append(option);
+        });
+      });
+      var me = this;
+      select.onchange = function(){
+        var option = this.options[this.selectedIndex];
+        var idTh = option.getAttribute("subentity-id");
+
+        me.urlCreationService.setSubentity(idTh);
+      };
+    }
+
+    urlCreationPrototype.attachedCallback = function(){
+      this.urlCreationService = new UrlCreation();
+      this.setEntities();
+      this.setThemes();
+      }
+
+    UrlCreationComponent = document.registerElement('beenov-url-creation', {
+      prototype : urlCreationPrototype
+    });
+})();
+</script>
