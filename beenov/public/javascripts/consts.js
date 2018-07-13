@@ -35,7 +35,13 @@ var CONST = {
       addCompany : "addCompany",
       addReply : "questionnaire-replies",
       updateCompany : "updateCompany/",
-      verifyByAPI : "verifyByAPI/"
+      verifyByAPI : "verifyByAPI/",
+      getAllEntities : 'entity',
+      getAllUsers : "get_users",
+      getUser : 'user/',
+      getSubentity : 'getSubentity/',
+      getAllThemes : 'themes',
+      getCompanyById : 'getCompanyById/'
     },
 
     rule :{
