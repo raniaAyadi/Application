@@ -72,7 +72,7 @@ var	newpwd = function (mail, protocol_version, base_url, response)
 	});
 
 	let	mailOptions = {
-		from: 'noreply@beenov.com', // https://webmail.gandi.net/ 
+		from: 'noreply@beenov.com', // https://webmail.gandi.net/
 		to: req.cookies.user_mail,
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
@@ -112,7 +112,7 @@ var	reinitpwd = function (mdp1, mdp2, protocol_version, base_url, response, sess
 			response.status(204).end();
 			return;
 		}
-		else 
+		else
 		{
 			console.log('Password succesfully updated.');
 			response.redirect("/login");
@@ -141,7 +141,7 @@ var changemdp = function(value, protocol_version, base_url, response, cskey)
 			response.status(204).end();
 			return;
 		}
-		else 
+		else
 		{
 			console.log('Password succesfully updated.');
 			response.redirect("/meeting_list");
@@ -229,6 +229,32 @@ var	request_logoname = function(protocol_version, base_url, res, target, cskey)
 	});
 }
 
+var getUser = function(req, res, base_url){
+	let url = create_get_url(base_url,'/users/' + req.params['0'], {'session-key' : req.cookies.cskey});
+	request.get(url, function(err, resp, body){
+		let json = JSON.parse(body);
+		if(err)
+			res.status(204).end();
+		else{
+			res.send(json);
+			res.status(200).end();
+		}
+	});
+};
+
+var getSubentity = function(req, res, base_url){
+	let url = create_get_url(base_url, '/subentities/' + req.params['0'], {'session-key' : req.cookies.cskey});
+	request.get(url, function(err, resp, body){
+		let json = JSON.parse(body);
+		if(err)
+			res.status(204).end();
+		else{
+			res.send(json);
+			res.status(200).end();
+		}
+	});
+}
+
 var	request_userinfo = function(protocol_version, base_url, res, userid, cskey, option)
 {
 	let url = create_get_url(base_url, '/users/' + userid.toString(), {'session-key' : cskey});
@@ -305,7 +331,7 @@ var changeowner = function (protocol_version, base_url, res, cskey, data)
 			console.log(err);
 			res.status(204).end();
 		}
-		else 
+		else
 		{
 			res.status(200).end();
 		}
@@ -328,7 +354,7 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 			console.log(err);
 			res.status(204).end();
 		}
-		else 
+		else
 		{
 			res.redirect('./meeting_list');
 			res.status(200).end();
@@ -337,6 +363,8 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 }
 
 exports.login_user = login_user;
+exports.getSubentity = getSubentity;
+exports.getUser = getUser;
 exports.newpwd = newpwd;
 exports.reinitpwd = reinitpwd;
 exports.changemdp = changemdp;
