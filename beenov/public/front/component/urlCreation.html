@@ -4,7 +4,7 @@
     <div class="row col-md-11">
 
       <h4 class="" id="label"> Veuillez choisir l'entité </h4>
-        <select id="entity" class="">
+        <select style="width:300" id="entity" class="">
           <!-- les entités -->
           <option selected disabled hidden style="display: none" value="">
             Choisissez une entité
@@ -12,7 +12,7 @@
         </select>
 
       <h4 class="" id="label"> Veuillez choisir le théme </h4>
-        <select id="themes" class="">
+        <select style="width:300" id="themes" class="">
           <!-- les entités -->
           <option selected disabled hidden style="display: none" value="">
             Choisissez un théme
@@ -20,17 +20,26 @@
         </select>
 
         <h4 class="" id="label"> Veuillez choisir la sous entité </h4>
-          <select id="subentity" class="">
+          <select style="width:300" id="subentity" class="">
             <!-- les entités -->
             <option selected disabled hidden style="display: none" value="">
               Choisissez une sous entité
             </option>
           </select>
 
-
-
-
-    </div>
+          <h4 class="" id="label"> Veuillez choisir un conseiller </h4>
+          <select style="width:300" id="user" class="">
+            <!-- les entités -->
+            <option selected disabled hidden style="display: none" value="">
+              Choisissez un conseiller
+            </option>
+          </select>
+          <p class="title" id="erreur" style="display:none"> Il n'existe pas de conseiller pour ce théme et cette sous entité</p>
+<br/>
+<br/>
+          <button id="urlB" type="button" name="button"> créer URL</button>
+          <input style="width:300px" type="text" disabled="disabled" id="lien"></input>
+        </div>
 
     </br>
 </template>
@@ -41,20 +50,46 @@
   (function(){
     var currentDoc = document.currentScript.ownerDocument;
     var urlCreationPrototype = Object.create(HTMLElement.prototype);
+    var deferred = $.Deferred();
 
     urlCreationPrototype.createdCallback = function(){
       var template = currentDoc.querySelector("#template");
       var copie = document.importNode(template.content, true);
       this.appendChild(copie);
-  }
+  };
 
     urlCreationPrototype.attributeChangedCallback = function(attr, oldV, newV){}
+
+
+    urlCreationPrototype.getUrl = function()
+    {
+      console.log(this);
+        var p = document.querySelector("#lien");
+        p.innerText = CONST.url.autoDiag;
+        var idUser = document.urlCreationService.user.id;
+        var idTheme= document.urlCreationService.theme.themes.questionnaire;
+        console.log(idTheme);
+        p.innerText += idUser;
+        p.innerText += "/";
+        p.innerText += idTheme;
+
+
+        // var select  = document.querySelector("#themes");
+        // var option = select.options[select.selectedIndex];
+        // var idTheme = option.getAttribute("themes-id");
+        // p.innerText += "idUser=";
+        // var select  = document.querySelector("#user");
+        // var option = select.options[select.selectedIndex];
+        // var idUser = option.getAttribute("user-id");
+
+    }
 
     urlCreationPrototype.setEntities = function(){
       var select = this.querySelector("#entity");
 
       this.urlCreationService.getAllEntities().done(()=>{
         this.urlCreationService.entities.forEach(elt => {
+          console.log(this.urlCreationService.entities);
           var option = document.createElement("option");
           option.innerText = elt.name;
           option.setAttribute("entity-id", elt.id);
@@ -66,8 +101,9 @@
       select.onchange = function(){
         var option = this.options[this.selectedIndex];
         var idE = option.getAttribute("entity-id");
-
         me.setSubentity(idE);
+        me.setUsers();
+
       };
     };
 
@@ -78,10 +114,22 @@
       this.urlCreationService.getAllThemes().done(()=> {
         this.urlCreationService.themes.forEach(elt => {
           var option = document.createElement("option");
-          option.innerText= elt.name;
-          option.setAttribute("themes-id",elt.id);
+          option.innerText = elt.name;
+          option.style = "font-weight:bold";
+          console.log(elt);
+          var l = elt.themes.length;
 
+          option.setAttribute("themes-id",elt.id);
           select.append(option);
+
+          for (var i = 0; i < l; i++) {
+            var option = document.createElement("option");
+            option.innerText = elt.themes[i].name;
+            option.setAttribute("themes-id",elt.themes[i].id);
+            option.setAttribute("themes-group-id" , elt.themes[i].themeGroup);
+            select.append(option);
+          }
+
 
         });
       });
@@ -90,36 +138,90 @@
       select.onchange = function(){
         var option = this.options[this.selectedIndex];
         var idTh = option.getAttribute("themes-id");
+        var idThGr = option.getAttribute("themes-group-id");
 
-        me.urlCreationService.setTheme(idTh);
+        me.urlCreationService.setTheme(idThGr,idTh);
+        console.log(idThGr);
+        console.log(idTh);
+        me.setUsers();
       };
     };
 
+
     urlCreationPrototype.setUsers = function(){
-      var users = this.urlCreationService.getUsers();
-      console.log(users);
+      deferred.done(()=>{
+        var users = this.urlCreationService.getUsers();
+        console.log(users);
+
+        if (users.length === 0) {
+          var select = this.querySelector("#user");
+          select.style = "display:none";
+          this.querySelector("#erreur").style="display:block"
+          }
+        else {
+          var select = this.querySelector("#user");
+          select.removeAttribute("style","display:none");
+          select.setAttribute("style","width:300px")
+          this.querySelector("#erreur").style="display:none"
+        }
+          var select = this.querySelector("#user");
+          var i;
+
+          console.log(select.options.length);
+
+          for(i = select.options.length - 1 ; i >= 0 ; i--)
+          {
+            select.remove(i);
+          }
+
+          var option = document.createElement("option");
+          option.innerText = "Choisissez un conseiller"
+          option.selected = true;
+          option.style= "display: none";
+          select.append(option);
+
+
+          users.forEach(elt => {
+          var option = document.createElement("option");
+          option.innerText= elt.firstName;
+          option.innerText += "  " + elt.lastName;
+          option.setAttribute("user-id",elt.id);
+          select.append(option);
+
+        });
+
+              var me = this;
+              select.onchange = function(){
+                var option = this.options[this.selectedIndex];
+                var idU = option.getAttribute("user-id");
+
+                me.urlCreationService.setUser(idU)
+              };
+      });
+
     }
 
     urlCreationPrototype.setSubentity = function(id){
       var select = this.querySelector("#subentity");
 
       this.urlCreationService.setEntity(id).done(()=>{
+        deferred.resolve();
         var entity = this.urlCreationService.entity;
 
         entity.subentities.forEach( elt => {
           var option = document.createElement("option");
           option.innerText= elt.name;
           option.setAttribute("subentity-id",elt.id);
-
           select.append(option);
         });
       });
+
       var me = this;
       select.onchange = function(){
         var option = this.options[this.selectedIndex];
-        var idTh = option.getAttribute("subentity-id");
-
-        me.urlCreationService.setSubentity(idTh);
+        var idSE = option.getAttribute("subentity-id");
+        me.urlCreationService.setSubentity(idSE);
+        me.setUsers();
       };
     }
 
@@ -127,6 +229,19 @@
       this.urlCreationService = new UrlCreation();
       this.setEntities();
       this.setThemes();
+      this.querySelector("#urlB").onclick = ()=>{
+        console.log(this);
+          var p = this.querySelector("#lien");
+          p.value = CONST.url.autoDiag;
+          var idUser = this.urlCreationService.user.id;
+          var idTheme= this.urlCreationService.theme.questionnaire;
+          console.log(this.urlCreationService.theme);
+          console.log(idTheme);
+          p.value += idUser;
+          p.value += "/";
+          p.value += idTheme;
+
+      };
       }
 
     UrlCreationComponent = document.registerElement('beenov-url-creation', {

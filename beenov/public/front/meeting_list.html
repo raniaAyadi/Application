@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" /> -->
+
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="common.css">
@@ -41,7 +45,17 @@
     <script type="text/javascript" src="model/ruleSetVarCond.js"></script>
     <script type="text/javascript" src="model/company.js"></script>
     <script type="text/javascript" src="model/quiz.js"></script>
+    <script type="text/javascript" src="component/urlCreation.js"></script>
     <script type="text/javascript" src="consts.js"></script>
+
+    <script type="text/javascript" src="model/theme.js"></script>
+    <script type="text/javascript" src="model/user.js"></script>
+    <script type="text/javascript" src="model/entity.js"></script>
+    <script type="text/javascript" src="component/urlCreation.js"></script>
+
+    <link rel="import" href="component/urlCreation.html">
+
+
 
     <title>Beenov' - Meeting</title>
   </head>
@@ -83,6 +97,8 @@
 		</select><br />
 		<input type="button" name="siret" class="button" value="Créer" id="create_button">
 		<input type="submit" name="siret" class="button" value="Imprimer">
+
+		<input id="url" type="button" name="siret" class="button" value="Créer URL">
 	      </p>
 	    </form>
 	  </div>
@@ -136,5 +152,32 @@
 	<button class="close cross" aria-label="Close dialog">X</button>
       </div>
     </div>
+
+    <div id="url-creation" title="Création de url" hidden="hidden">
+      <beenov-url-creation> <beenov-url-creation/>
+
+    </div>
+
+<script>
+    $(function () {
+      $( "#url-creation" ).dialog({
+        autoOpen: false,
+        modal: true,
+      	draggable: false,
+      	resizable: false,
+      	width: $(window).width() * 0.45,
+      	height: $(window).height() * 0.7,
+        classes: {
+          "ui-dialog": "highlight"
+          }
+      });
+
+      $("#url").click(function() {
+        $("#url-creation").dialog('open');
+
+        });
+      });
+</script>
+
   </body>
 </html>

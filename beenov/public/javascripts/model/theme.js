@@ -11,6 +11,7 @@ Theme.prototype.setThemes = function(data){
   if(data)
     data.forEach(th=>{
       var x = new Theme(th);
+      x.themeGroup = this.id;
       x.questionnaire = Operation.getId(th.questionnaire.resource);
 
       this.themes.push(x);

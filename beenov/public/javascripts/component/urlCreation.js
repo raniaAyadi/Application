@@ -25,6 +25,13 @@ UrlCreation.prototype.setEntity = function(id){
   return deferred;
 };
 
+UrlCreation.prototype.setUser = function(id){
+  var users = this.getUsers();
+  var user = users.find(elt => elt.id == id);
+
+  this.user = user;
+}
+
 UrlCreation.prototype.getAllThemes = function(){
   var deferred = $.Deferred();
 
@@ -36,19 +43,21 @@ UrlCreation.prototype.getAllThemes = function(){
   return deferred;
 };
 
-UrlCreation.prototype.setTheme = function(id){
-  this.theme = this.themes.find( elt => elt.id == id);
+UrlCreation.prototype.setTheme = function(id,idSelected){
+  var themeGroup = this.themes.find( elt => elt.id == id);
+  this.theme = themeGroup.themes.find( elt => elt.id == idSelected );
 }
 
 UrlCreation.prototype.getUsers = function(){
+  if(!this.entity || !this.theme)
+    return [];
+
   var idE = this.subentity ? this.subentity.id : this.entity.id;
+  var idTh = this.theme.themeGroup;
   var fn = this.subentity ? User.prototype.isMySubentity : User.prototype.isMyEntity;
-  var idTh = this.theme.id;
 
-  console.log(fn);
-  console.log(idE);
-  var users = this.entity.users.filter( elt => (elt.themes.indexOf(idTh) >= 0) && (fn.call(elt, idE))) ;
 
+    var users = this.entity.users.filter( elt => (elt.themes.indexOf(idTh) >= 0) && (fn.call(elt, idE))) ;
   return users;
 };
 
