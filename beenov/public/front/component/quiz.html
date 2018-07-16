@@ -44,23 +44,15 @@
 
         company.save().done(() =>
         {
+          Quiz.addEmptyQuiz(company.id);
           var infoCompany = {
             companies : company.id,
             reply : company.infoQuestionnaireReply
           };
           document.cookie = "company_info=" + JSON.stringify(infoCompany);
+
           localStorage.removeItem("company");
-
-          Quiz.addEmptyQuiz(company.id).done((data)=>{
-            var cookie = {
-              theme: getParameterByName("theme", window.location.href),
-              quest: getParameterByName("questionnaire", window.location.href),
-              questRep : "questionnaire-replies/"+data.id
-            };
-            document.cookie = "infomet=" + JSON.stringify(cookie);
-            window.location.replace('/questionnaire?newquest=true');
-          });
-
+          window.location.replace('/questionnaire?newquest=true');
         });
     };
   };
