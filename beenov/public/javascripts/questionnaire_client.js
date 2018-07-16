@@ -51,8 +51,8 @@ function	loadcons(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<button class="navbar btn-block"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
+	toAppend += '<p class="navbar"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -89,8 +89,8 @@ function	loadprod(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<button class="navbar btn-block"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
+	toAppend += '<p class="navbar"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -406,6 +406,7 @@ function	update_cptrd_cons(data)
 				var elt = document.querySelector(selector);
 
 				elt.onclick = ()=>{
+					console.log(elt);
 					var bool = 0;
 					if(elt.checked)
 						bool = 1;

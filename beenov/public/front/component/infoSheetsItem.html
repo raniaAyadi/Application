@@ -39,10 +39,12 @@
       }
 
       if(attr === "id-info"){
+        console.log(newV);
         var elt = document.createElement("div")
 
         elt.setAttribute("id-info", newV);
         elt.setAttribute("hidden", true);
+        console.log(elt);
         this.querySelector("#fiche").append(elt);
       }
 
@@ -55,6 +57,8 @@
 
       if(attr === "show"){
         var tab = newV.split("*");
+        console.log(tab);
+        console.log(this);
         var elt = this.querySelector('[id-info="'+tab[0]+'"]');
 
         if(elt.getAttribute("hidden")){
