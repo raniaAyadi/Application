@@ -32,21 +32,13 @@ Quiz.addEmptyQuiz = function(companyId){
   emptyQuiz.questionnaire = {
     resource : window.getParameterByName("questionnaire")
   };
-
-  $.ajax({
-    type:"POST",
-    url : "questionnaire-replies",
-    contentType: 'application/json',
-    data : JSON.stringify(emptyQuiz)
-  }).done((data)=>{
-    var cookie = {
-      theme: getParameterByName("theme", window.location.href),
-      quest: getParameterByName("questionnaire", window.location.href),
-      questRep : "questionnaire-replies/"+data.id
-    };
-    document.cookie = "infomet=" + JSON.stringify(cookie);
-  });
-
+  
+  return $.ajax({
+      type:"POST",
+      url : "questionnaire-replies",
+      contentType: 'application/json',
+      data : JSON.stringify(emptyQuiz)
+    });
 };
 
 Quiz.prototype.setRules = function(tab){
@@ -79,12 +71,21 @@ Quiz.getCompanyQuiz = function(){
 }
 
 Quiz.getById = function(id){
-  return $.ajax({
+  var deferred = $.Deferred();
+
+  $.ajax({
     type: "POST",
-    url: 'getquest',
+    url: CONST.url.getQuiz,
     data: {"quest" : id}
+  }).done((data)=>{
+    if(data)
+      deferred.resolve(data);
+    else
+      deferred.reject("quiz not found");
   });
-}
+
+  return deferred;
+};
 
 Quiz.prototype.getQuestion = function(id){
   var l = this.sections.length;
