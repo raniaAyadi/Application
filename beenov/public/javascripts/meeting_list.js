@@ -153,6 +153,8 @@ function	openQuestionnaire(data)
     window.location.replace("/questionnaire?newquest=false");
 }
 
+
+
 /* To send a meeting to another adviser */
 function	transfert(tableau)
 {
@@ -282,8 +284,28 @@ function	deletemet(tableau)
     }
 }
 
+function createUrl(){
+	  document.querySelector("#url-creation").setAttribute("style","display:block");
+	  $("#url-creation").dialog('open');
+}
+
 $(document).ready(function()
 		  {
+				// open dialog pour créer l'url pour l'auto diag
+				$("#url-creation" ).dialog({
+					autoOpen: false,
+					modal: true,
+					draggable: false,
+					resizable: false,
+					width: $(window).width() * 0.45,
+					height: $(window).height() * 0.7,
+				});
+				$('#url').click(function()
+							 {
+						 createUrl();
+							 });
+
+
 		      $('#siret_data').keypress(function(event){
 
 			  if (event.keyCode === 10 || event.keyCode === 13)
@@ -383,6 +405,7 @@ $(document).ready(function()
 						     {
 							 deletemet(tableau);
 						     });
+
 			      }
 			  });
 		  });
