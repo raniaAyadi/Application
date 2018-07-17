@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" /> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
 
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="bootstrap3/css/bootstrap.css">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="meeting_list.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/se-1.2.2/datatables.min.css"/>
     <!--<link href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" ></script> -->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js" ></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/se-1.2.2/datatables.min.js"></script>
     <script type="text/javascript" src="meeting_list.js"></script>
@@ -52,6 +52,9 @@
     <script type="text/javascript" src="model/user.js"></script>
     <script type="text/javascript" src="model/entity.js"></script>
     <script type="text/javascript" src="component/urlCreation.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script> -->
 
     <link rel="import" href="component/urlCreation.html">
 
@@ -153,27 +156,33 @@
       </div>
     </div>
 
-    <div id="url-creation" title="Création de url" hidden="hidden">
-      <beenov-url-creation> <beenov-url-creation/>
+    <div id="url-creation" role="dialog" aria-labelledby="dia-heading" title="Création de url" hidden="hidden">
+      <beenov-url-creation> </beenov-url-creation>
+      <!-- <form>
+        <h2>I'am dialog</h2>
+      </form> -->
 
     </div>
 
 <script>
+
     $(function () {
-      $( "#url-creation" ).dialog({
+      $("#url-creation" ).dialog({
         autoOpen: false,
         modal: true,
       	draggable: false,
       	resizable: false,
       	width: $(window).width() * 0.45,
       	height: $(window).height() * 0.7,
-        classes: {
-          "ui-dialog": "highlight"
-          }
+        // classes: {
+        //   "ui-dialog": "highlight"
+        //   }
       });
 
       $("#url").click(function() {
-        $("#url-creation").dialog('open');
+        
+      document.querySelector("#url-creation").setAttribute("style","display:block");
+      $("#url-creation").dialog('open');
 
         });
       });

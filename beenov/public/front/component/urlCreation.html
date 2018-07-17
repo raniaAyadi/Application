@@ -88,13 +88,23 @@
       var select = this.querySelector("#entity");
 
       this.urlCreationService.getAllEntities().done(()=>{
-        this.urlCreationService.entities.forEach(elt => {
-          console.log(this.urlCreationService.entities);
-          var option = document.createElement("option");
-          option.innerText = elt.name;
-          option.setAttribute("entity-id", elt.id);
-          select.append(option);
-        });
+        var elt;
+        var l = this.urlCreationService.entities;
+        for (elt in  l) {
+         var option = document.createElement("option");
+         option.innerText = l[elt].name;
+         option.setAttribute("entity-id", l[elt].id);
+         console.log(l[elt].id);
+         select.append(option);
+        }
+
+        // this.urlCreationService.entities.forEach(elt => {
+        //   console.log(this.urlCreationService.entities);
+        //   var option = document.createElement("option");
+        //   option.innerText = elt.name;
+        //   option.setAttribute("entity-id", elt.id);
+        //   select.append(option);
+        // });
       });
 
       var me = this;
@@ -112,27 +122,52 @@
       var select = this.querySelector("#themes");
 
       this.urlCreationService.getAllThemes().done(()=> {
-        this.urlCreationService.themes.forEach(elt => {
-          var option = document.createElement("option");
-          option.innerText = elt.name;
-          option.style = "font-weight:bold";
-          option.disabled =true;
-          console.log(elt);
-          var l = elt.themes.length;
 
-          option.setAttribute("themes-id",elt.id);
-          select.append(option);
-
-          for (var i = 0; i < l; i++) {
+        var elt;
+        var list = this.urlCreationService.themes;
+        console.log(list);
+        for (elt in list){
+          console.log(list[elt]);
             var option = document.createElement("option");
-            option.innerText = elt.themes[i].name;
-            option.setAttribute("themes-id",elt.themes[i].id);
-            option.setAttribute("themes-group-id" , elt.themes[i].themeGroup);
+            option.innerText = list[elt].name;
+            option.style = "font-weight:bold";
+            option.disabled =true;
+            var l = list[elt].themes.length;
+
+            option.setAttribute("themes-id",list[elt].id);
             select.append(option);
-          }
+
+            for (var i = 0; i < l; i++) {
+              var option = document.createElement("option");
+              option.innerText = list[elt].themes[i].name;
+              option.setAttribute("themes-id",list[elt].themes[i].id);
+              option.setAttribute("themes-group-id" , list[elt].themes[i].themeGroup);
+              select.append(option);
+            }
+        }
 
 
-        });
+        // this.urlCreationService.themes.forEach(elt => {
+        //   var option = document.createElement("option");
+        //   option.innerText = elt.name;
+        //   option.style = "font-weight:bold";
+        //   option.disabled =true;
+        //   console.log(elt);
+        //   var l = elt.themes.length;
+        //
+        //   option.setAttribute("themes-id",elt.id);
+        //   select.append(option);
+        //
+        //   for (var i = 0; i < l; i++) {
+        //     var option = document.createElement("option");
+        //     option.innerText = elt.themes[i].name;
+        //     option.setAttribute("themes-id",elt.themes[i].id);
+        //     option.setAttribute("themes-group-id" , elt.themes[i].themeGroup);
+        //     select.append(option);
+        //   }
+        //
+        //
+        // });
       });
 
       var me = this;
@@ -181,15 +216,23 @@
           option.style= "display: none";
           select.append(option);
 
+          var elt;
+          for (elt in users){
+            var option = document.createElement("option");
+              option.innerText= users[elt].firstName;
+              option.innerText += "  " + users[elt].lastName;
+              option.setAttribute("user-id",users[elt].id);
+              select.append(option);
+          }
 
-          users.forEach(elt => {
-          var option = document.createElement("option");
-          option.innerText= elt.firstName;
-          option.innerText += "  " + elt.lastName;
-          option.setAttribute("user-id",elt.id);
-          select.append(option);
-
-        });
+        //   users.forEach(elt => {
+        //   var option = document.createElement("option");
+        //   option.innerText= elt.firstName;
+        //   option.innerText += "  " + elt.lastName;
+        //   option.setAttribute("user-id",elt.id);
+        //   select.append(option);
+        //
+        // });
 
               var me = this;
               select.onchange = function(){
