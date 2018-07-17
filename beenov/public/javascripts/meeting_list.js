@@ -285,9 +285,12 @@ function	deletemet(tableau)
 }
 
 function createUrl(){
+
+		var elt = new UrlCreationComponent();
+		document.querySelector("#url-creation").append(elt);
 	  document.querySelector("#url-creation").setAttribute("style","display:block");
 	  $("#url-creation").dialog('open');
-}
+ }
 
 $(document).ready(function()
 		  {
@@ -299,6 +302,7 @@ $(document).ready(function()
 					resizable: false,
 					width: $(window).width() * 0.45,
 					height: $(window).height() * 0.7,
+					close: () => document.querySelector("beenov-url-creation").remove(),
 				});
 				$('#url').click(function()
 							 {
