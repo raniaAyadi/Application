@@ -116,6 +116,7 @@
           var option = document.createElement("option");
           option.innerText = elt.name;
           option.style = "font-weight:bold";
+          option.disabled =true;
           console.log(elt);
           var l = elt.themes.length;
 
@@ -233,6 +234,7 @@
         console.log(this);
           var p = this.querySelector("#lien");
           p.value = CONST.url.autoDiag;
+          console.log(CONST.url.autoDiag);
           var idUser = this.urlCreationService.user.id;
           var idTheme= this.urlCreationService.theme.questionnaire;
           console.log(this.urlCreationService.theme);

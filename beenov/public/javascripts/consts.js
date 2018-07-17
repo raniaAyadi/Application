@@ -47,7 +47,7 @@ var CONST = {
       getAllThemes : CONST.baseUrl + 'themes',
       getCompanyById : CONST.baseUrl + 'getCompanyById/',
       login : CONST.baseUrl + "login",
-      atuoDiag : CONST.baseUrl + "autoDiag/"
+      autoDiag : CONST.baseUrl + "autoDiag/"
     },
 
     rule :{
