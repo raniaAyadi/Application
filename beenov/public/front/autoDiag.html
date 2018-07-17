@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title> Auto Diagnostique </title>
+
+    <link rel="stylesheet" type="text/css" href="../../bootstrap3/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../common.css">
+    <link rel="stylesheet" type="text/css" href="../../menu_deroulant.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../../ui/trumbowyg.min.css">
+    <link rel="stylesheet" type="text/css" href="../../questionnaire.css">
+    <link rel="stylesheet" type="text/css" href="../../test.css">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../../trumbowyg.min.js"></script>
+    <script type="text/javascript" src="../../langs/fr.min.js"></script>
+    <script type="text/javascript" src="../../send_questionnaire.js"></script>
+    <script type="text/javascript" src="../../user_name.js"></script>
+    <script type="text/javascript" src="../../question_handling.js"></script>
+    <script type="text/javascript" src="../../question_condition.js"></script>
+    <script type="text/javascript" src="../../questionnaire_client.js"></script>
+    <script type="text/javascript" src="../../global_rules.js"></script>
+    <script type="text/javascript" src="../../question_rules.js"></script>
+    <script type="text/javascript" src="../../question_values.js"></script>
+
+    <script type="text/javascript" src="../../autoDiag.js"></script>
+    <script type="text/javascript" src="../../model/section.js"></script>
+    <script type="text/javascript" src="../../model/question.js"></script>
+    <script type="text/javascript" src="../../model/meeting.js"></script>
+    <script type="text/javascript" src="../../model/report.js"></script>
+    <script type="text/javascript" src="../../operation.js"></script>
+    <script type="text/javascript" src="../../model/reportTemplate.js"></script>
+    <script type="text/javascript" src="../../component/item.js"></script>
+    <script type="text/javascript" src="../../component/sectionHeaderItem.js"></script>
+    <script type="text/javascript" src="../../component/questionAnswerItem.js"></script>
+    <script type="text/javascript" src="../../component/itemFactory.js"></script>
+    <script type="text/javascript" src="../../component/commentItem.js"></script>
+    <script type="text/javascript" src="../../model/templateSection.js"></script>
+    <script type="text/javascript" src="../../component/charItem.js"></script>
+    <script type="text/javascript" src="../../component/subsectionTitleItem.js"></script>
+    <script type="text/javascript" src="../../component/namedCommentItem.js"></script>
+    <script type="text/javascript" src="../../component/variableValueItem.js"></script>
+    <script type="text/javascript" src="../../component/appendixCompanyInfoItem.js"></script>
+    <script type="text/javascript" src="../../component/infoSheetsItem.js"></script>
+    <script type="text/javascript" src="../../component/pageJumpItem.js"></script>
+    <script type="text/javascript" src="../../component/staticImageItem.js"></script>
+    <script type="text/javascript" src="../../component/smileyRankItem.js"></script>
+    <script type="text/javascript" src="../../component/commentGroupItem.js"></script>
+    <script type="text/javascript" src="../../component/guestForm.js"></script>
+    <script type="text/javascript" src="../../component/imageItem.js"></script>
+    <script type="text/javascript" src="../../model/ruleFactory.js"></script>
+    <script type="text/javascript" src="../../model/ruleSetVar.js"></script>
+    <script type="text/javascript" src="../../model/ruleSetVarCond.js"></script>
+    <script type="text/javascript" src="../../component/sectionActionsItem.js"></script>
+    <script type="text/javascript" src="../../component/appendixQuestionnaireReplyItem.js"></script>
+    <script type="text/javascript" src="../../model/company.js"></script>
+    <script type="text/javascript" src="../../model/quiz.js"></script>
+    <script type="text/javascript" src="../../model/user.js"></script>
+    <script type="text/javascript" src="../../consts.js"></script>
+    <script type="text/javascript" src="../../model/ruleFactory.js"></script>
+    <script type="text/javascript" src="../../model/ruleSetVar.js"></script>
+    <script type="text/javascript" src="../../model/ruleSetVarCond.js"></script>
+    <script type="text/javascript" src="../../model/globalRuleSetVar.js"></script>
+    <script type="text/javascript" src="../../model/globalRuleSetVarCond.js"></script>
+
+
+    <link rel="import" href="../../component/guestForm.html">
+    <link rel="import" href="../../component/report.html">
+
+  </head>
+
+  <body>
+    <beenov-guest-form></beenov-guest-form>
+
+<div id="quiz" style="display:none">
+    <div class="container-fluid">
+      <nav>
+	<span class="nav_bar">
+	  <span style="cursor:pointer" id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
+	  <span style="cursor:pointer" class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
+	</span>
+      </nav>
+
+      <div id="onglet0" style="display:block;">
+	<div class="row">
+	  <div class="col-md-3 marge"></div>
+	  <div class="col-md-9 marge">
+	    <h1><span class="sectionTitle" id="title_section"></span></h1>
+	  </div>
+	</div>
+
+	<div class="row" id="option">
+	  <div class="col-md-3">
+	    <div id="company">
+	      <h2>
+		<span  class="sectionTitle" id="cmpn"></span>
+		<img src="../../btn_edit_up.png" class="modify" onclick="modifycomp()">
+	      </h2>
+	    </div>
+
+	    <div style="cursor:pointer" id="section">
+
+	      <!-- Inserer ici les liens des differentes sections dispo -->
+	    </div>
+	    <div><button type="button" onclick="#" id="save">Enregistrer</button></div>
+	  </div>
+	  <div class="col-md-9" id="list">
+	    <!-- Questions du questionnaire -->
+	  </div>
+	</div>
+      </div>
+
+      <div id="onglet1" style="display:none;">
+	<!-- <h1>Onglet 1</h1> -->
+	<div class="row" id="option">
+	  <div class="col-md-3" id="actions">
+	    <div id="rendu">
+	      <p id="sumup_type">Modèle de compte rendu</p>
+	    </div><hr>
+	  </div>
+
+
+    <div class="col-md-9" id="beenov-report">
+      <!-- <beenov-report></beenov-report> -->
+	  </div>
+
+
+  </div>
+      </div>
+
+      <div id="onglet2" style="display:none;">
+	<div class="row" id="options">
+	  <div class="col-md-3">
+	    <div style="cursor:pointer" id="conseil">
+	    </div>
+	  </div>
+	  <div  class="col-md-9" id="listcons">
+	  </div>
+	</div>
+      </div>
+
+    </div>
+    <div id="bottom">
+      <img src="../../logo-feder.png" class="credits">
+      <img src="../../logo-direccte.png" class="credits">
+    </div>
+
+</div>
+
+  </body>
+
+</html>

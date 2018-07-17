@@ -1,0 +1,42 @@
+<template id="template">
+  <input type = "number" maxlength = "14" id = "siret" required />
+  <input type = "email" pattern = "*@.+" required />
+  <button id = "save"> Enregistrer </button>
+</template>
+
+<script>
+  var GuestFormComponent = {};
+
+  (function(){
+    var currentDoc = document.currentScript.ownerDocument;
+    var guestFormPrototype = Object.create(HTMLElement.prototype);
+
+    guestFormPrototype.createdCallback = function(){
+      Operation.appendTemplate(this, currentDoc, "#template");
+      this.guestForm = new GuestForm();
+    };
+
+    guestFormPrototype.setEvents = function(){
+      var save = this.querySelector("#save");
+
+      save.onclick = () => {
+        var siret = this.querySelector("#siret").value;
+
+        this.guestForm.submit(siret).done(()=> {
+          document.body.dispatchEvent(AutoDiag.guestSubmit);
+        }
+    	).fail(()=>alert("Saisissez un SIRET"));
+      }
+    };
+
+    guestFormPrototype.attachedCallback = function(){
+      this.setEvents();
+    };
+
+    GuestFormComponent = document.registerElement("beenov-guest-form",{
+      prototype : guestFormPrototype
+    });
+
+
+  })();
+</script>
