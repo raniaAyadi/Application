@@ -51,8 +51,8 @@ function	loadcons(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="navbar"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
+	toAppend += '<button class="navbar btn-block"><span id="cons' + (i + 1) + '" onclick="printcons(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -89,8 +89,8 @@ function	loadprod(data, target)
     while (data.resources[i])
     {
 	toAppend += '<div class="row"><div class="col-md-12">';
-	toAppend += '<p class="navbar"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
-	toAppend += data.resources[i].title.toUpperCase() + '</span></p></div></div>';
+	toAppend += '<button class="navbar btn-block"><span id="prod' + (i + 1) + '" onclick="printprod(' + (i + 1) + ')">';
+	toAppend += data.resources[i].title.toUpperCase() + '</span></button></div></div>';
 	++i;
     }
     $(target).append(toAppend);
@@ -406,7 +406,6 @@ function	update_cptrd_cons(data)
 				var elt = document.querySelector(selector);
 
 				elt.onclick = ()=>{
-					console.log(elt);
 					var bool = 0;
 					if(elt.checked)
 						bool = 1;
@@ -565,7 +564,6 @@ function	needhalp()
 		     }),
 	});
 }
-
 function modifycomp()
 {
 
@@ -595,8 +593,6 @@ function modifycomp()
 	}
 	toAppend.push('</span>');
 	$('#company_questionnaire').append(toAppend.join(""));
-	$('#company_questionnaire').append(new QuizComponent());
-
 	$('#company_questionnaire .wysiwyg').trumbowyg({
 	    lang: 'fr',
 	    btns : ['formatting','bold', 'italic',
@@ -636,7 +632,7 @@ function modifycomp()
 	company_questionnaire_ids.questionnaire = null;
 	company_questionnaire_ids.questionnaire_reply = null;
 	$('#company_questionnaire').dialog("close");
-    }
+}
 
     $('#company_questionnaire').dialog({
 	modal: true,
@@ -680,15 +676,15 @@ function modifycomp()
 $(document).ready(function()
 		  {
 
-					var id = JSON.parse(getCookie("company_info")).companies;
-					Company.getById(id).done(c => c.getCoord().done(coord =>
-						{
-						console.log(coord);
-						 $("#naf").text(coord.nafCode);
-						 $("#dept").text(coord.postalCode);
-						 $("#cmmn").text(coord.city);
-
-					}));
+					// var id = JSON.parse(getCookie("company_info")).companies;
+					// Company.getById(id).done(c => c.getCoord().done(coord =>
+					// 	{
+					// 	console.log(coord);
+					// 	 $("#naf").text(coord.nafCode);
+					// 	 $("#dept").text(coord.postalCode);
+					// 	 $("#cmmn").text(coord.city);
+					//
+					// }));
 
 
 		      $("#inputfile").change(function()
