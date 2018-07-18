@@ -4,8 +4,8 @@ function GlobalRuleSetVar(tab){
   this.type = CONST.rule.globalRuelSetVar;
 }
 
-GlobalRuleSetVar.prototype.appRule = function(){
-  var quiz = Meeting.instance.object.quiz;
+GlobalRuleSetVar.prototype.appRule = function(quiz){
+  quiz = quiz || Meeting.instance.object.quiz;
   var globalVariableValues = quiz.globalVariableValues;
 
   if(this.action[0] === "list"){

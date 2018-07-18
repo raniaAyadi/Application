@@ -4,6 +4,7 @@ function Section(obj){
 
   if(obj)
     this.setQuestions(obj.questions);
+
 }
 
 Section.prototype.setQuestions = function(tab){
@@ -26,11 +27,11 @@ Section.prototype.getQuestion = function(id){
   return null;
 }
 
-Section.prototype.appRules = function(){
+Section.prototype.appRules = function(quiz){
   var l = this.questions.length;
 
   for(var i=0; i<l; i++)
-    this.questions[i].appRules();
+    this.questions[i].appRules(quiz);
 };
 
 Section.prototype.getQuestionByTitle = function(title){

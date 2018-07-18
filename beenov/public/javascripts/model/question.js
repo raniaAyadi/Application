@@ -9,6 +9,7 @@ function Question(obj){
     this.mandatory = (obj.title === "Forme juridique") ? true : obj.mandatory;
     this.setRules(obj.rules);
   }
+
 }
 
 Question.prototype.setRules = function(tab){
@@ -89,9 +90,9 @@ Question.prototype.getAnswerData = function(){
   return answerData;
 };
 
-Question.prototype.appRules = function(){
+Question.prototype.appRules = function(quiz){
   for(var i in this.rules)
-    this.rules[i].appRule(this.answer);
+    this.rules[i].appRule(this.answer, quiz);
 
 }
 

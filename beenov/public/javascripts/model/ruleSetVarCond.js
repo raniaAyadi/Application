@@ -5,7 +5,7 @@ function RuleSetVarCond(tab){
 }
 
 RuleSetVarCond.prototype.evaluateCond = function(answer){
-  var quiz = Meeting.instance.object.quiz;
+  quiz = quiz || Meeting.instance.object.quiz;
   var globalVariableValues = quiz.globalVariableValues;
 
   var value = (this.cond[1] === "$answer") ? answer : globalVariableValues[this.cond[1]];

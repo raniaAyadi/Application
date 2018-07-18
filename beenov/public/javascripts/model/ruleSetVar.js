@@ -5,8 +5,8 @@ function RuleSetVar(tab){
   this.type = CONST.rule.ruleSetVar;
 }
 
-RuleSetVar.prototype.appRule = function(answer){
-  var quiz = Meeting.instance.object.quiz;
+RuleSetVar.prototype.appRule = function(answer, quiz){
+  quiz = quiz || Meeting.instance.object.quiz;
   var globalVariableValues = quiz.globalVariableValues;
   var value = (this.varSource === "$answer") ? answer : this.varSource;
 

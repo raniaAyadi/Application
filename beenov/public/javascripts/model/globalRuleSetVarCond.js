@@ -4,8 +4,8 @@ function GlobalRuleSetVarCond(tab){
   this.type = CONST.rule.globalRuelSetVarCond;
 }
 
-GlobalRuleSetVarCond.prototype.evaluateCond = function(){
-  var quiz = Meeting.instance.object.quiz;
+GlobalRuleSetVarCond.prototype.evaluateCond = function(quiz){
+  quiz = quiz || Meeting.instance.object.quiz;
   var globalVariableValues = quiz.globalVariableValues;
   var value = globalVariableValues[this.cond[1]];
 

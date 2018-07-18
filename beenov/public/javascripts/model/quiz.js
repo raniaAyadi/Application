@@ -125,12 +125,12 @@ Quiz.prototype.setAnswers = function(idQuizReply){
 Quiz.prototype.appQuestionRules = function(){
   var l = this.sections.length;
   for(var i=0; i<l; i++)
-    this.sections[i].appRules();
+    this.sections[i].appRules(this);
 };
 
 Quiz.prototype.appQuizRules = function(){
   for(var i in this.rules)
-    this.rules[i].appRule();
+    this.rules[i].appRule(this);
 };
 
 Quiz.prototype.appRules = function(){

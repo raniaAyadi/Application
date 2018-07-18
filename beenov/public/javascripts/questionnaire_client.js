@@ -681,16 +681,13 @@ function modifycomp()
 $(document).ready(function()
 		  {
 
-					// var id = JSON.parse(getCookie("company_info")).companies;
-					// Company.getById(id).done(c => c.getCoord().done(coord =>
-					// 	{
-					// 	do console.log(coord);
-					// 	 $("#naf").text(coord.nafCode);
-					// 	 $("#dept").text(coord.postalCode);
-					// 	 $("#cmmn").text(coord.city);
-					//
-					// }));
+					var id = JSON.parse(getCookie("company_info")).companies;
+					Company.getById(id).done((company) => {
+						var coord = company.getCoord();
 
+						$("#naf").text(coord.nafCode);
+						$("#dept").text(coord.postalCode);
+					});
 
 		      $("#inputfile").change(function()
 					     {

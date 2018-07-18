@@ -156,31 +156,12 @@ Company.getById = function(id){
 };
 
 Company.prototype.getCoord = function(){
-  var coord = {
-    postalCode : 0,
-    city : '',
-    nafCode : 0
-  };
-  var deferred = $.Deferred();
+  var coord = {};
 
-  if(this.quiz instanceof Quiz){
-    coord.postalCode = this.quiz.getQuestion(9).answer;
-    coord.city = this.quiz.getQuestion(8).answer;
-    coord.nafCode = this.quiz.getQuestion(18).answer;
+  coord.postalCode = this.zipcode;
+  coord.nafCode = this.nafCode;
 
-    deferred.resolve(coord);
-   }
-
-   else
-    this.setQuizReply().done(()=>{
-      coord.postalCode = this.quiz.getQuestion(9).answer;
-      coord.city = this.quiz.getQuestion(8).answer;
-      coord.nafCode = this.quiz.getQuestion(18).answer;
-
-      deferred.resolve(coord);
-    });
-
-    return deferred;
+  return coord;
 };
 
 Company.prototype.saveGuestForm = function(){
@@ -195,6 +176,7 @@ Company.setCompany = function(siret){
 
     if(data.resources[0]){
       obj = new Company(data.resources[0]);
+      console.log(obj);
       obj.setQuizReply().done(()=> {
         localStorage.setItem("company", JSON.stringify(obj));
         deferred.resolve();
@@ -275,8 +257,10 @@ Company.prototype.getReplyJSON = function(){
   json.comments = [];
 
   json.date = Operation.getDate(new Date());
-  json.globalVariableValues = this.quiz.globalVariableValues;
   json.questionAnswers = this.quiz.getReplyJSON();
+
+  this.quiz.appRules();
+  json.globalVariableValues = this.quiz.globalVariableValues;
 
   return json;
 };
