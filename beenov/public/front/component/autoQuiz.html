@@ -5,12 +5,13 @@
 
 <div id="quiz" >
     <div class="container-fluid">
-      <nav>
+      <!-- <nav>
 	<span class="nav_bar">
 	  <span style="cursor:pointer" id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
 	  <span style="cursor:pointer" class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
 	</span>
-      </nav>
+      </nav> -->
+      <h1> <span id="title_theme"> </span></h1>
 
       <div id="onglet0" style="display:block;">
 	<div class="row">
@@ -94,12 +95,21 @@
   var AutoQuizComponent = {};
 
   (function(){
+    // this.querySelector("#title_theme").innerHtml = autoDiag.subTheme;
+
     var currentDoc = document.currentScript.ownerDocument;
     var autoQuizPrototype = Object.create(HTMLElement.prototype);
 
     autoQuizPrototype.createdCallback = function(){
+      console.log(AutoDiag.subTheme.name);
       Operation.appendTemplate(this, currentDoc, "#template");
     };
+
+    autoQuizPrototype.attachedCallback = function(){
+      this.querySelector("#title_theme").innerText = AutoDiag.subTheme.name;
+      console.log(this.querySelector("#title_theme"));
+    }
+
 
     AutoQuizComponent = document.registerElement("beenov-auto-quiz", {
       prototype : autoQuizPrototype

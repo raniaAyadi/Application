@@ -16,12 +16,19 @@
   			<fieldset>
   				<h2 style="color:#003c74">Qui êtes-vous</h2>
   				<hr class="colorgraph">
-  				<div class="form-group">
-    <input type="email" required id="email" pattern=".+@*.*" class="form-control input-lg" placeholder="Votre adresse mail">
+
+          <div class="form-group">
+            <input type="text" name="" value="" id="nom" placeholder="Votre nom" class="form-control input-lg">
+            <br/>
+            <input type="text" name="" value="" id="prenom" placeholder="Votre prénom" class="form-control input-lg">
+          </div>
+
+          <div class="form-group">
+    <input type="email" required id="email" pattern=".+@*.*" class="form-control input-lg" placeholder="Votre adresse mail" value= "a@a">
   				</div>
   				<div class="form-group">
-    <input type="text" required id="siret" maxlength="14" pattern="[0-9]{14}"  class="form-control input-lg" placeholder="Le SIRET de votre entreprise">
-  				</div>
+    <input type="text" required id="siret" maxlength="14" pattern="[0-9]{14}"  class="form-control input-lg" value="00000000000000" placeholder="Le SIRET de votre entreprise">
+          </div>
   				<span class="button-checkbox">
   				</span>
   				<hr class="colorgraph">
