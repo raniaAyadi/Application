@@ -345,73 +345,73 @@ $(document).ready(function()
 						});
 
 
-		      $.ajax(
-			  { /* requète GET pour récupérer infos entretiens */
-			      type: "GET",
-			      url : "get_meeting_list",
-			      dataType: "json",
-			      success : function(data)
-			      {
-				  /* Création tableau avec paramètres */
-				  var tableau = $('#meetings').DataTable(
-				      {
-					  "data" : set_data(data),
-					  "columns": [
-					      { title: "Thématique" },
-					      { title: "SIRET" },
-					      { title: "Entreprise" },
-					      { title: "Code NAF" },
-					      { title: "Secteur d'activité" },
-					      { title: "Effectif" },
-					      { title: "Conseiller" },
-					      { type: "date", title: "Date"},
-					      { visible : false, searchable : false},
-					      { visible : false, searchable : false} ],
-					  "scrollY":	"58vh",
-					  "scrollX":	true,
-					  "paging":	false,
-					  "bFilter":	false,
-					  "searching":	true,
-					  "dom":		't',
-					  "select" :	'single'
-				      });
-
-				  /* Seulement des nombres dans input SIRET */
-				  $("#siret_data").on('keydown', function (e)
-						      {
-							  siret_data(e);
-						      });
-
-				  /* Recherche dans le tableau */
-				  $("#searchinput").on('keyup', function(event)
-						       {
-							   tableau.search(this.value).draw();
-						       });
-
-				  /* Ouverture entretien */
-				  $('#open').click(function()
-						   {
-						       let data = tableau.rows( { selected: true } ).data();
-						       openQuestionnaire(data[0]);
-						   });
-
-				  $('#transfert').click(function()
-							{
-							    transfert(tableau);
-							});
-
-				  $('#exportgrc').click(function()
-							{
-							    exportgrc(tableau);
-							});
-
-				  $('#delete').click(function()
-						     {
-							 deletemet(tableau);
-						     });
-
-			      }
-			  });
+		    //   $.ajax(
+			  // { /* requète GET pour récupérer infos entretiens */
+			  //     type: "GET",
+			  //     url : "get_meeting_list",
+			  //     dataType: "json",
+			  //     success : function(data)
+			  //     {
+				//   /* Création tableau avec paramètres */
+				//   var tableau = $('#meetings').DataTable(
+				//       {
+				// 	  "data" : set_data(data),
+				// 	  "columns": [
+				// 	      { title: "Thématique" },
+				// 	      { title: "SIRET" },
+				// 	      { title: "Entreprise" },
+				// 	      { title: "Code NAF" },
+				// 	      { title: "Secteur d'activité" },
+				// 	      { title: "Effectif" },
+				// 	      { title: "Conseiller" },
+				// 	      { type: "date", title: "Date"},
+				// 	      { visible : false, searchable : false},
+				// 	      { visible : false, searchable : false} ],
+				// 	  "scrollY":	"58vh",
+				// 	  "scrollX":	true,
+				// 	  "paging":	false,
+				// 	  "bFilter":	false,
+				// 	  "searching":	true,
+				// 	  "dom":		't',
+				// 	  "select" :	'single'
+				//       });
+				//
+				//   /* Seulement des nombres dans input SIRET */
+				//   $("#siret_data").on('keydown', function (e)
+				// 		      {
+				// 			  siret_data(e);
+				// 		      });
+				//
+				//   /* Recherche dans le tableau */
+				//   $("#searchinput").on('keyup', function(event)
+				// 		       {
+				// 			   tableau.search(this.value).draw();
+				// 		       });
+				//
+				//   /* Ouverture entretien */
+				//   $('#open').click(function()
+				// 		   {
+				// 		       let data = tableau.rows( { selected: true } ).data();
+				// 		       openQuestionnaire(data[0]);
+				// 		   });
+				//
+				//   $('#transfert').click(function()
+				// 			{
+				// 			    transfert(tableau);
+				// 			});
+				//
+				//   $('#exportgrc').click(function()
+				// 			{
+				// 			    exportgrc(tableau);
+				// 			});
+				//
+				//   $('#delete').click(function()
+				// 		     {
+				// 			 deletemet(tableau);
+				// 		     });
+				//
+			  //     }
+			  // });
 		  });
 
 /* Lightboxes' function. */

@@ -167,7 +167,7 @@
     };
 
     reportPrototype.updateItems = function(){
-      if(ReportTemplate.allCurrent)
+      if(ReportTemplate.allCurrent && ReportTemplate.allCurrent[0])
         ReportTemplate.allCurrent[0].update().done(()=>{
           if(ReportComponent.singleton){
             for(var name in ReportComponent.singleton)

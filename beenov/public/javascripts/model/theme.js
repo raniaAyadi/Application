@@ -3,6 +3,8 @@ function Theme(obj){
 
   this.id = obj.id;
   this.name = obj.name;
+  this.questionnaire = obj.questionnaire;
+
   this.setThemes(obj.themes);
 }
 
@@ -39,6 +41,31 @@ Theme.getThemeById = function(id){
   Theme.getAllThemes().done(() => {
     var th = Theme.allThemes.find( elt => elt.id == id);
     deferred.resolve(th);
+  });
+
+  return deferred;
+}
+
+Theme.prototype.findSubtheme = function(id){
+  var th = this.themes.find( elt => elt.id == id);
+  return th;
+};
+
+Theme.getSubtheme = function(id){
+  var deferred = $.Deferred();
+
+  Theme.getAllThemes().done(() => {
+    var th = null;
+    for (var  i in Theme.allThemes){
+      th = Theme.allThemes[i].findSubtheme(id);
+      if(th){
+        deferred.resolve(th);
+        break;
+      }
+    }
+
+    if(!th)
+      deferred.reject("Sub-Theme not found");
   });
 
   return deferred;

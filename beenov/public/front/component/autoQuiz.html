@@ -28,12 +28,22 @@
 		<img src="../../btn_edit_up.png" class="modify" onclick="modifycomp()">
 	      </h2>
 	    </div>
-
+	    <div id="newmet">
+	      <form>
+		<label>Thématique :</label><br />
+		<input type="text" id="theme" disabled><br />
+		<label>Entretien réalisé par :</label><br />
+		<input type="text" id="advisor" disabled><br />
+		<!-- <label>Interlocuteur :</label><br />
+		<input type="text" id="locutor" disabled>
+		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br /> -->
+	      </form>
+	    </div><br />
 	    <div style="cursor:pointer" id="section">
 
 	      <!-- Inserer ici les liens des differentes sections dispo -->
 	    </div>
-	    <div><button type="button" onclick="#" id="save">Enregistrer</button></div>
+	    <div> <button type="button" onclick="#" id="save"> Enregistrer </button> </div>
 	  </div>
 	  <div class="col-md-9" id="list">
 	    <!-- Questions du questionnaire -->

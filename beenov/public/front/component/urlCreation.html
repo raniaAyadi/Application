@@ -63,24 +63,13 @@
 
     urlCreationPrototype.getUrl = function()
     {
-      console.log(this);
         var p = document.querySelector("#lien");
         p.innerText = CONST.url.autoDiag;
         var idUser = document.urlCreationService.user.id;
         var idTheme= document.urlCreationService.theme.themes.questionnaire;
-        console.log(idTheme);
         p.innerText += idUser;
         p.innerText += "/";
         p.innerText += idTheme;
-
-
-        // var select  = document.querySelector("#themes");
-        // var option = select.options[select.selectedIndex];
-        // var idTheme = option.getAttribute("themes-id");
-        // p.innerText += "idUser=";
-        // var select  = document.querySelector("#user");
-        // var option = select.options[select.selectedIndex];
-        // var idUser = option.getAttribute("user-id");
 
     }
 
@@ -94,17 +83,8 @@
          var option = document.createElement("option");
          option.innerText = l[elt].name;
          option.setAttribute("entity-id", l[elt].id);
-         console.log(l[elt].id);
          select.append(option);
         }
-
-        // this.urlCreationService.entities.forEach(elt => {
-        //   console.log(this.urlCreationService.entities);
-        //   var option = document.createElement("option");
-        //   option.innerText = elt.name;
-        //   option.setAttribute("entity-id", elt.id);
-        //   select.append(option);
-        // });
       });
 
       var me = this;
@@ -125,9 +105,7 @@
 
         var elt;
         var list = this.urlCreationService.themes;
-        console.log(list);
         for (elt in list){
-          console.log(list[elt]);
             var option = document.createElement("option");
             option.innerText = list[elt].name;
             option.style = "font-weight:bold";
@@ -146,28 +124,6 @@
             }
         }
 
-
-        // this.urlCreationService.themes.forEach(elt => {
-        //   var option = document.createElement("option");
-        //   option.innerText = elt.name;
-        //   option.style = "font-weight:bold";
-        //   option.disabled =true;
-        //   console.log(elt);
-        //   var l = elt.themes.length;
-        //
-        //   option.setAttribute("themes-id",elt.id);
-        //   select.append(option);
-        //
-        //   for (var i = 0; i < l; i++) {
-        //     var option = document.createElement("option");
-        //     option.innerText = elt.themes[i].name;
-        //     option.setAttribute("themes-id",elt.themes[i].id);
-        //     option.setAttribute("themes-group-id" , elt.themes[i].themeGroup);
-        //     select.append(option);
-        //   }
-        //
-        //
-        // });
       });
 
       var me = this;
@@ -177,8 +133,6 @@
         var idThGr = option.getAttribute("themes-group-id");
 
         me.urlCreationService.setTheme(idThGr,idTh);
-        console.log(idThGr);
-        console.log(idTh);
         me.setUsers();
       };
     };
@@ -187,7 +141,6 @@
     urlCreationPrototype.setUsers = function(){
       deferred.done(()=>{
         var users = this.urlCreationService.getUsers();
-        console.log(users);
 
         if (users.length === 0) {
           var select = this.querySelector("#user");
@@ -202,8 +155,6 @@
         }
           var select = this.querySelector("#user");
           var i;
-
-          console.log(select.options.length);
 
           for(i = select.options.length - 1 ; i >= 0 ; i--)
           {
@@ -224,16 +175,6 @@
               option.setAttribute("user-id",users[elt].id);
               select.append(option);
           }
-
-        //   users.forEach(elt => {
-        //   var option = document.createElement("option");
-        //   option.innerText= elt.firstName;
-        //   option.innerText += "  " + elt.lastName;
-        //   option.setAttribute("user-id",elt.id);
-        //   select.append(option);
-        //
-        // });
-
               var me = this;
               select.onchange = function(){
                 var option = this.options[this.selectedIndex];
@@ -274,14 +215,10 @@
       this.setEntities();
       this.setThemes();
       this.querySelector("#urlB").onclick = ()=>{
-        console.log(this);
           var p = this.querySelector("#lien");
           p.value = CONST.url.autoDiag;
-          console.log(CONST.url.autoDiag);
           var idUser = this.urlCreationService.user.id;
-          var idTheme= this.urlCreationService.theme.questionnaire;
-          console.log(this.urlCreationService.theme);
-          console.log(idTheme);
+          var idTheme= this.urlCreationService.theme.id;
           p.value += idUser;
           p.value += "/";
           p.value += idTheme;

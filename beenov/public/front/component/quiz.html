@@ -55,8 +55,10 @@
             var cookie = {
               theme: getParameterByName("theme", window.location.href),
               quest: getParameterByName("questionnaire", window.location.href),
-              questRep : "questionnaire-replies/"+data.id
+              questRep : "questionnaire-replies/"+data.id,
+              advisor : Operation.getCookie("username")
             };
+
             document.cookie = "infomet=" + JSON.stringify(cookie);
             window.location.replace('/questionnaire?newquest=false');
           });
