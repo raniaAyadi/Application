@@ -684,7 +684,7 @@ $(document).ready(function()
 					// var id = JSON.parse(getCookie("company_info")).companies;
 					// Company.getById(id).done(c => c.getCoord().done(coord =>
 					// 	{
-					// 	console.log(coord);
+					// 	do console.log(coord);
 					// 	 $("#naf").text(coord.nafCode);
 					// 	 $("#dept").text(coord.postalCode);
 					// 	 $("#cmmn").text(coord.city);

@@ -1,7 +1,6 @@
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="operation.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
 
 <template id="template">
   <!-- <input type = "number" maxlength = "14" id = "siret" required />
@@ -58,8 +57,8 @@
     guestFormPrototype.setEvents = function(){
       var save = this.querySelector("#save");
 
-      var siret = this.querySelector("#siret").value;
       save.onclick = () => {
+        var siret = this.querySelector("#siret").value;
 
         this.guestForm.submit(siret).done(()=> {
           document.body.dispatchEvent(AutoDiag.guestSubmit);
