@@ -18,9 +18,9 @@
   				<hr class="colorgraph">
 
           <div class="form-group">
-            <input type="text" name="" value="" id="nom" placeholder="Votre nom" class="form-control input-lg">
+            <input type="text" name="" value="" id="lastName" placeholder="Votre nom" class="form-control input-lg">
             <br/>
-            <input type="text" name="" value="" id="prenom" placeholder="Votre prénom" class="form-control input-lg">
+            <input type="text" name="" value="" id="firstName" placeholder="Votre prénom" class="form-control input-lg">
           </div>
 
           <div class="form-group">
@@ -67,12 +67,22 @@
       save.onclick = () => {
         var siret = this.querySelector("#siret").value;
 
+        var mail = this.querySelector("#email");
+        var firstName = this.querySelector("#firstName");
+        var lastName = this.querySelector("#lastName");
+
         var mailValidity = this.querySelector("#email").validity;
         var siretValidity = this.querySelector("#siret").validity;
 
         if (mailValidity.valid && siretValidity.valid){
+          var data = {
+            contactFirstName : firstName.value,
+            contactLastName : lastName.value,
+            contactEmail : mail.value,
+            siret : siret
+          }
 
-          this.guestForm.submit(siret).done(()=> {
+          this.guestForm.submit(data).done(()=> {
             document.body.dispatchEvent(AutoDiag.guestSubmit);
             console.log("done");
           })

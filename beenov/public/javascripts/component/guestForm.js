@@ -2,8 +2,9 @@ function GuestForm() {
   this.company = {};
 }
 
-GuestForm.prototype.submit = function(siret){
+GuestForm.prototype.submit = function(contactData){
   var deferred = $.Deferred();
+  var siret = contactData.siret;
 
   Company.setCompany(siret).done(()=>{
     this.company = Company.getCurrentCompany();
@@ -11,7 +12,7 @@ GuestForm.prototype.submit = function(siret){
 
     this.company.save(false).done(() => {
       var quiz = AutoDiag.quiz;
-      Quiz.addEmptyQuiz(this.company.id, quiz.id).done((data)=>{
+      Quiz.addEmptyQuiz(this.company.id, quiz.id, contactData).done((data)=>{
         var cookie = {
           quest: "questionnaires/" + quiz.id,
           questRep : "questionnaire-replies/"+data.id

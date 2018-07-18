@@ -10,12 +10,13 @@ function Quiz(obj){
     this.setRules(obj.rules);
 }
 
-Quiz.addEmptyQuiz = function(companyId, quizId){
+Quiz.addEmptyQuiz = function(companyId, quizId, data){
+  data = data || {};
   var emptyQuiz = {
     comments : [],
-    contactEmail : "user@user.fr",
-    contactFirstName : "test",
-    contactLastName : "test",
+    contactEmail : data.contactEmail || "user@user.fr",
+    contactFirstName : data.contactFirstName || "test",
+    contactLastName : data.contactLastName || "test",
     globalVariableValues : {},
     date : Operation.getDate(new Date()),
     questionAnswers : [],
