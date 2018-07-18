@@ -294,6 +294,7 @@ var     send_questionnaire_reply = function(req, res, base_url)
     var url = create_get_url(base_url, '/questionnaire-replies/'+req.param('id'), {'session-key': req.cookies.cskey});
   else
     var url = create_get_url(base_url, '/' + JSON.parse(req.cookies.infomet).questRep, {'session-key': req.cookies.cskey});
+    console.log(url);
     request.get(url, function(err, response, body)
 		{
 		    let json = JSON.parse(body);
@@ -394,6 +395,8 @@ var     post_questionnaire_data = function(req, res, base_url, data)
     }
     else if (req.query.newquest == "false")
     {
+      console.log("is NEw");
+      console.log(JSON.parse(req.cookies.infomet).questRep);
 	url = create_get_url(base_url, "/" + JSON.parse(req.cookies.infomet).questRep, {'session-key': req.cookies.cskey});
     }
     else if (req.query.newquest == "true" || req.query.newent == "true")
@@ -460,10 +463,12 @@ var     post_questionnaire_data = function(req, res, base_url, data)
 		     });
 	return;
     }
+    console.log(url);
     /* =================================== */
     request.post({url: url,
 		  json: data},function(err, response, body)
 		 {
+       console.log(body);
 		     if (err || body.status == 'error')
 		     {
 			 res.status(204).end();

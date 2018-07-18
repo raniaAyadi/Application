@@ -73,16 +73,20 @@ Company.prototype.updateCompany = function(){
   });
 };
 
-Company.prototype.save = function(){
-  if(this.id)
-    return this.saveReply();
-  else{
-    var deferred = new $.Deferred();
+Company.prototype.save = function(update){
+  var update = (update === undefined) ? true : update;
+  var deferred = $.Deferred();
 
+  if(this.id){
+    if(update)
+      return this.saveReply();
+    else
+      deferred.resolve();
+  }
+  else
     this.addCompany().done(()=>this.saveReply(true).done(()=>this.updateCompany().done(()=>deferred.resolve())));
 
-    return deferred;
-  }
+  return deferred;
 };
 
 Company.prototype.setReply = function(id){
@@ -179,6 +183,10 @@ Company.prototype.getCoord = function(){
     return deferred;
 };
 
+Company.prototype.saveGuestForm = function(){
+
+};
+
 Company.setCompany = function(siret){
   var deferred = new $.Deferred();
 
@@ -253,7 +261,7 @@ Company.prototype.getReplyJSON = function(){
     resource : "companies/" + me.id
   };
   json.owner = {
-    resource : "users/" + window.getCookie(CONST.cookie.currentUser)
+    resource : "users/" + Operation.getCookie(CONST.cookie.currentUser)
   };
   json.questionnaire = {
     resource : "questionnaires/" + me.quiz.id

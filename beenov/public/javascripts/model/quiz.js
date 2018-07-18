@@ -10,7 +10,7 @@ function Quiz(obj){
     this.setRules(obj.rules);
 }
 
-Quiz.addEmptyQuiz = function(companyId){
+Quiz.addEmptyQuiz = function(companyId, quizId){
   var emptyQuiz = {
     comments : [],
     contactEmail : "user@user.fr",
@@ -30,7 +30,7 @@ Quiz.addEmptyQuiz = function(companyId){
     resource : "companies/" + companyId
   };
   emptyQuiz.questionnaire = {
-    resource : window.getParameterByName("questionnaire")
+    resource : quizId ? ("questionnaires/") + quizId : window.getParameterByName("questionnaire")
   };
 
   return $.ajax({

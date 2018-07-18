@@ -25,6 +25,7 @@ Meeting.prototype.setQuiz = function(id){
 }
 
 Meeting.prototype.setAnswers = function(id){
+  console.log("setAnswers "+id);
   return this.quiz.setAnswers(id);
 }
 
@@ -59,6 +60,7 @@ Meeting.delete = function(qstReply){
 
 Meeting.getCurrentMeeting = function(){
   if(Meeting.instance == undefined){
+    console.log("is new meeting");
     Meeting.instance = {
       deferred : new $.Deferred(),
       object : {}
@@ -77,5 +79,5 @@ Meeting.prototype.getQuestion = function(id){
 
 Meeting.prototype.getAverage = function(varName){
   var idCompany =  this.quiz.company.resource;
-  return $.get('getAverage', {idCompany : idCompany, variableName : varName});
+  return $.get(CONST.url.getAverage, {idCompany : idCompany, variableName : varName});
 };

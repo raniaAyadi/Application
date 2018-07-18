@@ -17,14 +17,14 @@ RuleSetVar.prototype.appRule = function(answer){
   }
 
   else{
-    if(Array.isArray(value)){
+    if(Array.isArray(value) && answer){
       var nbRows = value[2];
       var nbCol = value[3];
 
       if(nbRows === 0 || nbCol === 0)
         return;
 
-      var l = answer.length;
+      var l = answer.length ;
       var  answerMatrice = new Array(nbRows);
       var i=0;
 

@@ -13,7 +13,7 @@ AutoDiag.checkUrl = function(){
   $.when(User.getById(data.idUser), Quiz.getById(data.idQuiz)).done((user, quiz) => {
     AutoDiag.advisor = new User(user);
     AutoDiag.quiz = new Quiz(quiz);
-    
+
   }).fail(()=>{
     alert("Vérifiez l'URL");
     window.location.href = CONST.url.login;
@@ -24,8 +24,8 @@ AutoDiag.displayQuiz = function(){
   var guestFormC = document.querySelector("beenov-guest-form");
   guestFormC.remove();
 
-  var quizElt = document.querySelector("#quiz");
-  quizElt.removeAttribute("style");
+  var autoQuiz = document.querySelector("#quiz");
+  autoQuiz.append(new AutoQuizComponent());
 
   var report = document.querySelector("#beenov-report");
   report.append(new ReportComponent());

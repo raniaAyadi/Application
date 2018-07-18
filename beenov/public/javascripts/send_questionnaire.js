@@ -81,6 +81,8 @@ var validatedP = false;
 
 function	send_questionnaire(reinit)
 {
+
+    var isAutoDiag = window.hasOwnProperty("AutoDiag");
     let posted;
     let url = '/send_questionnaire';
     globalVariables = {};
@@ -121,21 +123,26 @@ function	send_questionnaire(reinit)
 	    owner: { resource: "users/" + getCookie("uid") }
 	};
     }
-    else if (getParameterByName("newquest", window.location.href) == "false")
+    else if (getParameterByName("newquest", window.location.href) == "false"|| isAutoDiag)
     {
+      if(isAutoDiag){
+        var companyJson = JSON.parse(getCookie("company_info"));
+        var ownerId = getCookie("uid");
+      }
+
 	posted = {
 	    globalVariableValues: globalVariables,
 	    contactFirstName: $("#DialogPrenom").val(),
 	    contactLastName: $("#DialogNom").val(),
 	    contactEmail: $("#DialogMail").val(),
-	    questionnaire: questionnaire_reply.resources[0].questionnaire,
+	    questionnaire: isAutoDiag ? ("questionnaires/" + AutoDiag.quiz.id) : questionnaire_reply.resources[0].questionnaire,
 	    sectionActions: [],
 	    validatedP: validatedP,
 	    questionAnswers: get_values("quest"),
 	    comments: [],
-	    company: questionnaire_reply.resources[0].company,
+	    company: isAutoDiag ? ("companies/" + companyJson.companies) : questionnaire_reply.resources[0].company,
 	    date: $("#DialogDate").val(),
-	    owner: questionnaire_reply.resources[0].owner
+	    owner: isAutoDiag ? ("users/" + ownerId) : questionnaire_reply.resources[0].owner
 	};
     }
     if (window.location.pathname == "/company")
@@ -153,7 +160,7 @@ function	send_questionnaire(reinit)
     }
 
     if(Meeting.instance){
-      url = "send_questionnaire?company=false&newquest=false";
+      url = CONST.url.sendQuestReply + "?company=false&newquest=false";
       var quiz = Meeting.instance.object.quiz;
       quiz.upadteAnswers(posted.questionAnswers);
       quiz.appRules();

@@ -8,6 +8,7 @@ function        create_url(base_url, path_url, data)
     return (url);
 }
 
+
 var verifyByAPI = function(req, res){
   let url = "https://entreprise.api.gouv.fr/v2/etablissements/";
   url += req.params['0'];
@@ -82,7 +83,6 @@ var addCompany = function(req, res, base_url, data){
 	    "Content-Length" : Buffer.byteLength(postBody, 'utf8')
 	};
 
-
   request.post({url : url, body : postBody, headers : header}, function(err, response, body)
   {
 //      let json = JSON.parse(body);
@@ -101,7 +101,6 @@ var addMeeting = function(req, res, base_url, data){
   let url = create_url(base_url, '/questionnaire-replies', {'session-key' : req.cookies.cskey});
   request.post({url:url, json:data},
     function(err, response, body){
-      console.log(body);
       if(err)
       res.status(204);
       else{

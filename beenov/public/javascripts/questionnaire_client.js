@@ -34,7 +34,9 @@ function	changeOnglet(numero)
     // Cache tout les onglets
     for (var i = 0; i < nombreOnglets; ++i)
     {
-	document.getElementById("onglet" + i).style.display = "none";
+			var x = document.getElementById("onglet"+i);
+	if(x)
+	x.style.display = "none";
     }
     // Affiche le sélectionné et le surligne seul en orange
     document.getElementById("onglet" + numero).style.display = "block";
@@ -564,6 +566,7 @@ function	needhalp()
 		     }),
 	});
 }
+
 function modifycomp()
 {
 
@@ -593,6 +596,8 @@ function modifycomp()
 	}
 	toAppend.push('</span>');
 	$('#company_questionnaire').append(toAppend.join(""));
+	$('#company_questionnaire').append(new QuizComponent());
+
 	$('#company_questionnaire .wysiwyg').trumbowyg({
 	    lang: 'fr',
 	    btns : ['formatting','bold', 'italic',
@@ -632,7 +637,7 @@ function modifycomp()
 	company_questionnaire_ids.questionnaire = null;
 	company_questionnaire_ids.questionnaire_reply = null;
 	$('#company_questionnaire').dialog("close");
-}
+    }
 
     $('#company_questionnaire').dialog({
 	modal: true,
@@ -721,7 +726,11 @@ $(document).ready(function()
 		      $('#list').on('keydown', '.city' ,check_input_city);
 
 		      /* Recuperation des fiches conseil */
-		      $.ajax(
+					var currentHref = window.location.href;
+					var autoDiagExp = new RegExp("http://localhost/autoDiag/[0-9]+/[0-9]+");
+
+					if(!autoDiagExp.test(currentHref)){
+			    $.ajax(
 			  {
 			      type: "GET",
 			      url: "/advice_sheet",
@@ -838,6 +847,11 @@ $(document).ready(function()
 		    //   }
 
 		      /* Récupère les infos nécéssaires à l'affichage de la page dans les cookies */
+				}
+				else{
+					console.log("autoDiag is detected");
+				}
+
 		      let data = "";
 
 		      if (data = getCookie("infomet"))
@@ -847,7 +861,8 @@ $(document).ready(function()
 		      }
 		      else
 		      {
-			  window.location.replace("/meeting_list");
+						if(!autoDiagExp.test(currentHref))
+			  			window.location.replace("/meeting_list");
 		      }
 
 		    //   if (getParameterByName("newquest", window.location.href) == "true") {
@@ -856,6 +871,7 @@ $(document).ready(function()
 
 		      $('.cptrd').click(function()
 					{
+						if(questionnaire_reply){
 					    if (getParameterByName("newquest", window.location.href) == "true" || questionnaire_reply.resources[0].validatedP == false)
 					    {
 						validatedP = true;
@@ -874,7 +890,10 @@ $(document).ready(function()
 					    else
 					    {
 					    }
+						}
 					});
+
+
 
 		  });
 

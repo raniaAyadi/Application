@@ -43,7 +43,7 @@ function	new_entreprise_request_api(siret, data)
 	$('#18').val(api_data.etablissement_siege.naf);
     }
 
-    
+
     function	get_siren(siret)
     {
 	let siren = "";
@@ -54,7 +54,7 @@ function	new_entreprise_request_api(siret, data)
 	return (siren);
     }
 
-    
+
     $.ajax({
 	type: 'GET',
 	url: "/api_entreprise?siren=" + get_siren(siret),
@@ -62,12 +62,12 @@ function	new_entreprise_request_api(siret, data)
 	{
 	    console.log(body);
 	    console.log("\n\n");
-	    console.log(JSON.parse(body));	    
+	    console.log(JSON.parse(body));
 	    let cookie = {theme: getParameterByName("theme", window.location.href),
 			  company: JSON.parse(body).entreprise.nom_commercial,
 			  advisor: getCookie("username"),
 			  quest: getParameterByName("questionnaire", window.location.href)}
-	    document.cookie = "infomet=" + JSON.stringify(cookie); 
+	    document.cookie = "infomet=" + JSON.stringify(cookie);
 	    let answers = undefined;
 	    let toAppend = [];
 	    let i = 0;

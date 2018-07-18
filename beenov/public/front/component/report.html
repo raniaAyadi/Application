@@ -106,6 +106,7 @@
     }
 
     reportPrototype.createdCallback = function(){
+      console.log("created");
       Operation.appendTemplate(this, currentDoc, "#content");
 
       var elt = document.querySelector("#sumup_type");
@@ -132,6 +133,7 @@
       ReportComponent.singleton = {};
       var deferred = new $.Deferred();
       var me = this;
+      console.log("attached");
 
       deferred.progress(function(name){
         me.appendTemplateName(name);
@@ -139,7 +141,6 @@
 
       $.when(ReportTemplate.getAllCurrent(), Meeting.getCurrentMeeting()).done(()=>{
         var l = ReportTemplate.allCurrent.length;
-        console.log(l);
 
         if (l == 0){
         document.querySelector("#templateList").setAttribute("style","display:none");

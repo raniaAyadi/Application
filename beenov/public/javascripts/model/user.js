@@ -36,7 +36,15 @@ User.getAll = function(){
 };
 
 User.getById = function(id){
-  return $.get(CONST.url.getUser + id);
+  var deferred = $.Deferred();
+
+  $.get(CONST.url.getUser + id).done((data)=>{
+    if(data.status === "ok")
+      deferred.resolve(data);
+    else deferred.reject("user not found");
+  });
+
+  return deferred;
 }
 
 User.prototype.isMySubentity = function(id){

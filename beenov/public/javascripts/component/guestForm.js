@@ -16,7 +16,7 @@ GuestForm.prototype.submit = function(siret){
           quest: "questionnaires/" + quiz.id,
           questRep : "questionnaire-replies/"+data.id
         };
-        document.cookie = "infomet=" + JSON.stringify(cookie);
+        document.cookie = "infomet=" + JSON.stringify(cookie)+";path=/";
 
         var me = this;
         var infoCompany = {
@@ -24,7 +24,7 @@ GuestForm.prototype.submit = function(siret){
           reply : me.company.infoQuestionnaireReply
         };
 
-        document.cookie = "company_info=" + JSON.stringify(infoCompany);
+        document.cookie = "company_info=" + JSON.stringify(infoCompany)+";path=/";
         deferred.resolve();
 
       }).fail(data => deferred.reject(data));

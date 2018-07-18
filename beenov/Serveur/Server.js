@@ -229,6 +229,10 @@ app.get('/changepwd', function(req, res)
 	    //res.end();
 	});
 
+app.get("/autoDiag/[0-9]*/[0-9]*", function(req, res){
+	client.sendFile(res, "./autoDiag.html");
+});
+
 app.get('/meeting_list', function(req, res)
 	{
 	    console.log("GET meeting_list");
@@ -382,6 +386,7 @@ app.get('/report-templates', function(req, res)
 app.get('/report', function(req, res)
 	{
 	    console.log("GET report");
+			console.log(req.cookies);
 	    questionnaire.report(req, res, base_url, JSON.parse(req.cookies.infomet).questRep.split("/")[1]);
 	    //res.end();
 	});

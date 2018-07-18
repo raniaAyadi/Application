@@ -92,6 +92,7 @@ Question.prototype.getAnswerData = function(){
 Question.prototype.appRules = function(){
   for(var i in this.rules)
     this.rules[i].appRule(this.answer);
+
 }
 
 Question.getQuestionByJSON = function(json){
