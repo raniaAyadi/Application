@@ -110,16 +110,16 @@ function	send_questionnaire(reinit)
     {
 	posted = {
 	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val(),
-	    contactLastName: $("#DialogNom").val(),
-	    contactEmail: $("#DialogMail").val(),
+	    contactFirstName: $("#DialogPrenom").val() || "",
+	    contactLastName: $("#DialogNom").val() || "",
+	    contactEmail: $("#DialogMail").val() || "",
 	    questionnaire: { resource: "questionnaires/" + questionnaire_id },
 	    sectionActions: [],
 	    validatedP: validatedP,
 	    questionAnswers: get_values("quest"),
 	    comments: [],
 	    company: { resource: "companies/" + JSON.parse(getCookie("company_info")).companies },
-	    date: $("#DialogDate").val(),
+	    date: $("#DialogDate").val() || Operation.getDate(new Date()),
 	    owner: { resource: "users/" + getCookie("uid") }
 	};
     }
@@ -127,23 +127,35 @@ function	send_questionnaire(reinit)
     {
       if(isAutoDiag){
         var companyJson = JSON.parse(getCookie("company_info"));
+        console.log(companyJson);
+        var company = {
+          resource : "companies/" + companyJson.companies
+        };
         var ownerId = getCookie("uid");
+        var ownerAuto = {
+          resource : "users/" + ownerId
+        };
+        var  questAuto = {
+          resource : "questionnaires/" + AutoDiag.quiz.id
+        };
       }
 
 	posted = {
 	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val(),
-	    contactLastName: $("#DialogNom").val(),
-	    contactEmail: $("#DialogMail").val(),
-	    questionnaire: isAutoDiag ? ("questionnaires/" + AutoDiag.quiz.id) : questionnaire_reply.resources[0].questionnaire,
+	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? "exp" : ""),
+	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? "exp" : ""),
+	    contactEmail: $("#DialogMail").val() || (isAutoDiag ? "exp" : ""),
+	    questionnaire: isAutoDiag ? questAuto : questionnaire_reply.resources[0].questionnaire,
 	    sectionActions: [],
 	    validatedP: validatedP,
 	    questionAnswers: get_values("quest"),
 	    comments: [],
-	    company: isAutoDiag ? ("companies/" + companyJson.companies) : questionnaire_reply.resources[0].company,
-	    date: $("#DialogDate").val(),
-	    owner: isAutoDiag ? ("users/" + ownerId) : questionnaire_reply.resources[0].owner
+	    company: isAutoDiag ? company : questionnaire_reply.resources[0].company,
+	    date: $("#DialogDate").val() || Operation.getDate(new Date()),
+	    owner: isAutoDiag ? ownerAuto : questionnaire_reply.resources[0].owner
 	};
+
+  console.log(posted);
     }
     if (window.location.pathname == "/company")
 	url += '?company=true';
