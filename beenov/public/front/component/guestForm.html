@@ -1,7 +1,46 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="operation.js"></script>
+
 <template id="template">
-  <input type = "number" maxlength = "14" id = "siret" required />
+  <!-- <input type = "number" maxlength = "14" id = "siret" required />
   <input type = "email" pattern = "*@.+" required />
-  <button id = "save"> Enregistrer </button>
+  <button id = "save"> Enregistrer </button> -->
+
+
+  <div class="container">
+
+  <div class="row" style="margin-top:200px">
+      <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+  		<form role="form">
+  			<fieldset>
+  				<h2 style="color:#003c74">Qui êtes-vous</h2>
+  				<hr class="colorgraph">
+  				<div class="form-group">
+    <input type="email" name="email" required id="email" class="form-control input-lg" placeholder="Votre adresse mail">
+  				</div>
+  				<div class="form-group">
+    <input type="text" required id="siret" maxlength="14" pattern="[0-9]{14}"  class="form-control input-lg" placeholder="Le SIRET de votre entreprise">
+  				</div>
+  				<span class="button-checkbox">
+  				</span>
+  				<hr class="colorgraph">
+  				<div class="row">
+  					<div class="col-xs-6 col-sm-6 col-md-6">
+      <input type="submit" id="save" class="btn btn-lg btn-info btn-block" style="background-color:#003c74; margin-left:150px" value="Suite">
+  					</div>
+  					<!-- <div class="col-xs-6 col-sm-6 col-md-6">
+  					</div> -->
+  				</div>
+  			</fieldset>
+  		</form>
+  	</div>
+  </div>
+
+  </div>
+
+
 </template>
 
 <script>
@@ -19,14 +58,18 @@
     guestFormPrototype.setEvents = function(){
       var save = this.querySelector("#save");
 
+      var siret = this.querySelector("#siret").value;
       save.onclick = () => {
-        var siret = this.querySelector("#siret").value;
 
         this.guestForm.submit(siret).done(()=> {
           document.body.dispatchEvent(AutoDiag.guestSubmit);
         }
     	).fail(()=>alert("Saisissez un SIRET"));
       }
+
+      $("#siret").on('keydown', function (e) {
+                Operation.checkNumber(e);
+              });
     };
 
     guestFormPrototype.attachedCallback = function(){
