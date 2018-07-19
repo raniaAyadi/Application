@@ -100,16 +100,14 @@
 	    <h2><span>Nouvel entretien</span></h2>
 	  </div>
 	  <div class="newmet">
-	    <form method="post" action="">
-	      <p>SIRET
+      <p>SIRET
 		<input type="text" name="SIRET" class="siret" maxlength="14" id="siret_data">
+  </p>
 		<select name="diagnostic" id="diag">
-		</select><br />
+		</select>
 		<input type="button" name="siret" class="button" value="Créer" id="create_button">
-		<input type="submit" name="siret" class="button" value="Imprimer">
-		<p id="widget"><!-- <input id="url" type="button" name="siret" class="button" value="Créer URL"> --></p>
-	      </p>
-	    </form>
+		<input type="button" name="siret" class="button" value="Imprimer">
+    <div id="widget"><!-- <input id="url" type="button" name="siret" class="button" value="Créer URL"> --></div>
 	  </div>
 	  <ul id="deroulant">
 	    <li><a href="#">Entretien<img src="triangle_menu.png" class="derouleur" id="deroul_bottom"></a>
@@ -164,10 +162,6 @@
     </div>
 
     <div id="url-creation" role="dialog" aria-labelledby="dia-heading" title="Création de url" hidden="hidden">
-      <!-- <beenov-url-creation> </beenov-url-creation> -->
-      <!-- <form>
-        <h2>I'am dialog</h2>
-      </form> -->
 
     </div>
 
