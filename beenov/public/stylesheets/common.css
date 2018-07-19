@@ -1,6 +1,11 @@
 body
 {
 	font-family: Roboto, sans-serif;
+	margin:0; padding:0; width:100%; height:100%;
+}
+html
+{
+	margin:0; padding:0; width:100%; height:100%;
 }
 
 /* Header et Footer */
@@ -29,11 +34,12 @@ body
 #bottom
 {
 	background-color: #003c74;
-	position: absolute;
+	position: fixed;
 	right: 0;
 	bottom: 0px;
 	left: 0;
 	height: 7%;
+	display: block;
 }
 
 /* Menu déroulant de deconnexion/changement mdp (inclut dans le header) */

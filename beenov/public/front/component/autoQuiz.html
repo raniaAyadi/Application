@@ -9,7 +9,7 @@
       <div class="container">
 
       <div class="row" >
-          <div  id="onglet0" class="col-xs-12 col-sm-8 col-md-9 col-sm-offset-2 col-md-offset-2">
+          <div  id="onglet0" class="col-xs-12 col-sm-8 col-md-9 col-sm-offset-1 col-md-offset-2">
             <form role="form">
 
       			<fieldset>
@@ -25,7 +25,7 @@
       				<div class="row">
                 <div class="col-xs-3 col-sm-3 col-md-3"></div>
               	<div class="col-xs-6 col-sm-6 col-md-6">
-  <input id="save" type="submit" class="btn btn-lg btn-info btn-block" style="background-color:#003c74;color:white" value="Enregistrer">
+  <input id="save" type="submit" class="btn btn-info btn-block" style="background-color:#003c74;color:white" value="Enregistrer">
       					</div>
                 <div class="col-xs-3 col-sm-3 col-md-3"></div>
       				</div>
@@ -37,7 +37,7 @@
 
   </div>
 
-      <div id="onglet1" style="display:none;">
+     <div id="onglet1" style="display:none;">
 
     <div class="col-md-9">
       <beenov-report is-auto="true"></beenov-report>
@@ -70,7 +70,7 @@
 
         var name = Object.keys(ReportComponent.singleton);
         var report  = this.querySelector("beenov-report");
-        
+
         Meeting.instance.object.quiz.appRules();
         report.setAttribute("name", name);
 
