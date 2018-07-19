@@ -127,9 +127,13 @@ function	create_button()
     let siret = $('#siret_data')[0].value;
 		var obj = {};
 
+		if (!siret) {
+			alert("Saisissez un SIRET")
+		}
+
 		Company.setCompany(siret).done(()=>
 		window.location.replace('/company?' + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1])
-	).fail(()=>alert("Saisissez un SIRET"));
+	).fail(()=>alert("SIRET invalid"));
 }
 
 function	openQuestionnaire(data)
@@ -290,7 +294,7 @@ function setURLAction(){
 		var user = User.currentUser;
 		if(user.isAdmin()){
 			var elt = document.querySelector("#widget");
-			elt.innerHTML += '<input id="url" type="button" name="siret" class="button" value="Créer URL">';
+			elt.innerHTML += '<input id="url" class="button" type="button" name="siret"  value="Créer URL">';
 			// open dialog pour créer l'url pour l'auto diag
 			$("#url-creation" ).dialog({
 				autoOpen: false,
