@@ -40,10 +40,13 @@
     reportPrototype.defEvents = function(){
       var me = this;
 
-      document.querySelector("#templateList").onclick = function(){
-        me.setAttribute("name", this.value);
-      };
+        if (document.querySelector("#templateList")) {
+          document.querySelector("#templateList").onclick = function(){
+            me.setAttribute("name", this.value);
+        };
+      }
 
+      if (document.querySelector("#save_report"))
       document.querySelector("#save_report").onclick = function(){
         var name = me.getAttribute("name");
         var obj = ReportTemplate.getByName(name);
@@ -82,28 +85,21 @@
         });
       };
 
-      document.querySelector("#summon_report").onclick = function(){
-        var name = me.getAttribute("name");
-        var report = ReportTemplate.getByName(name);
+      if(! this.getAttribute("is-auto")){
+        var eltPDF = document.querySelector("#summon_report");
+        if(eltPDF)
+          eltPDF.onclick = function(){
+            var name = me.getAttribute("name");
+            var report = ReportTemplate.getByName(name);
 
-        Report.generatePDF(report).onload = (data)=>{
-          var res = JSON.parse(data.currentTarget.response);
-          createLink(res.url);
-        };
-      };
+            Report.generatePDF(report).onload = (data)=>{
+              var res = JSON.parse(data.currentTarget.response);
+              Operation.createLink(res.url);
+            };
+          };
+        }
     };
 
-    function createLink(url){
-      var link = document.createElement("a");
-
-      link.href = url;
-      link.download = "rapport.pdf";
-      link.target="_blank";
-
-      if(window.confirm("Télécharger le rapport !")){
-        link.click();
-      }
-    }
 
     reportPrototype.createdCallback = function(){
       console.log("created");
@@ -115,7 +111,6 @@
       elt = document.querySelector("#actions");
       Operation.appendTemplate(elt, currentDoc, "#actions");
 
-      this.defEvents();
     };
 
     reportPrototype.appendTemplateName = function(name){
@@ -124,12 +119,15 @@
 
       newOp = document.createElement("option");
       newOp.innerText = name;
-      elt.append(newOp);
+      if (elt)
+        elt.append(newOp);
 
       ReportComponent.singleton[newOp.innerText] = null;
     };
 
     reportPrototype.attachedCallback = function(){
+      this.defEvents();
+
       ReportComponent.singleton = {};
       var deferred = new $.Deferred();
       var me = this;

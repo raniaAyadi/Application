@@ -1,0 +1,34 @@
+.questionnaire-autoDiag
+{
+	height: 67vh;
+	overflow-y: scroll;
+	border: 1px red solid;
+	width: 40vw;
+}
+
+
+.settings{
+  width: 50vw;
+  height: 50vh;
+  border-radius: 23px;
+  padding: 2px 2px;
+  overflow:auto;
+  margin-left: 10px;
+
+
+}
+
+#Contsettings
+{
+	width: 52vw;
+	height: 52vh;
+	margin-left: 50px;
+  margin-bottom: 60px;
+  	border-radius: 25px;
+  border: 2px solid gray;
+	box-shadow: 1px 1px 1px;
+	/* overflow: auto; */
+	float: left;
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+}

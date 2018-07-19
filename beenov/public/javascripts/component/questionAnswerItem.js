@@ -29,5 +29,16 @@ QuestionAnswerItem.prototype.getJSON = function(){
   json.question = {};
   json.question.resource = "questions/"+this.question.id;
 
+  var me = this;
+  var responseSpec = {
+    type : me.question.type
+  };
+
+  if(this.question.typeOptions){
+    responseSpec = this.question.typeOptions;
+    responseSpec.type = me.question.type;
+  }
+  json.responseSpec = responseSpec
+
   return json;
 }

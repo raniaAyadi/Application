@@ -313,6 +313,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
   appendTemplate : function(obj, currentDoc, id){
     var template = currentDoc.querySelector(id);
     var copie = document.importNode(template.content, true);
+    if (obj)
     obj.appendChild(copie);
   },
 
@@ -468,4 +469,17 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         mm = '0'+mm
       return(dd + '/' + mm + '/' + yyyy);
     },
+
+    createLink : function(url, linkDownload, msg){
+      var link = document.createElement("a");
+
+      link.href = url;
+      link.download = linkDownload || "rapport.pdf";
+      link.target="_blank";
+
+      if(window.confirm(msg || "Télécharger le rapport !")){
+        link.click();
+      }
+    }
+
 }

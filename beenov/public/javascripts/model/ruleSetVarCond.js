@@ -4,7 +4,7 @@ function RuleSetVarCond(tab){
   this.type = CONST.rule.RuleSetVarCond;
 }
 
-RuleSetVarCond.prototype.evaluateCond = function(answer){
+RuleSetVarCond.prototype.evaluateCond = function(answer, quiz){
   quiz = quiz || Meeting.instance.object.quiz;
   var globalVariableValues = quiz.globalVariableValues;
 

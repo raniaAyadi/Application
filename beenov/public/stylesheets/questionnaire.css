@@ -69,7 +69,15 @@ body
 	font-size: 2vw;
 }
 
-#list, #listrendu, #listprod, #listhelp, #listcons
+.list
+{
+  height: 67vh;
+  overflow-y: scroll;
+  border: 1px black solid;
+  width: 70vw;
+}
+
+#listrendu, #listprod, #listhelp, #listcons
 {
 	height: 67vh;
 	overflow-y: scroll;

@@ -40,8 +40,10 @@ function	changeOnglet(numero)
     }
     // Affiche le sélectionné et le surligne seul en orange
     document.getElementById("onglet" + numero).style.display = "block";
-    document.getElementById("selected").removeAttribute("id");
-    document.getElementsByTagName("span")[1 + numero].setAttribute("id", "selected");
+		if(document.getElementById("selected"))
+    	document.getElementById("selected").removeAttribute("id");
+		if(document.getElementsByTagName("span")[1 + numero])
+    	document.getElementsByTagName("span")[1 + numero].setAttribute("id", "selected");
 }
 
 /* Affiche touts les fiches conseil */
@@ -716,8 +718,25 @@ $(document).ready(function()
 						window.location.replace("/meeting_list");
 					    });
 
-		      $("#save").on('click', send_questionnaire);
-		      $('#list').on('click focus focusin focusout blur', parse_display);
+					var isAutoDiag = window.hasOwnProperty("AutoDiag");
+					if(isAutoDiag)
+						$("#save").on("click", function(){
+							send_questionnaire().done(() => {
+								var me = document.querySelector("beenov-report");
+								var name = me.getAttribute("name");
+								var report = ReportTemplate.getByName(name);
+
+								Report.generatePDF(report).onload = (data)=>{
+									var res = JSON.parse(data.currentTarget.response);
+									Operation.createLink(res.url);
+								};
+
+							});
+						});
+					else
+						$("#save").on('click', send_questionnaire);
+
+					$('#list').on('click focus focusin focusout blur', parse_display);
 		      $('#list').on('click', '.cityclose' ,cityclose_button_event);
 		      $('#list').on('click', '.citycheck' ,citycheck);
 		      $('#list').on('keydown', '.city' ,check_input_city);

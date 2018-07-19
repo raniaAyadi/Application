@@ -5,87 +5,54 @@
 
 <div id="quiz" >
     <div class="container-fluid">
-      <!-- <nav>
-	<span class="nav_bar">
-	  <span style="cursor:pointer" id="selected" onclick="changeOnglet(0)">QUESTIONNAIRE </span>
-	  <span style="cursor:pointer" class="cptrd" onclick="changeOnglet(1)"> COMPTE-RENDU </span>
-	</span>
-      </nav> -->
-      <h1> <span id="title_theme"> </span></h1>
 
-      <div id="onglet0" style="display:block;">
-	<div class="row">
-	  <div class="col-md-3 marge"></div>
-	  <div class="col-md-9 marge">
-	    <h1><span class="sectionTitle" id="title_section"></span></h1>
-	  </div>
-	</div>
+      <div class="container">
 
-	<div class="row" id="option">
-	  <div class="col-md-3">
-	    <div id="company">
-	      <h2>
-		<span  class="sectionTitle" id="cmpn"></span>
-		<img src="../../btn_edit_up.png" class="modify" onclick="modifycomp()">
-	      </h2>
-	    </div>
-	    <div id="newmet">
-	      <form>
-		<label>Thématique :</label><br />
-		<input type="text" id="theme" disabled><br />
-		<label>Entretien réalisé par :</label><br />
-		<input type="text" id="advisor" disabled><br />
-		<!-- <label>Interlocuteur :</label><br />
-		<input type="text" id="locutor" disabled>
-		<img src="btn_edit_up.png" class="modify" onclick="openDialog('dia', this)"><br /> -->
-	      </form>
-	    </div><br />
-	    <div style="cursor:pointer" id="section">
+      <div class="row" >
+          <div  id="onglet0" style="display:block;" class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <form role="form">
+      			<fieldset>
+      				<h2 align="center" style="color:#003c74"><span class="tilte" id="title_theme"> </span></h2>
+      				<hr class="colorgraph">
 
-	      <!-- Inserer ici les liens des differentes sections dispo -->
-	    </div>
-	    <div> <button type="button" onclick="#" id="save"> Enregistrer </button> </div>
-	  </div>
-	  <div class="col-md-9" id="list">
-	    <!-- Questions du questionnaire -->
-	  </div>
-	</div>
+            <div  id="Contsettings">
+              <div class="settings" id="list">
+                <!-- Questions du questionnaire -->
+              </div>
+        	  </div>
+
+
+      				<hr class="colorgraph">
+      				<div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                </div>
+              	<div class="col-xs-6 col-sm-6 col-md-6">
+          <input id="save" type="submit" class="btn btn-lg btn-info btn-block" style="background-color:#003c74;color:white;margin:auto" value="Enregistrer">
+      					</div>
+      				</div>
+      			</fieldset>
+            </form>
+      	</div>
+      </div>
+
       </div>
 
       <div id="onglet1" style="display:none;">
-	<!-- <h1>Onglet 1</h1> -->
-	<div class="row" id="option">
-	  <div class="col-md-3" id="actions">
-	    <div id="rendu">
-	      <p id="sumup_type">Modèle de compte rendu</p>
-	    </div><hr>
+
+    <div class="col-md-9">
+      <beenov-report is-auto="true"></beenov-report>
 	  </div>
-
-
-    <div class="col-md-9" id="beenov-report">
-      <!-- <beenov-report></beenov-report> -->
-	  </div>
-
+    <div class="row">
+      <button type="button"  class="btn btn-block" id="summon_report">
+        Générer le compte-rendu
+      </button>
+    </div>
 
   </div>
       </div>
 
-      <div id="onglet2" style="display:none;">
-	<div class="row" id="options">
-	  <div class="col-md-3">
-	    <div style="cursor:pointer" id="conseil">
-	    </div>
-	  </div>
-	  <div  class="col-md-9" id="listcons">
-	  </div>
-	</div>
-      </div>
+    </div>
 
-    </div>
-    <div id="bottom">
-      <img src="../../logo-feder.png" class="credits">
-      <img src="../../logo-direccte.png" class="credits">
-    </div>
 
 </div>
 </template>
@@ -95,19 +62,31 @@
   var AutoQuizComponent = {};
 
   (function(){
-    // this.querySelector("#title_theme").innerHtml = autoDiag.subTheme;
-
     var currentDoc = document.currentScript.ownerDocument;
     var autoQuizPrototype = Object.create(HTMLElement.prototype);
 
+    autoQuizPrototype.setReport = function(){
+      this.querySelector("#save").addEventListener('click', () => {
+
+        var name = Object.keys(ReportComponent.singleton);
+        var report  = this.querySelector("beenov-report");
+
+        report.setAttribute("name", name);
+
+      });
+    }
+
     autoQuizPrototype.createdCallback = function(){
-      console.log(AutoDiag.subTheme.name);
       Operation.appendTemplate(this, currentDoc, "#template");
+      this.setReport();
     };
 
     autoQuizPrototype.attachedCallback = function(){
       this.querySelector("#title_theme").innerText = AutoDiag.subTheme.name;
-      console.log(this.querySelector("#title_theme"));
+      $('form').submit(function(e) {
+          e.preventDefault();
+        });
+
     }
 
 
