@@ -329,8 +329,10 @@ var	request_userinfo = function(protocol_version, base_url, res, userid, cskey, 
 					request_logoname(protocol_version, base_url, res, entity, cskey);
 					break;
 				case 1:
+				if(json.resources[0].subentity){
 					let subentity = "/" + json.resources[0].subentity.resource;
 					request_logoname(protocol_version, base_url, res, subentity, cskey);
+				}
 					break;
 			}
 		}
