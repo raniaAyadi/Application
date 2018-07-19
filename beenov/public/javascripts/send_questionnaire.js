@@ -131,7 +131,7 @@ function	send_questionnaire(reinit)
         var company = {
           resource : "companies/" + companyJson.companies
         };
-        var ownerId = getCookie("uid");
+        var ownerId = AutoDiag.advisor.id;
         var ownerAuto = {
           resource : "users/" + ownerId
         };

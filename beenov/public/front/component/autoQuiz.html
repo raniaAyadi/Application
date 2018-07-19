@@ -68,7 +68,7 @@
     autoQuizPrototype.setReport = function(){
       this.querySelector("#save").addEventListener('click', () => {
 
-        var name = Object.keys(ReportComponent.singleton);
+        var name = Object.keys(ReportComponent.singleton)[0];
         var report  = this.querySelector("beenov-report");
 
         Meeting.instance.object.quiz.appRules();

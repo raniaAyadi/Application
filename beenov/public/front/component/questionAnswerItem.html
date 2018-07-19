@@ -92,7 +92,10 @@
 
         else{
           var data = this.questionAnswerItem.getAnswer();
-          this.querySelector("#question").innerHTML = this.questionAnswerItem.question.title;
+          var label = this.questionAnswerItem.label || this.questionAnswerItem.question.title;
+          this.questionAnswerItem.label = label;
+
+          this.querySelector("#question").innerHTML = label;
           if (data.answer != undefined)
             this.setAnswer(data.answer, data.type);
         }
