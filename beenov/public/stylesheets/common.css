@@ -12,7 +12,7 @@ body
 	right: 0;
 	left: 0;
 	top: 0;
-	height: 8%;
+	height: 7%;
 }
 
 .credits
@@ -33,7 +33,7 @@ body
 	right: 0;
 	bottom: 0px;
 	left: 0;
-	height: 8%;
+	height: 7%;
 }
 
 /* Menu déroulant de deconnexion/changement mdp (inclut dans le header) */
@@ -98,7 +98,7 @@ body
 .menu li:hover a
 {
 	background: #006699;
-} 
+}
 
 .menu li:hover li a:hover
 {
