@@ -179,6 +179,8 @@ function	send_questionnaire(reinit)
       posted.globalVariableValues = quiz.globalVariableValues;
     }
 
+    var deferred = $.Deferred();
+
     $.ajax({
   	type: 'POST',
   	url: url,
@@ -186,6 +188,7 @@ function	send_questionnaire(reinit)
   	data: JSON.stringify(posted),
   	success: function(body, status, jqXHR)
   	{
+      console.log("ok");
   	    if (status == "success")
   		alert("Enregistrement bien effectué");
   	    if (getParameterByName("newquest", window.location.href) == "true"){
@@ -202,10 +205,13 @@ function	send_questionnaire(reinit)
           if(reportComponent)
             reportComponent.updateItems();
         }
+
+        deferred.resolve();
   	},
   	error: function(text, code, item)
   	{
   	    alert('error');
+        deferred.reject();
   	}
       });
 
@@ -213,6 +219,7 @@ function	send_questionnaire(reinit)
 
     var aux = JSON.parse(Operation.getCookie(CONST.cookie.currentMeeting));
     if(!aux.questRep){
+      deferred.resolve();
       posted.questionAnswers = [];
       posted.questionnaire.resource = aux.quest;
       posted.globalVariableValues = {};
@@ -227,4 +234,6 @@ function	send_questionnaire(reinit)
         document.cookie = "infomet=" + JSON.stringify(aux);
         });
       }
+
+      return deferred;
 }
