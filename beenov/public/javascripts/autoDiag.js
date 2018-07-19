@@ -4,9 +4,9 @@ var AutoDiag = {
 
 AutoDiag.checkUrl = function(){
   var url = window.location.href;
-  var params = url.split('/');
   var data = {};
 
+  var params = url.split('/');
   data.idUser = params[params.length - 2];
   data.idSubtheme = params[params.length - 1];
 
@@ -18,7 +18,7 @@ AutoDiag.checkUrl = function(){
     Quiz.getById(idQuest).done( quiz => AutoDiag.quiz = new Quiz(quiz));
   }).fail(()=>{
     alert("Vérifiez l'URL");
-    window.location.href = CONST.url.login;
+    //window.location.href = CONST.url.login;
   });
 };
 
@@ -34,8 +34,6 @@ AutoDiag.displayQuiz = function(){
   var autoQuiz = document.querySelector("#quiz");
   autoQuiz.append(new AutoQuizComponent());
 
-  var report = document.querySelector("#beenov-report");
-  report.append(new ReportComponent());
 };
 
 $(document).ready(function(){
