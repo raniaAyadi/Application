@@ -131,8 +131,9 @@ function	send_questionnaire(reinit)
         var company = {
           resource : "companies/" + companyJson.companies
         };
+        var ownerId = getCookie("uid");
         var ownerAuto = {
-          resource : "users/" + AutoDiag.advisor.id
+          resource : "users/" + ownerId
         };
         var  questAuto = {
           resource : "questionnaires/" + AutoDiag.quiz.id
@@ -141,9 +142,9 @@ function	send_questionnaire(reinit)
 
 	posted = {
 	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? User.currentUser.firstName : "Test"),
-	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? User.currentUser.lastName : "Test"),
-	    contactEmail: $("#DialogMail").val() || (isAutoDiag ? User.currentUser.email : "Test"),
+	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? "exp" : ""),
+	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? "exp" : ""),
+	    contactEmail: $("#DialogMail").val() || (isAutoDiag ? "exp" : ""),
 	    questionnaire: isAutoDiag ? questAuto : questionnaire_reply.resources[0].questionnaire,
 	    sectionActions: [],
 	    validatedP: validatedP,
