@@ -37,7 +37,7 @@
 
   </div>
 
-      <!-- <div id="onglet1" style="display:none;">
+      <div id="onglet1" style="display:none;">
 
     <div class="col-md-9">
       <beenov-report is-auto="true"></beenov-report>
@@ -48,7 +48,7 @@
       </button>
     </div>
 
-  </div> -->
+  </div>
       </div>
 
     </div>
@@ -70,7 +70,8 @@
 
         var name = Object.keys(ReportComponent.singleton);
         var report  = this.querySelector("beenov-report");
-
+        
+        Meeting.instance.object.quiz.appRules();
         report.setAttribute("name", name);
 
       });

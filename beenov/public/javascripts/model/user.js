@@ -27,8 +27,28 @@ User.guestLogin = function(){
   return deferred;
 }
 
+User.prototype.isAdmin = function(){
+  return this.role === "entity-admin";
+}
+
 User.setCurrentUser = function(user){
-  User.currentUser = user;
+  var deferred = $.Deferred();
+
+  if(User.currentUser)
+    deferred.resolve();
+
+  if(user instanceof User){
+    User.currentUser = user;
+    deferred.resolve();
+  }
+  else if(!isNaN(user)){
+    User.getById(user).done((data) => {
+      User.currentUser = new User(data);
+      deferred.resolve();
+    }).fail(() => deferred.reject());
+  }
+
+  return deferred;
 }
 
 User.prototype.initThemes = function(data){

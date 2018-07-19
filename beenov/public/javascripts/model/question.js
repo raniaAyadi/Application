@@ -75,10 +75,10 @@ Question.prototype.getAnswerData = function(){
 
     case CONST.questionType.nMTexts :
     answerData.answer = new Array();
-    var l = this.answer.length;
+    var l = this.answer ? this.answer.length : 0;
 
     for (var i = 0; i < l ; i++) {
-          answerData.answer.push(this.answer[i]);
+      answerData.answer.push(this.answer[i]);
     }
     break;
 

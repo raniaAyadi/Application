@@ -725,7 +725,6 @@ $(document).ready(function()
 								var me = document.querySelector("beenov-report");
 								var name = me.getAttribute("name");
 								var report = ReportTemplate.getByName(name);
-
 								Report.generatePDF(report).onload = (data)=>{
 									var res = JSON.parse(data.currentTarget.response);
 									Operation.createLink(res.url);

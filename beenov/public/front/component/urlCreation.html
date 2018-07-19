@@ -58,9 +58,6 @@
       this.appendChild(copie);
   };
 
-    urlCreationPrototype.attributeChangedCallback = function(attr, oldV, newV){}
-
-
     urlCreationPrototype.getUrl = function()
     {
         var p = document.querySelector("#lien");
@@ -212,19 +209,21 @@
 
     urlCreationPrototype.attachedCallback = function(){
       this.urlCreationService = new UrlCreation();
-      this.setEntities();
-      this.setThemes();
-      this.querySelector("#urlB").onclick = ()=>{
-          var p = this.querySelector("#lien");
-          p.value = CONST.url.autoDiag;
-          var idUser = this.urlCreationService.user.id;
-          var idTheme= this.urlCreationService.theme.id;
-          p.value += idUser;
-          p.value += "/";
-          p.value += idTheme;
+      this.urlCreationService.checkPermission().done(() => {
+        this.setEntities();
+        this.setThemes();
+        this.querySelector("#urlB").onclick = ()=>{
+            var p = this.querySelector("#lien");
+            p.value = CONST.url.autoDiag;
+            var idUser = this.urlCreationService.user.id;
+            var idTheme= this.urlCreationService.theme.id;
+            p.value += idUser;
+            p.value += "/";
+            p.value += idTheme;
+        };
 
-      };
-      }
+      }).fail(() => alert("unauthorized"));
+    };
 
     UrlCreationComponent = document.registerElement('beenov-url-creation', {
       prototype : urlCreationPrototype

@@ -1,6 +1,19 @@
 function UrlCreation(){
 }
 
+UrlCreation.prototype.checkPermission = function(userId){
+  var deferred = $.Deferred();
+
+  User.setCurrentUser(userId).done(()=>{
+    if(User.currentUser.role === "entity-admin")
+      deferred.resolve();
+    else
+      deferred.reject();
+  });
+
+  return deferred;
+}
+
 UrlCreation.prototype.getAllEntities = function(){
   var deferred = $.Deferred();
 

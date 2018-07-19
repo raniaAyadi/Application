@@ -64,8 +64,6 @@ function	set_themes(themes)
 		}
 		++i;
 	}
-	console.log(toAppend);
-	//toAppend = toAppend.join();
 	$('#diag').append(toAppend);
 }
 
@@ -82,7 +80,6 @@ function	set_data(list)
 {
 	let DataSet = [];
 	let i = 0;
-	console.log(list);
 	for (; list[i] != undefined ; i++)
 	{
 	DataSet[i] = [ list[i].themeGroupName + " - " + list[i].themeName, //Thématique
@@ -101,8 +98,6 @@ function	set_data(list)
 
 function	siret_data(e)
 {
-    console.log(e.keyCode);
-    console.log(e.ctrlKey);
     if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
 	// Allow: Ctrl+A
 	(e.keyCode == 65 && (e.ctrlKey === true || e.metaKey === true)) ||
@@ -148,7 +143,6 @@ function	openQuestionnaire(data)
 	questRep: data[9]
     };
     json = JSON.stringify(json);
-    console.log(json);
     document.cookie = "infomet=" + json;
     window.location.replace("/questionnaire?newquest=false");
 }
@@ -166,7 +160,6 @@ function	transfert(tableau)
 	    dataType: "json",
 	    success : function(data)
 	    {
-		console.log(data)
 		let toAppend = [];
 		let i;
 		for (i = 0; i < data.length; i++)
@@ -186,19 +179,15 @@ function	transfert(tableau)
 
 			   let user = /*$('#adviser').value;*/ document.getElementById("adviser");
 			   user = user.options[user.selectedIndex].value;
-			   console.log(user);
-
 
 			   if (idMeeting && user && idQuest)
 			   {
 			       idMeeting = idMeeting.split('/')[1]
 			       user = user.split(' ')[lastword(user)];
-			       console.log(user);
 			   }
 			   /* requete POST & redirection meeting_list */
 			   let target = "users/" + user;
 			   let data = {'owner' : {'resource' : target, 'idmet' : idQuest}};
-			   console.log(data);
 			   $.ajax(
 			       {
 				   type: 'POST',
@@ -285,29 +274,50 @@ function	deletemet(tableau)
 }
 
 function createUrl(){
-
+	if(User.currentUser.isAdmin()){
 		var elt = new UrlCreationComponent();
 		document.querySelector("#url-creation").append(elt);
 	  document.querySelector("#url-creation").setAttribute("style","display:block");
 	  $("#url-creation").dialog('open');
+	}
  }
+
+
+function setURLAction(){
+
+	var id = Operation.getCookie(CONST.cookie.currentUser);
+	User.setCurrentUser(id).done(()=>{
+		var user = User.currentUser;
+		if(user.isAdmin()){
+			var elt = document.querySelector("#widget");
+			elt.innerHTML += '<input id="url" type="button" name="siret" class="button" value="Créer URL">';
+			// open dialog pour créer l'url pour l'auto diag
+			$("#url-creation" ).dialog({
+				autoOpen: false,
+				modal: true,
+				draggable: false,
+				resizable: false,
+				width: $(window).width() * 0.45,
+				height: $(window).height() * 0.7,
+				close: () => document.querySelector("beenov-url-creation").remove(),
+			});
+			$('#url').click(function()
+						 {
+					 createUrl();
+						 });
+		}
+	})
+}
 
 $(document).ready(function()
 		  {
-				// open dialog pour créer l'url pour l'auto diag
-				$("#url-creation" ).dialog({
-					autoOpen: false,
-					modal: true,
-					draggable: false,
-					resizable: false,
-					width: $(window).width() * 0.45,
-					height: $(window).height() * 0.7,
-					close: () => document.querySelector("beenov-url-creation").remove(),
-				});
-				$('#url').click(function()
-							 {
-						 createUrl();
-							 });
+
+				/* Création entretien */
+				$('#create_button').click(function()
+					{
+						console.log("click");
+							create_button();
+					});
 
 
 		      $('#siret_data').keypress(function(event){
@@ -338,80 +348,9 @@ $(document).ready(function()
 			      }
 			  });
 
-		      /* Création entretien */
-		      $('#create_button').click(function()
-						{
-						    create_button();
-						});
+				setURLAction();
 
 
-		    //   $.ajax(
-			  // { /* requète GET pour récupérer infos entretiens */
-			  //     type: "GET",
-			  //     url : "get_meeting_list",
-			  //     dataType: "json",
-			  //     success : function(data)
-			  //     {
-				//   /* Création tableau avec paramètres */
-				//   var tableau = $('#meetings').DataTable(
-				//       {
-				// 	  "data" : set_data(data),
-				// 	  "columns": [
-				// 	      { title: "Thématique" },
-				// 	      { title: "SIRET" },
-				// 	      { title: "Entreprise" },
-				// 	      { title: "Code NAF" },
-				// 	      { title: "Secteur d'activité" },
-				// 	      { title: "Effectif" },
-				// 	      { title: "Conseiller" },
-				// 	      { type: "date", title: "Date"},
-				// 	      { visible : false, searchable : false},
-				// 	      { visible : false, searchable : false} ],
-				// 	  "scrollY":	"58vh",
-				// 	  "scrollX":	true,
-				// 	  "paging":	false,
-				// 	  "bFilter":	false,
-				// 	  "searching":	true,
-				// 	  "dom":		't',
-				// 	  "select" :	'single'
-				//       });
-				//
-				//   /* Seulement des nombres dans input SIRET */
-				//   $("#siret_data").on('keydown', function (e)
-				// 		      {
-				// 			  siret_data(e);
-				// 		      });
-				//
-				//   /* Recherche dans le tableau */
-				//   $("#searchinput").on('keyup', function(event)
-				// 		       {
-				// 			   tableau.search(this.value).draw();
-				// 		       });
-				//
-				//   /* Ouverture entretien */
-				//   $('#open').click(function()
-				// 		   {
-				// 		       let data = tableau.rows( { selected: true } ).data();
-				// 		       openQuestionnaire(data[0]);
-				// 		   });
-				//
-				//   $('#transfert').click(function()
-				// 			{
-				// 			    transfert(tableau);
-				// 			});
-				//
-				//   $('#exportgrc').click(function()
-				// 			{
-				// 			    exportgrc(tableau);
-				// 			});
-				//
-				//   $('#delete').click(function()
-				// 		     {
-				// 			 deletemet(tableau);
-				// 		     });
-				//
-			  //     }
-			  // });
 		  });
 
 /* Lightboxes' function. */

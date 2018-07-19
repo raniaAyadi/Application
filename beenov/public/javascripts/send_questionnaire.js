@@ -142,9 +142,9 @@ function	send_questionnaire(reinit)
 
 	posted = {
 	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? "exp" : ""),
-	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? "exp" : ""),
-	    contactEmail: $("#DialogMail").val() || (isAutoDiag ? "exp" : ""),
+	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? User.currentUser.firstName : "unkown"),
+	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? User.currentUser.lastName : "unkown"),
+	    contactEmail: $("#DialogMail").val() || (isAutoDiag ?  User.currentUser.email : "unkown"),
 	    questionnaire: isAutoDiag ? questAuto : questionnaire_reply.resources[0].questionnaire,
 	    sectionActions: [],
 	    validatedP: validatedP,
