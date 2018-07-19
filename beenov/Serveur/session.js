@@ -20,11 +20,57 @@ function	create_get_url(base_url, path_url, data)
 	return (url);
 }
 
+var autoLogin = function(protocol_version, base_url, response){
+	let mail = "autodiag@aquitaine.cci.fr";
+	let mdp = "autoDiag";
+	let url = create_login_url(base_url, '/open-session', {'password' : mdp, 'email' : mail, 'protocol-version' : protocol_version});
+
+	request.get(url, function(err, res, body)
+		{
+			let json = JSON.parse(body);
+			if (err || json.status == 'error')
+			{
+			console.log(err);
+			response.redirect("/login");
+			response.status(204).end();
+			return;
+			}
+			else {
+				//response.status(200).end();
+				console.log(json);
+			response.cookie('uid', json.userId);
+			response.cookie('cskey', json.sessionKey);
+			response.send(json);
+			response.status(200).end();
+			//url = create_get_url(base_url, '/users/' + json.userId, {'session-key' : json.sessionKey});
+			// request.get(url, function(err, res, body)
+			// 		{
+			// 		json = JSON.parse(body);
+			// 		if (err || json.status == 'error')
+			// 		{
+			// 			console.log(err);
+			// 			response.redirect("/login");
+			// 			response.status(204).end();
+			// 			return;
+			// 		}
+			// 		else {
+			// 			let username = json.resources[0]["firstName"] + " " + json.resources[0]["lastName"];
+			// 			console.log(username);
+			// 			response.cookie('username', username);
+			// 			response.redirect("/meeting_list");
+			// 			response.status(200).end();
+			// 		}
+			// 		});
+			}
+		});
+};
+
 var	login_user = function (mail, mdp, protocol_version, base_url, response)
 {
 	let url = create_login_url(base_url, '/open-session', {'password' : mdp, 'email' : mail, 'protocol-version' : protocol_version});
 
-	request.get(url, function(err, res, body)
+console.log(url);
+	return request.get(url, function(err, res, body)
 		{
 			let json = JSON.parse(body);
 			if (err || json.status == 'error')
@@ -363,6 +409,7 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 }
 
 exports.login_user = login_user;
+exports.autoLogin = autoLogin;
 exports.getSubentity = getSubentity;
 exports.getUser = getUser;
 exports.newpwd = newpwd;

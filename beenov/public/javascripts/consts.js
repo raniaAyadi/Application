@@ -48,7 +48,8 @@ var CONST = {
       getCompanyById : CONST.baseUrl + 'getCompanyById/',
       login : CONST.baseUrl + "login",
       autoDiag : CONST.baseUrl + "autoDiag/",
-      sendQuestReply : CONST.baseUrl + "send_questionnaire"
+      sendQuestReply : CONST.baseUrl + "send_questionnaire",
+      guestLogin : CONST.baseUrl + "autoLogin",
     },
 
     rule :{
@@ -70,7 +71,8 @@ var CONST = {
 
     cookie : {
       currentMeeting : 'infomet',
-      currentUser : "uid"
+      currentUser : "uid",
+      sessionKey : "cskey",
     },
 
     component :{

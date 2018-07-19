@@ -222,6 +222,10 @@ app.get('/lostpwd', function(req, res)
 	    //res.end();
 	});
 
+app.get("/autoLogin", function(req, res){
+	session.autoLogin(protocol_version, base_url, res);
+});
+
 app.get('/changepwd', function(req, res)
 	{
 	    console.log("GET changepwd");

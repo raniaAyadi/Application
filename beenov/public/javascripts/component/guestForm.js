@@ -6,6 +6,11 @@ GuestForm.prototype.submit = function(contactData){
   var deferred = $.Deferred();
   var siret = contactData.siret;
 
+  var user = User.currentUser;
+  user.firstName = contactData.contactFirstName;
+  user.lastName = contactData.contactLastName;
+  user.email = contactData.contactEmail;
+
   Company.setCompany(siret).done(()=>{
     this.company = Company.getCurrentCompany();
     localStorage.removeItem("company");

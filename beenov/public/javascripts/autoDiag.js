@@ -18,7 +18,8 @@ AutoDiag.checkUrl = function(){
     Quiz.getById(idQuest).done( quiz => AutoDiag.quiz = new Quiz(quiz));
   }).fail(()=>{
     alert("Vérifiez l'URL");
-    //window.location.href = CONST.url.login;
+    Operation.eraseCookie(CONST.cookie.currentUser, CONST.cookie.sessionKey);
+    window.location.href = CONST.url.login;
   });
 };
 
@@ -37,6 +38,9 @@ AutoDiag.displayQuiz = function(){
 };
 
 $(document).ready(function(){
-  AutoDiag.checkUrl();
-  document.body.addEventListener("guestSubmit", AutoDiag.displayQuiz);
+  User.guestLogin().done((user)=>{
+    User.setCurrentUser(user);
+    AutoDiag.checkUrl();
+    document.body.addEventListener("guestSubmit", AutoDiag.displayQuiz);
+  });
 });

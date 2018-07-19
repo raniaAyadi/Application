@@ -14,6 +14,23 @@ function User(obj){
   }
 }
 
+User.guestLogin = function(){
+  var deferred = $.Deferred();
+
+  $.get(CONST.url.guestLogin).done((data)=>{
+    if(data.status === "ok")
+      User.getById(data.userId).done( user => deferred.resolve(new User(user)) );
+    else
+      deferred.reject();
+  })
+
+  return deferred;
+}
+
+User.setCurrentUser = function(user){
+  User.currentUser = user;
+}
+
 User.prototype.initThemes = function(data){
   this.themes = new Array();
   if(data)

@@ -480,6 +480,21 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
       if(window.confirm(msg || "Télécharger le rapport !")){
         link.click();
       }
-    }
+    },
+
+    createCookie : function(name,value,days) {
+	     if (days) {
+         var date = new Date();
+		     date.setTime(date.getTime()+(days*24*60*60*1000));
+         var expires = "; expires="+date.toGMTString();
+       }
+       else var expires = "";
+       document.cookie = name+"="+value+expires+"; path=/";
+     },
+
+    eraseCookie : function() {
+      for(var i in arguments)
+        this.createCookie(arguments[i],"",-1);
+    },
 
 }
