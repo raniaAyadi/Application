@@ -91,11 +91,16 @@ app.get('/getAverage', function(req, res){
 	questionnaire.getAverage(req, res, base_url ,data);
 });
 
+app.post('/mailAutoDiag',function(req,res)
+	{		let data = req.body;
+			session.mailToUser(req, protocol_version, base_url, res,data.mail, data.subject, data.msg);
+	});
+
 app.post('/lostpwd', function(req, res)
 	 {
 	     let mail = req.body.mail;
 
-	     session.newpwd(mail, protocol_version, base_url, res, req.cookies.user_mail);
+	     session.newpwd(req,mail, protocol_version, base_url, res);
 	 });
 
 app.post('/reinit_pwd', function(req, res)
@@ -213,6 +218,8 @@ app.get('/login', function(req, res)
 	    client.sendFile(res, "./login.html");
 
 	});
+
+
 
 app.get('/lostpwd', function(req, res)
 	{

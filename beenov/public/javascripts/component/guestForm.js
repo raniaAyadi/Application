@@ -13,6 +13,7 @@ GuestForm.prototype.submit = function(contactData){
 
   Company.setCompany(siret).done(()=>{
     this.company = Company.getCurrentCompany();
+    Company.currentCompany = this.company;
     localStorage.removeItem("company");
 
     this.company.save(false).done(() => {

@@ -20,6 +20,44 @@ function	create_get_url(base_url, path_url, data)
 	return (url);
 }
 
+var	mailToUser = function (req, protocol_version, base_url, response, mail, subject, msg)
+{
+	let	transporter = nodemailer.createTransport(
+	{
+		service: 'yahoo',
+		auth: {
+			user: 'raniaa.ayadii@yahoo.fr',
+			pass: 'hana&fatma'
+			}
+	});
+
+console.log(mail);
+console.log(subject);
+console.log(msg);
+
+	let	mailOptions = {
+		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
+		to: mail,
+		subject: subject,
+		text: '',
+		html: msg
+	};
+
+	transporter.sendMail(mailOptions, function(error, info)
+	{
+		if(error)
+		{
+			console.log(error);
+			response.status(400).end();
+		}
+		else
+		{
+			console.log('Message sent: ' + info.response);
+			response.status(200).end();
+		}
+	});
+}
+
 var autoLogin = function(protocol_version, base_url, response){
 	let mail = "autodiag@aquitaine.cci.fr";
 	let mdp = "autoDiag";
@@ -105,21 +143,20 @@ console.log(url);
 			}
 		});
 }
-
-var	newpwd = function (mail, protocol_version, base_url, response)
+var	newpwd = function (req,mail, protocol_version, base_url, response)
 {
 	let	transporter = nodemailer.createTransport(
 	{
-		service: 'webmail.gandi.net/',
+		service: 'yahoo',
 		auth: {
-			user: 'noreply@beenov.com',
-			pass: 'beenov-noreply33%'
+			user: 'raniaa.ayadii@yahoo.fr',
+			pass: 'hanass&fatma'
 			}
 	});
 
 	let	mailOptions = {
-		from: 'noreply@beenov.com', // https://webmail.gandi.net/
-		to: req.cookies.user_mail,
+		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
+		to: 'rania.ayadi.ar@gmail.com',
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
 		html: 'Bonjour,<br >Veuillez suivre le lien suivant pour changer votre mot de passe: <br >'
@@ -132,10 +169,12 @@ var	newpwd = function (mail, protocol_version, base_url, response)
 		if(error)
 		{
 			console.log(error);
+			response.status(400).end();
 		}
 		else
 		{
 			console.log('Message sent: ' + info.response);
+			response.status(200).end();
 		}
 	});
 }
@@ -411,6 +450,7 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 }
 
 exports.login_user = login_user;
+exports.mailToUser = mailToUser;
 exports.autoLogin = autoLogin;
 exports.getSubentity = getSubentity;
 exports.getUser = getUser;

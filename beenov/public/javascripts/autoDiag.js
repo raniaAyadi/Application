@@ -24,6 +24,24 @@ AutoDiag.checkUrl = function(){
 };
 
 AutoDiag.displayQuiz = function(){
+  var siret = Company.currentCompany.siret
+  var nameEntreprise = Company.currentCompany.name;
+  var zipCode = Company.currentCompany.zipcode;
+
+  var name = User.currentUser.firstName + ' ' + User.currentUser.lastName;
+  var mail = User.currentUser.email;
+  var nameAdvisor = AutoDiag.advisor.lastName;
+  var theme = AutoDiag.subTheme.name;
+  var subject = "Beenov\' - Auto Diagnostic";
+
+  var msg = '<br/>Bonjour' + nameAdvisor + ',<br/><br/>'
+  +'L\'entrepneur de l\'entreprise: ' + nameEntreprise + ', de code postale: '+ zipCode + ', et de SIRET : '+ siret
+  +'  '+ name + '  a rempli le questionnaire: '
+  + theme  + '.<br/> '
+  + 'Veuillez le contacter sur son email: ' + mail;
+  AutoDiag.advisor.receiveEmail(msg,subject); //subj et text html
+  // .done((data)=>console.log(data)).fail((data)=>console.log(data));
+
   var guestFormC = document.querySelector("beenov-guest-form");
   guestFormC.remove();
 

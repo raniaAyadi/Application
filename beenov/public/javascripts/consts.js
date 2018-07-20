@@ -50,6 +50,7 @@ var CONST = {
       autoDiag : CONST.baseUrl + "autoDiag/",
       sendQuestReply : CONST.baseUrl + "send_questionnaire",
       guestLogin : CONST.baseUrl + "autoLogin",
+      mailAutoDiag : CONST.baseUrl + "mailAutoDiag"
     },
 
     rule :{
