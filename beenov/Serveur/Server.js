@@ -210,14 +210,20 @@ app.post('/company-quest', function(req, res)
 
 app.get('/login', function(req, res)
 	{
-	    console.log("GET login");
 	    client.sendFile(res, "./login.html");
-	    //res.end();
+
 	});
 
 app.get('/lostpwd', function(req, res)
 	{
 	    console.log("GET lostpwd");
+			if(req.cookies.uid == 25629){
+				res.redirect("/login");
+				res.clearCookie("uid");
+				res.clearCookie("cskey");
+				res.status(204).end();
+		}
+		else
 	    client.sendFile(res, "./lostpwd.html");
 	    //res.end();
 	});
@@ -229,6 +235,13 @@ app.get("/autoLogin", function(req, res){
 app.get('/changepwd', function(req, res)
 	{
 	    console.log("GET changepwd");
+			if(req.cookies.uid == 25629){
+				res.redirect("/login");
+				res.clearCookie("uid");
+				res.clearCookie("cskey");
+				res.status(204).end();
+		}
+		else
 	    client.sendFile(res, "./changepwd.html");
 	    //res.end();
 	});
@@ -239,32 +252,65 @@ app.get("/autoDiag/[0-9]*/[0-9]*", function(req, res){
 
 app.get('/meeting_list', function(req, res)
 	{
-	    console.log("GET meeting_list");
-	    client.sendFile(res, "./meeting_list.html");
+	    if(req.cookies.uid == 25629){
+				res.clearCookie("uid");
+				res.clearCookie("cskey");
+				res.redirect("/login");
+				res.status(204).end();
+		}
+		else
+			client.sendFile(res, "./meeting_list.html");
 	    //res.end();
 	});
 
 app.get('/questionnaire', function(req, res)
 	{
 	    console.log("GET questionnaire")
+			if(req.cookies.uid == 25629 || req.coockies.uid == ""){
+				res.clearCookie("uid");
+				res.clearCookie("cskey");
+				res.clearCookie("infomet");
+				res.clearCookie("company_info")
+				res.redirect("/login");
+				res.status(204).end();
+		}
+		else
 	    client.sendFile(res, "./questionnaire.html")
 	});
 
 app.get('/popup', function(req, res)
 	{
-	    console.log("GET transfert meeting");
+		if(req.cookies.uid == 25629){
+			res.clearCookie("uid");
+			res.clearCookie("cskey");
+			res.redirect("/login");
+			res.status(204).end();
+	}
+	else
 	    client.sendFile(res, "./popup.html");
 	});
 
 app.get('/company', function(req, res)
 	{
-	    console.log("GET company");
+		if(req.cookies.uid == 25629){
+			res.clearCookie("uid");
+			res.clearCookie("cskey");
+			res.redirect("/login");
+			res.status(204).end();
+	}
+	else
 	    client.sendFile(res, "./company.html");
 	});
 
 app.get('/prediag', function(req, res)
 	{
-	    console.log("GET prediag");
+		if(req.cookies.uid == 25629){
+			res.clearCookie("uid");
+			res.clearCookie("cskey");
+			res.redirect("/login");
+			res.status(204).end();
+	}
+	else
 	    client.sendFile(res, "./prediag.html");
 	});
 
@@ -332,7 +378,13 @@ app.get('/api_entreprise', function(req, res)
 
 app.get('/reinit_pwd', function(req, res)
 	{
-	    console.log("GET reinit_pwd");
+		if(req.cookies.uid == 25629){
+			res.clearCookie("uid");
+			res.clearCookie("cskey");
+			res.redirect("/login");
+			res.status(204).end();
+	}
+	else
 	    client.sendFile(res, "./reinit_pwd.html");
 	    //res.end();
 	});
@@ -429,7 +481,13 @@ app.listen(port);
 
 app.get('/test', function(req, res)
 	{
-	    console.log("GET test");
+		if(req.cookies.uid == 25629){
+			res.clearCookie("uid");
+			res.clearCookie("cskey");
+			res.redirect("/login");
+			res.status(204).end();
+	}
+	else
 	    client.sendFile(res, "./test.html");
 	    //res.end();
 	});
