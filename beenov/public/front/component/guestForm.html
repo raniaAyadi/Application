@@ -12,22 +12,22 @@
 
   <div class="row" style="margin-top:10%;width:100%;margin-bottom:5%">
       <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-        <form role="form" >
+        <form role="form">
   			<fieldset>
   				<h2 style="color:#003c74">Qui êtes-vous</h2>
   				<hr class="colorgraph">
 
           <div class="form-group">
-            <input type="text" name="" value="" id="lastName" placeholder="Votre nom" class="form-control input-lg">
+            <input type="text" required value="" id="lastName" placeholder="Votre nom" class="form-control input-lg">
             <br/>
-            <input type="text" name="" value="" id="firstName" placeholder="Votre prénom" class="form-control input-lg">
+            <input type="text" required value="" id="firstName" placeholder="Votre prénom" class="form-control input-lg">
           </div>
 
           <div class="form-group">
-    <input type="email" required id="email" pattern=".+@*.*" class="form-control input-lg" placeholder="Votre adresse mail" value= "a@a">
+    <input type="email" required id="email" pattern=".+@*.*" class="form-control input-lg" placeholder="Votre adresse mail">
   				</div>
   				<div class="form-group">
-    <input type="text" required id="siret" maxlength="14" pattern="[0-9]{14}"  class="form-control input-lg" value="00000000000000" placeholder="Le SIRET de votre entreprise">
+    <input type="text" required id="siret" maxlength="14" pattern="[0-9]{14}"  class="form-control input-lg" placeholder="Le SIRET de votre entreprise">
           </div>
   				<span class="button-checkbox">
   				</span>
@@ -73,8 +73,10 @@
 
         var mailValidity = this.querySelector("#email").validity;
         var siretValidity = this.querySelector("#siret").validity;
+        var nomValidity = this.querySelector("#lastName").validity;
+        var prenomValidity = this.querySelector("#firstName").validity;
 
-        if (mailValidity.valid && siretValidity.valid){
+        if (mailValidity.valid && siretValidity.valid && nomValidity.valid && prenomValidity.valid){
           var data = {
             contactFirstName : firstName.value,
             contactLastName : lastName.value,

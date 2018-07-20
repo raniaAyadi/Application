@@ -273,7 +273,7 @@ app.get('/meeting_list', function(req, res)
 app.get('/questionnaire', function(req, res)
 	{
 	    console.log("GET questionnaire")
-			if(req.cookies.uid == 25629 || req.coockies.uid == ""){
+			if(req.cookies.uid == 25629 || req.cookies.uid == ""){
 				res.clearCookie("uid");
 				res.clearCookie("cskey");
 				res.clearCookie("infomet");
@@ -475,6 +475,11 @@ app.get('/subentity', function(req, res)
 	{
 	    userid = req.cookies.uid;
 	    session.request_userinfo(protocol_version, base_url, res, userid, req.cookies.cskey, 1);
+	});
+
+app.get('/infoMail', function(req, res)
+	{
+			client.sendFile(res, "./infoMail.html");
 	});
 
 app.get('/', function(req, res)

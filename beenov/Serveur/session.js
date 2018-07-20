@@ -80,7 +80,7 @@ var autoLogin = function(protocol_version, base_url, response){
 			response.cookie('cskey', json.sessionKey);
 			response.send(json);
 			response.status(200).end();
-			//url = create_get_url(base_url, '/users/' + json.userId, {'session-key' : json.sessionKey});
+			// url = create_get_url(base_url, '/users/' + json.userId, {'session-key' : json.sessionKey});
 			// request.get(url, function(err, res, body)
 			// 		{
 			// 		json = JSON.parse(body);
@@ -150,13 +150,13 @@ var	newpwd = function (req,mail, protocol_version, base_url, response)
 		service: 'yahoo',
 		auth: {
 			user: 'raniaa.ayadii@yahoo.fr',
-			pass: 'hanass&fatma'
+			pass: 'hana&fatma'
 			}
 	});
 
 	let	mailOptions = {
 		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
-		to: 'rania.ayadi.ar@gmail.com',
+		to: 'raniaa.ayadii@yahoo.fr',
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
 		html: 'Bonjour,<br >Veuillez suivre le lien suivant pour changer votre mot de passe: <br >'
@@ -170,11 +170,15 @@ var	newpwd = function (req,mail, protocol_version, base_url, response)
 		{
 			console.log(error);
 			response.status(400).end();
+
 		}
 		else
 		{
 			console.log('Message sent: ' + info.response);
+			response.redirect("/infoMail");
 			response.status(200).end();
+			// console.log(req.cookies);
+
 		}
 	});
 }
@@ -220,6 +224,7 @@ var changemdp = function(value, protocol_version, base_url, response, cskey)
 	{
 		console.log(body);
 		if (err || body.status == 'error')
+
 		{
 			console.log(err);
 			response.redirect("/changepwd");
