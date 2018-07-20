@@ -20,7 +20,7 @@ function	create_get_url(base_url, path_url, data)
 	return (url);
 }
 
-var	mailToUser = function (req, protocol_version, base_url, response, mail, subject, msg)
+var	mailToUser = function (req, protocol_version, base_url, response, mail, data)
 {
 	let	transporter = nodemailer.createTransport(
 	{
@@ -30,29 +30,27 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, subj
 			pass: 'hana&fatma'
 			}
 	});
-
-console.log(mail);
-console.log(subject);
-console.log(msg);
-
+	data = JSON.parse(data);
 	let	mailOptions = {
 		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
 		to: mail,
-		subject: subject,
+		subject: 'Beenov\' - Auto Diagnostic',
 		text: '',
-		html: msg
+		html: '<br/>Bonjour ' + data.nameAdvisor + ',<br/><br/>'
+		  +'L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
+		  +'  '+ data.name + '  a rempli le questionnaire: '
+		  + data.theme  + '.<br/> '
+		  + 'Veuillez le contacter sur son email: ' + mail
 	};
 
 	transporter.sendMail(mailOptions, function(error, info)
 	{
 		if(error)
 		{
-			console.log(error);
 			response.status(400).end();
 		}
 		else
 		{
-			console.log('Message sent: ' + info.response);
 			response.status(200).end();
 		}
 	});
@@ -143,7 +141,7 @@ console.log(url);
 			}
 		});
 }
-var	newpwd = function (req,mail, protocol_version, base_url, response)
+var	newpwd = function (mail, protocol_version, base_url, response)
 {
 	let	transporter = nodemailer.createTransport(
 	{
@@ -156,7 +154,7 @@ var	newpwd = function (req,mail, protocol_version, base_url, response)
 
 	let	mailOptions = {
 		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
-		to: 'raniaa.ayadii@yahoo.fr',
+		to: mail,
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
 		html: 'Bonjour,<br >Veuillez suivre le lien suivant pour changer votre mot de passe: <br >'

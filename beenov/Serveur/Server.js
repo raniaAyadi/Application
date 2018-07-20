@@ -92,15 +92,16 @@ app.get('/getAverage', function(req, res){
 });
 
 app.post('/mailAutoDiag',function(req,res)
-	{		let data = req.body;
-			session.mailToUser(req, protocol_version, base_url, res,data.mail, data.subject, data.msg);
+	{		let body = req.body;
+		console.log(body);
+			session.mailToUser(req, protocol_version, base_url, res,body.mail, body.data);
 	});
 
 app.post('/lostpwd', function(req, res)
 	 {
 	     let mail = req.body.mail;
 
-	     session.newpwd(req,mail, protocol_version, base_url, res);
+	     session.newpwd(mail, protocol_version, base_url, res);
 	 });
 
 app.post('/reinit_pwd', function(req, res)

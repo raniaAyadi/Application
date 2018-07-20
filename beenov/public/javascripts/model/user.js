@@ -14,6 +14,19 @@ function User(obj){
   }
 }
 
+User.prototype.receiveEmail = function(data){
+  var deferred = $.Deferred();
+  var me = this;
+
+  if(!this.email)
+    deferred.reject("email not valid");
+  else
+    $.post(CONST.url.mailAutoDiag, {mail : me.email, data : JSON.stringify(data)}).done(()=>deferred.resolve("mail sent"))
+                  .fail(()=>deferred.reject("sent failed"));
+
+  return deferred;
+};
+
 User.guestLogin = function(){
   var deferred = $.Deferred();
 
