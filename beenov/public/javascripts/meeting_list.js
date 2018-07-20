@@ -127,13 +127,14 @@ function	create_button()
     let siret = $('#siret_data')[0].value;
 		var obj = {};
 
-		if (!siret) {
-			alert("Saisissez un SIRET")
-		}
+		if (siret.length != 14 || check_siret(siret) != 0)
+				alert("Saisissez un SIRET");
+		else {
+			Company.setCompany(siret).done(()=>
+			window.location.replace('/company?' + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1])
+		).fail(()=>alert("SIRET invalid"));
+	}
 
-		Company.setCompany(siret).done(()=>
-		window.location.replace('/company?' + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1])
-	).fail(()=>alert("SIRET invalid"));
 }
 
 function	openQuestionnaire(data)
@@ -323,6 +324,9 @@ $(document).ready(function()
 							create_button();
 					});
 
+					$('#siret_data').keydown(function(e){
+							siret_data(e)
+					});
 
 		      $('#siret_data').keypress(function(event){
 
