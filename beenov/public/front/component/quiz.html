@@ -1,5 +1,6 @@
 <link rel="import" href="quizSection.html">
 
+<div style="margin-left: auto;margin-right: auto;height:70%">
 <template id="template">
   <div id="sections">
     <!-- this.sections -->
@@ -7,11 +8,12 @@
 </template>
 
 <template id="actions">
-  <fieldset>
-        <input type="button" class="button" value="Mettre à jour" style="background-color:#003c74;color:white" id="save-company-sheet">
-        <input type="button" class="btn button" style="background-color:#003c74;color:white" value="Annuler" onClick="annuler()">
-  </fieldset>
+  <div>
+        <input type="button" class="btn button" value="Mettre à jour" style="cursor:hand; background-color:#003c74;color:white" id="save-company-sheet">
+        <input type="button" class="btn button" style="cursor:hand;background-color:#003c74;color:white" value="Annuler" onClick="annuler()">
+  </div>
 </template>
+</div>
 
 <script>
   var QuizComponent = {};
@@ -39,7 +41,7 @@
       var me = this;
 
       save.value = (reply === -1) ? "Enregistrer" : "Mettre à jour";
-      save.setAttribute("class","btn disabled");
+      save.setAttribute("class","btn disabled btn-block button");
       save.onclick = ()=> {
         this.updateAnswers();
         var company = QuizComponent.company;
