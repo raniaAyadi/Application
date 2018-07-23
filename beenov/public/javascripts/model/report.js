@@ -20,7 +20,6 @@ var Report ={
 
   generatePDF : function(report){
     var x = report.getJSON();
-    console.log(x);
     var xhr = new XMLHttpRequest();
 
     xhr.open("POST", CONST.url.generatePDF);

@@ -10,7 +10,7 @@
   var CommentGroupItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var commentGroupItemPrototype = Object.create(HTMLElement.prototype);
 
     commentGroupItemPrototype.createdCallback = function(){

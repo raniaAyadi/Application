@@ -8,7 +8,7 @@
   var OneChoiceQuestionComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var oneChoiceQuestionPrototype = Object.create(HTMLElement.prototype);
 
     oneChoiceQuestionPrototype.createdCallback = function(){

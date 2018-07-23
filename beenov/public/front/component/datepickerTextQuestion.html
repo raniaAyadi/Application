@@ -9,7 +9,7 @@ toine<template id="template">
 var DatepickerTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var datepickerTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   datepickerTextQuestionPrototype.createdCallback = function(){

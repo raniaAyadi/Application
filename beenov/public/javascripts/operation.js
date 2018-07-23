@@ -471,6 +471,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
     },
 
     createLink : function(url, linkDownload, msg){
+      console.log(url);
       var link = document.createElement("a");
 
       link.href = url;
@@ -478,7 +479,9 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
       link.target="_blank";
 
       if(window.confirm(msg || "Télécharger le rapport !")){
+        document.body.appendChild(link);
         link.click();
+        link.remove();
       }
     },
 

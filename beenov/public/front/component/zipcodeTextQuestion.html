@@ -7,7 +7,7 @@
 varZipcodeTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var zipcodeTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   zipcodeTextQuestionPrototype.createdCallback = function(){

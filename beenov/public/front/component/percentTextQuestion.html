@@ -9,7 +9,7 @@
 var PercentTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var percentTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   percentTextQuestionPrototype.createdCallback = function(){

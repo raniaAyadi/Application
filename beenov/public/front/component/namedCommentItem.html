@@ -12,7 +12,7 @@
   var NamedCommentItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var namedCommentItemPrototype = Object.create(HTMLElement.prototype);
 
     namedCommentItemPrototype.createdCallback = function(){

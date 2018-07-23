@@ -127,7 +127,6 @@ function	send_questionnaire(reinit)
     {
       if(isAutoDiag){
         var companyJson = JSON.parse(getCookie("company_info"));
-        console.log(companyJson);
         var company = {
           resource : "companies/" + companyJson.companies
         };
@@ -155,7 +154,6 @@ function	send_questionnaire(reinit)
 	    owner: isAutoDiag ? ownerAuto : questionnaire_reply.resources[0].owner
 	};
 
-  console.log(posted);
     }
     if (window.location.pathname == "/company")
 	url += '?company=true';
@@ -188,7 +186,6 @@ function	send_questionnaire(reinit)
   	data: JSON.stringify(posted),
   	success: function(body, status, jqXHR)
   	{
-      console.log("ok");
   	    if (status == "success")
   		alert("Enregistrement bien effectué");
   	    if (getParameterByName("newquest", window.location.href) == "true"){

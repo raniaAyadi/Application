@@ -8,7 +8,7 @@
   var SectionHeaderItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var sectionHeaderPrototype = Object.create(HTMLElement.prototype);
 
     sectionHeaderPrototype.createdCallback = function(){

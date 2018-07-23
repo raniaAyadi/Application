@@ -13,7 +13,7 @@
   var SmileyRankItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var smileyRankItemPrototype = Object.create(HTMLElement.prototype);
 
     smileyRankItemPrototype.createdCallback = function(){

@@ -25,7 +25,7 @@
 
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var quizPrototype = Object.create(HTMLElement.prototype);
 
     quizPrototype.createdCallback = function(){

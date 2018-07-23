@@ -1,7 +1,6 @@
 <link rel="import" href="../../component/report.html">
 
 <template id="template">
-  <script type="text/javascript" src="../../questionnaire_client.js"></script>
 
 <div id="quiz" >
     <div class="container-fluid">
@@ -62,7 +61,7 @@
   var AutoQuizComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var autoQuizPrototype = Object.create(HTMLElement.prototype);
 
     autoQuizPrototype.setReport = function(){
@@ -78,6 +77,10 @@
     }
 
     autoQuizPrototype.createdCallback = function(){
+      var script = document.createElement("script");
+      script.setAttribute("src", "../../questionnaire_client.js");
+      this.append(script);
+
       Operation.appendTemplate(this, currentDoc, "#template");
       this.setReport();
     };

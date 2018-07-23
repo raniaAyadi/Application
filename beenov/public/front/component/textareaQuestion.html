@@ -24,7 +24,7 @@
  }
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var textareaQuestionPrototype = Object.create(HTMLElement.prototype);
 
     textareaQuestionPrototype.createdCallback = function(){

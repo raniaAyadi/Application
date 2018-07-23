@@ -16,7 +16,7 @@
   var QuizSectionComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var quizSectionPrototype = Object.create(HTMLElement.prototype);
 
     quizSectionPrototype.createdCallback = function(){

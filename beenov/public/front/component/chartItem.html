@@ -19,7 +19,7 @@
   var ChartItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var chartItemPrototype = Object.create(HTMLElement.prototype);
 
     chartItemPrototype.createdCallback = function(){

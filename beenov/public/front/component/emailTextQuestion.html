@@ -7,7 +7,7 @@
 var EmailTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var emailTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   emailTextQuestionPrototype.createdCallback = function(){

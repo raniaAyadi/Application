@@ -21,7 +21,7 @@
   var QuestionComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var questionPrototype = Object.create(HTMLElement.prototype);
 
     questionPrototype.createdCallback = function(){

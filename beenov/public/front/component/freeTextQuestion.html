@@ -9,7 +9,7 @@
 var FreeTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var freeTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   freeTextQuestionPrototype.createdCallback = function(){

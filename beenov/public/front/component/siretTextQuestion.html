@@ -8,7 +8,7 @@
 var SiretTextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var siretTextQuestionPrototype = Object.create(HTMLElement.prototype);
 
   siretTextQuestionPrototype.createdCallback = function(){

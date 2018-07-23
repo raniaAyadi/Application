@@ -31,7 +31,7 @@
   var VariableValueItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var variableValueItemPrototype = Object.create(HTMLElement.prototype);
 
     variableValueItemPrototype.createdCallback = function(){

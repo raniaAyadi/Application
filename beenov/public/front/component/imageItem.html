@@ -13,7 +13,7 @@
   var ImageItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var imageItemPrototype = Object.create(HTMLElement.prototype);
 
       imageItemPrototype.createdCallback = function(){

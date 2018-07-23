@@ -10,7 +10,7 @@
   var TemplateReportComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var templateReportPrototype = Object.create(HTMLElement.prototype);
     var deferred = new $.Deferred();
 

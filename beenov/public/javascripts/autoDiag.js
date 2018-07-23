@@ -33,17 +33,7 @@ AutoDiag.displayQuiz = function(){
       'nameAdvisor': AutoDiag.advisor.lastName,
       'theme' : AutoDiag.subTheme.name,
     };
-
-//
-// var subject = "Beenov\' - Auto Diagnostic";
-//
-//   var msg = '<br/>Bonjour' + nameAdvisor + ',<br/><br/>'
-//   +'L\'entrepneur de l\'entreprise: ' + nameEntreprise + ', de code postale: '+ zipCode + ', et de SIRET : '+ siret
-//   +'  '+ name + '  a rempli le questionnaire: '
-//   + theme  + '.<br/> '
-//   + 'Veuillez le contacter sur son email: ' + mail;
-  AutoDiag.advisor.receiveEmail(data); //subj et text html
-  // .done((data)=>console.log(data)).fail((data)=>console.log(data));
+  AutoDiag.advisor.receiveEmail(data);
 
   var guestFormC = document.querySelector("beenov-guest-form");
   guestFormC.remove();

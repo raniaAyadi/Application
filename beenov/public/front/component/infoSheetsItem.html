@@ -19,7 +19,7 @@
   var InfoSheetsItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var infoSheetsItemPrototype = Object.create(HTMLElement.prototype);
 
     infoSheetsItemPrototype.createdCallback = function(){

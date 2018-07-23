@@ -18,7 +18,7 @@
   var QuestionAnswerItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var questionAnswerItemPrototype = Object.create(HTMLElement.prototype);
 
     questionAnswerItemPrototype.createdCallback = function(){

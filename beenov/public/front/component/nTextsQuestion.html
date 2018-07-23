@@ -10,7 +10,7 @@
   var NTextsQuestionComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var nTextsQuestionPrototype = Object.create(HTMLElement.prototype);
 
     nTextsQuestionPrototype.createdCallback = function(){

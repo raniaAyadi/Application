@@ -14,7 +14,7 @@
   var StaticImageItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var staticImageItemPrototype = Object.create(HTMLElement.prototype);
 
     staticImageItemPrototype.createdCallback = function(){

@@ -34,7 +34,7 @@
   var ReportComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var reportPrototype = Object.create(HTMLElement.prototype);
 
     reportPrototype.defEvents = function(){
@@ -102,7 +102,6 @@
 
 
     reportPrototype.createdCallback = function(){
-      console.log("created");
       Operation.appendTemplate(this, currentDoc, "#content");
 
       var elt = document.querySelector("#sumup_type");
@@ -131,7 +130,6 @@
       ReportComponent.singleton = {};
       var deferred = new $.Deferred();
       var me = this;
-      console.log("attached");
 
       deferred.progress(function(name){
         me.appendTemplateName(name);
@@ -192,6 +190,8 @@
     };
 
     reportPrototype.attributeChangedCallback = function(attr, oldV, newV){
+      console.log("attributeChangedCallback");
+      console.log(attr+"**"+oldV+"**"+newV);
       if(attr === "name" && newV){
         var child = this.firstElementChild;
         if(child.firstElementChild)

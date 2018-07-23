@@ -8,7 +8,7 @@
   var SubsectionTitleItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var subsectionTitleItemPrototype = Object.create(HTMLElement.prototype);
 
     subsectionTitleItemPrototype.createdCallback = function(){

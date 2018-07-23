@@ -9,7 +9,7 @@
   var PageJumpItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var pageJumpItemPrototype = Object.create(HTMLElement.prototype);
 
     pageJumpItemPrototype.createdCallback = function(){

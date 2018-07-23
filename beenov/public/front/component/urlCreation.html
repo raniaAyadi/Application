@@ -48,7 +48,7 @@
   var UrlCreationComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var urlCreationPrototype = Object.create(HTMLElement.prototype);
     var deferred = $.Deferred();
 

@@ -54,7 +54,7 @@
   var GuestFormComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var guestFormPrototype = Object.create(HTMLElement.prototype);
 
     guestFormPrototype.createdCallback = function(){

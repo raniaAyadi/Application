@@ -9,7 +9,7 @@
   var SectionActionsItemComponent = {};
 
   (function(){
-    var currentDoc = document.currentScript.ownerDocument;
+    var currentDoc = document._currentScript.ownerDocument;
     var sectionActionsItemPrototype = Object.create(HTMLElement.prototype);
 
     sectionActionsItemPrototype.createdCallback = function(){

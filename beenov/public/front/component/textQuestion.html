@@ -18,7 +18,7 @@
 var TextQuestionComponent = {};
 
 (function(){
-  var currentDoc = document.currentScript.ownerDocument;
+  var currentDoc = document._currentScript.ownerDocument;
   var textQuestionPrototype = Object.create(HTMLElement.prototype);
 
   textQuestionPrototype.createdCallback = function(){
