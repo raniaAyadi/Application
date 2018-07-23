@@ -27,7 +27,7 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		service: 'yahoo',
 		auth: {
 			user: 'raniaa.ayadii@yahoo.fr',
-			pass: 'hana&fatma'
+			pass: 'trigui21ayadi21'
 			}
 	});
 	data = JSON.parse(data);
@@ -37,10 +37,10 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		subject: 'Beenov\' - Auto Diagnostic',
 		text: '',
 		html: '<br/>Bonjour ' + data.nameAdvisor + ',<br/><br/>'
-		  +'L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
-		  +'  '+ data.name + '  a rempli le questionnaire: '
+		  +',  L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
+		  +'  '+ data.nameUser + '  a rempli le questionnaire: '
 		  + data.theme  + '.<br/> '
-		  + 'Veuillez le contacter sur son email: ' + mail
+		  + 'Veuillez le contacter sur son email: ' + data.mailUser
 	};
 
 	transporter.sendMail(mailOptions, function(error, info)
@@ -52,6 +52,8 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		else
 		{
 			response.status(200).end();
+			console.log("done mail");
+			console.log(data);
 		}
 	});
 }
@@ -148,7 +150,7 @@ var	newpwd = function (mail, protocol_version, base_url, response)
 		service: 'yahoo',
 		auth: {
 			user: 'raniaa.ayadii@yahoo.fr',
-			pass: 'hana&fatma'
+			pass: 'trigui21ayadi21'
 			}
 	});
 
