@@ -156,10 +156,12 @@ Company.getById = function(id){
 };
 
 Company.prototype.getCoord = function(){
+  console.log(this);
   var coord = {};
 
   coord.postalCode = this.zipcode;
   coord.nafCode = this.nafCode;
+  coord.name = this.name;
 
   return coord;
 };

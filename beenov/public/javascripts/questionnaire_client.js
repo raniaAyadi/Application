@@ -172,6 +172,7 @@ function	printhelp(id1, id2, index)
 /* Récupère les questions du questionnaire */
 function	getquest(data)
 {
+	console.log(data);
     $.ajax(
 	{
 	    type: "POST",
@@ -181,7 +182,11 @@ function	getquest(data)
 		       {
 			   questionnaire_id = info.id;
 			   main_rules = info.rules;
-			   $('#cmpn').append(data.company);
+				 var id = JSON.parse(getCookie("company_info")).companies;
+				 Company.getById(id).done((company) => {
+					 var coord = company.getCoord();
+					 $('#cmpn').text(coord.name);
+				 });
 			   $('#theme').val(data.theme);
 			   $('#advisor').val(data.advisor);
 			   printsect(info);
@@ -598,7 +603,6 @@ function modifycomp()
 	}
 	toAppend.push('</span>');
 	$('#company_questionnaire').append(toAppend.join(""));
-	$('#company_questionnaire').append(new QuizComponent());
 
 	$('#company_questionnaire .wysiwyg').trumbowyg({
 	    lang: 'fr',
