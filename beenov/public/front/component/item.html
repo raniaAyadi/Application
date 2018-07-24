@@ -29,7 +29,7 @@
     <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
     <div id="editeur" contentEditable></div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-3" id="buttonComments">
     <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Enregistrer</button>
     <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
   </div>
@@ -204,6 +204,7 @@
          if (this.item.comment == "")
          {
             this.querySelector("#button").setAttribute("style","display:none");
+            this.querySelector("#buttonComments").setAttribute("style","display:none");
          }
        }
 
@@ -236,6 +237,7 @@
     itemPrototype.ifTitle = function(){
       if (this.item.type == "section-header" || this.item.type == "subsection-title") {
         this.querySelector("#button").setAttribute("style","display:none");
+        this.querySelector("#buttonComments").setAttribute("style","display:none");
       }
     }
 
@@ -307,6 +309,7 @@
         }
         else {
         this.querySelector("#button").setAttribute("style","display:none");
+        this.querySelector("#buttonComments").setAttribute("style","display:none");
         }
       }
     };
