@@ -166,9 +166,7 @@ var	newpwd = function (mail, protocol_version, base_url, response)
 		to: mail,
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
-		html: 'Bonjour,<br >Veuillez suivre le lien suivant pour changer votre mot de passe: <br >'
-		+ 'lien généré'
-		+ '<br >Si vous n\'avez pas demandé de changement de mot de passe, merci de contacter le support Beenov.<br >'
+		html: 'Bonjour,<br >Veuillez contacter votre administrateur. <br >'
 	};
 
 	transporter.sendMail(mailOptions, function(error, info)
