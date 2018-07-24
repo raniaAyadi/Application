@@ -71,7 +71,7 @@
       };
 
       var saveReport = function(id){
-        alert("save done");
+        alert("Compte-rendu enregistré");
         Report.getReportById(id).done((data)=>{
           var x = JSON.parse(data);
           if(x.status === "ok" & x.resources.length){

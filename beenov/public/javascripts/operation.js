@@ -478,7 +478,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
       link.download = linkDownload || "rapport.pdf";
       link.target="_blank";
 
-      if(window.confirm(msg || "Télécharger le rapport !")){
+      if(window.confirm(msg || "Télécharger le rapport")){
         document.body.appendChild(link);
         link.click();
         link.remove();
