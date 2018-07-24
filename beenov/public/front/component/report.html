@@ -20,16 +20,6 @@
   </p>
 </template>
 
-<template id="actions">
-  <button type="button" class="btn btn-block" id="save_report">
-    Enregistrer ce compte-rendu
-  </button>
-  <br />
-  <button type="button"  class="btn btn-block" id="summon_report">
-    Générer le compte-rendu
-  </button>
-</template>
-
 <script>
   var ReportComponent = {};
 
@@ -107,8 +97,8 @@
       var elt = document.querySelector("#sumup_type");
       Operation.appendTemplate(elt, currentDoc, "#navbar");
 
-      elt = document.querySelector("#actions");
-      Operation.appendTemplate(elt, currentDoc, "#actions");
+      //elt = document.querySelector("#actions");
+      //Operation.appendTemplate(elt, currentDoc, "#actions");
 
     };
 

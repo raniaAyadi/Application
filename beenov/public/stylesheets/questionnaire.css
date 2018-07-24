@@ -3,6 +3,24 @@
     margin-top: 3%;
 }
 
+#modele
+{
+  text-align: center;
+  color : Gray;
+  margin-top :10%;
+  font-size: 2.2em;
+	/* font-weight: bold; */
+}
+#sumup_type
+{
+  text-align: center;
+  color : #003c74;
+  margin-top :10%;
+  margin-bottom: 10%;
+  font-size: 1.2em;
+	font-weight: bold;
+}
+
 .LTexts
 {
     resize: none;
@@ -43,15 +61,15 @@ body
 
 #option
 {
-	margin-left: 5%
-	height: 68vh;
+	/* margin-left: 5%; */
+	/* height: 37vh; */
 }
 
 #section
 {
-	height: 42vh;
+	height: 32vh;
 	overflow-y: scroll;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 }
 
 #page
@@ -259,7 +277,7 @@ div[onclick="switchsection"]
 	margin-top: 5vh;
 	overflow-y: scroll;
 	overflow-x: hidden;
-	height: 56vh;
+  height: 42vh;
 }
 
 #rendu p
@@ -267,6 +285,7 @@ div[onclick="switchsection"]
 	font-size: 1.2em;
 	font-weight: bold;
 	color: #003c74;
+  margin-left: 2%;
 }
 
 #rendu_type

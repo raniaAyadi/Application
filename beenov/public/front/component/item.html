@@ -21,14 +21,19 @@
     <div id="item" class="col-md-12">
       <!-- item -->
     </div>
-
-   <div class="col-md-9" id="text" style="display:none">
-        <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
-        <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
-        <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
-        <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
-        <div id="editeur" contentEditable></div>
+<div class="row">
+  <div class="col-md-9" id="text" style="display:none">
+    <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
+    <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
+    <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
+    <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
+    <div id="editeur" contentEditable></div>
   </div>
+  <div class="col-md-3">
+    <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Enregistrer</button>
+    <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
+  </div>
+</div>
 <div class="col-md-9" id="textcomment" > </div>
 </div>
 
@@ -40,8 +45,6 @@
     <button type="button" id="afficher" style="display:none" class="btn active btn-sm btn-block">Afficher</button>
     <button type="button" id="commentaire" class="btn active btn-sm btn-block">Ajouter un commentaire</button>
     <button type="button" id="modifier" style="display:none" class="btn active btn-sm btn-block">Modifier le commentaire</button>
-    <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Terminer</button>
-    <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
 </div>
 </br>
 </template>

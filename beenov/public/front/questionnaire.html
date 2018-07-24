@@ -66,7 +66,7 @@
 
     <title>Beenov' - Questionnaire</title>
   </head>
-  <body>
+  <body style="height:20%">
     <div id="dialog"></div>
     <div id="top">
       <img src="logo_beenov2.png" alt="logo_beenov" class="credits" title="Retour a la liste de entretiens">
@@ -95,14 +95,14 @@
       </nav>
 
       <div id="onglet0" style="display:block;">
-	<div class="row">
+	<div class="row" style="height:100%">
 	  <div class="col-md-3 marge"></div>
 	  <div class="col-md-9 marge">
 	    <h1><span class="sectionTitle" id="title_section"></span></h1>
 	  </div>
 	</div>
 
-	<div class="row" id="option">
+	<div class="row" id="option" >
 	  <div class="col-md-3">
 	    <div id="company">
 	      <h2>
@@ -133,16 +133,24 @@
 	</div>
       </div>
 
-      <div id="onglet1" style="display:none;">
+      <div id="onglet1" style="display:none">
 	<!-- <h1>Onglet 1</h1> -->
 	<div class="row" id="option">
 	  <div class="col-md-3" id="actions">
 	    <div id="rendu">
-	      <p id="sumup_type">Modèle de compte rendu</p>
+        <!-- <div id="modele"> Compte-rendu</div> -->
+	      <p id="sumup_type">Compte-rendu</p>
 	      <p id="selectedcons">Fiches conseil</p>
 	      <p id="selectedprod">Fiches produit</p>
 	      <p id="selectedhelp">Fiches aide</p>
 	    </div><hr>
+      <button type="button" class="btn btn-block" id="save_report">
+        Enregistrer ce compte-rendu
+      </button>
+
+      <button type="button"  class="btn btn-block" id="summon_report">
+        Générer le compte-rendu
+      </button>
 	  </div>
 
 
@@ -214,10 +222,10 @@
       </div>
 
     </div>
-    <div id="bottom">
+    <footer id="bottom">
       <img src="logo-feder.png" class="credits">
       <img src="logo-direccte.png" class="credits">
-    </div>
+    </footer>
 
     <!-- dialog box at bottom of page -->
     <div id="dia" role="dialog" aria-labelledby="dia-heading" style="display:none;">

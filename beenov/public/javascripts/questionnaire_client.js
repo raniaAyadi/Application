@@ -39,7 +39,8 @@ function	changeOnglet(numero)
 	x.style.display = "none";
     }
     // Affiche le sélectionné et le surligne seul en orange
-    document.getElementById("onglet" + numero).style.display = "block";
+    document.getElementById("onglet" + numero).removeAttribute("style","display:none");
+    document.getElementById("onglet" + numero).setAttribute("style","height:100%");
 		if(document.getElementById("selected"))
     	document.getElementById("selected").removeAttribute("id");
 		if(document.getElementsByTagName("span")[1 + numero])
