@@ -30,7 +30,7 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 				auth: {
 					user: "autodiag@beenov.fr",
 					pass: "23EDCvfr'",
-		
+
 		}
 });
 	data = JSON.parse(data);
@@ -40,7 +40,7 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		subject: 'Beenov\' - Auto Diagnostic',
 		text: '',
 		html: '<br/>Bonjour ' + data.nameAdvisor + ',<br/><br/>'
-		  +',  L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
+		  +'L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
 		  +'  '+ data.nameUser + '  a rempli le questionnaire: '
 		  + data.theme  + '.<br/> '
 		  + 'Veuillez le contacter sur son email: ' + data.mailUser
@@ -152,15 +152,17 @@ var	newpwd = function (mail, protocol_version, base_url, response)
 {
 	let	transporter = nodemailer.createTransport(
 	{
-		service: 'yahoo',
+		host: "mail.gandi.net",
+		secureConnection : true,
+		port :465,
 		auth: {
-			user: 'raniaa.ayadii@yahoo.fr',
-			pass: 'trigui21ayadi21'
+			user: "autodiag@beenov.fr",
+			pass: "23EDCvfr'",
 			}
 	});
 
 	let	mailOptions = {
-		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
+		from: 'noReply@beenov.fr', // https://webmail.gandi.net/
 		to: mail,
 		subject: 'Beenov\' - Changement de mot de passe',
 		text: '',
