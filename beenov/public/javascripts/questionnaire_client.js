@@ -240,7 +240,6 @@ function        showquest(data)
 		datatype: "json",
 		success: function(json)
 		{
-
 		    questionnaire_reply = json;
 		    if (json.resources != undefined)
 			validatedP = json.resources[0].validatedP;
@@ -265,7 +264,10 @@ function        showquest(data)
 		    else
 		    {
 		    }
+						send_questionnaire();
 		}
+
+
 	    });
     }
     else
@@ -894,8 +896,9 @@ $(document).ready(function()
 						if(questionnaire_reply){
 					    if (getParameterByName("newquest", window.location.href) == "true" || questionnaire_reply.resources[0].validatedP == false)
 					    {
+								console.log("heelo");
 						validatedP = true;
-						send_questionnaire(2);
+						//send_questionnaire(2);
 					    }
 					    if (typeof advice !== 'undefined')
 					    {

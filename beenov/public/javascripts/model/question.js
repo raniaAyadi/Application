@@ -50,7 +50,7 @@ Question.prototype.getAnswerData = function(){
     case CONST.questionType.n1Choice :
     answerData.answer = new Array();
 
-    var l = this.answer.length;
+    var l = this.answer ? this.answer.length : 0;
     for(var i=0; i<l; i++){
       var obj = {
         row : this.typeOptions.rowLabels[i],

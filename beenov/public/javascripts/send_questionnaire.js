@@ -186,7 +186,7 @@ function	send_questionnaire(reinit)
   	data: JSON.stringify(posted),
   	success: function(body, status, jqXHR)
   	{
-  	    if (status == "success")
+  	    if (status == "success" && reinit)
   		alert("Enregistrement bien effectué");
   	    if (getParameterByName("newquest", window.location.href) == "true"){
   		nb_send++;
