@@ -22,17 +22,20 @@ function	create_get_url(base_url, path_url, data)
 
 var	mailToUser = function (req, protocol_version, base_url, response, mail, data)
 {
-	let	transporter = nodemailer.createTransport(
+	var	transporter = nodemailer.createTransport(
 	{
-		service: 'yahoo',
-		auth: {
-			user: 'raniaa.ayadii@yahoo.fr',
-			pass: 'trigui21ayadi21'
-			}
-	});
+				host: "mail.gandi.net", // hostname
+				secureConnection : true,
+				port :465,
+				auth: {
+					user: "autodiag@beenov.fr",
+					pass: "23EDCvfr'",
+		
+		}
+});
 	data = JSON.parse(data);
-	let	mailOptions = {
-		from: 'raniaa.ayadii@yahoo.fr', // https://webmail.gandi.net/
+	var	mailOptions = {
+		from: 'autodiag@beenov.fr', // https://webmail.gandi.net/
 		to: mail,
 		subject: 'Beenov\' - Auto Diagnostic',
 		text: '',
@@ -47,6 +50,8 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 	{
 		if(error)
 		{
+			console.log("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb");
+			console.log(error);
 			response.status(400).end();
 		}
 		else
