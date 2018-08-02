@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="ui/trumbowyg.min.css">
     <link rel="stylesheet" type="text/css" href="questionnaire.css">
     <link rel="stylesheet" type="text/css" href="test.css">
+    <!-- <link rel="stylesheet" media="screen and (max-width: 1280px)" href="questionnaire.css" /> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js" type="text/javascript"></script>
 
     <script src="webcomponentsjs-0/webcomponents-lite.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -90,12 +92,12 @@
 	  <span style="cursor:pointer" onclick="changeOnglet(2)"> FICHES CONSEIL </span>
 	  <span style="cursor:pointer" onclick="changeOnglet(3)"> FICHES PRODUIT </span>
 	  <span style="cursor:pointer" onclick="changeOnglet(4)"> FICHES AIDE </span>
-	  <button type="button" onclick="#" id="meeting">Acceuil</button>
+	  <button type="button" class="btn btn-default" style="background-color:#fab21a;" onclick="#" id="meeting">Acceuil</button>
 	</span>
       </nav>
 
-      <div id="onglet0" style="display:block;">
-	<div class="row" style="height:100%">
+      <div  id="onglet0" style="display:block;">
+	<div class="row">
 	  <div class="col-md-3 marge"></div>
 	  <div class="col-md-9 marge">
 	    <h1><span class="sectionTitle" id="title_section"></span></h1>
@@ -103,7 +105,7 @@
 	</div>
 
 	<div class="row" id="option" >
-	  <div class="col-md-3">
+	  <div class="col-md-3" style="height:64vh;">
 	    <div id="company">
 	      <h2>
 		<span  class="sectionTitle" id="cmpn"></span>
@@ -125,7 +127,7 @@
 
 	      <!-- Inserer ici les liens des differentes sections dispo -->
 	    </div>
-	    <div> <button type="button" class="btn btn-block" onclick="#" id="save"> Enregistrer </button> </div>
+	    <div> <button type="button" style="background-color:#fab21a;" class="btn" onclick="#" id="save"> Enregistrer </button> </div>
 	  </div>
 	  <div class="col-md-9 list" id="list">
 	    <!-- Questions du questionnaire -->
@@ -144,22 +146,20 @@
 	      <p id="selectedprod">Fiches produit</p>
 	      <p id="selectedhelp">Fiches aide</p>
 	    </div><hr>
-      <button type="button" class="btn btn-block" id="save_report">
+      <button type="button" class="btn btn-block" style="background-color:#fab21a;" id="save_report">
         Enregistrer ce compte-rendu
       </button>
 
-      <button type="button"  class="btn btn-block" id="summon_report">
+      <button type="button"  class="btn btn-block" style="background-color:#fab21a;" id="summon_report">
         Générer le compte-rendu
       </button>
 	  </div>
 
-
     <div class="col-md-9" id="listrendu">
       <beenov-report></beenov-report>
 	  </div>
+    </div>
 
-
-  </div>
       </div>
 
       <div id="onglet2" style="display:none;">
@@ -168,10 +168,14 @@
 	    <div style="cursor:pointer" id="conseil">
 	    </div>
 	  </div>
-	  <div  class="col-md-9" id="listcons">
-	  </div>
-	</div>
-      </div>
+	  <div  class="col-md-9" id="listcons"></div>
+  </div>
+</br>
+    <div class="row">
+      <div class="col-md-9">  </div>
+      <div class="col-md-3" id="ajoutCons"> </div>
+    </div>
+  </div>
 
       <div id="onglet3" style="display:none;">
 	<!-- <h1>Onglet 3</h1> -->
@@ -183,6 +187,13 @@
 	  <div class="col-md-9" id="listprod">
 	  </div>
 	</div>
+
+</br>
+    <div class="row">
+      <div class="col-md-9">  </div>
+      <div class="col-md-3" id="ajoutProd"> </div>
+    </div>
+
       </div>
 
       <div id="onglet4" style="display:none;">
@@ -219,13 +230,15 @@
 	    <!-- Questions du questionnaire -->
 	  </div>
 	</div>
+
+</br>
+    <div class="row">
+      <div class="col-md-9">  </div>
+      <div class="col-md-3" id="ajoutHelp"> </div>
+    </div>
       </div>
 
     </div>
-    <footer id="bottom">
-      <img src="logo-feder.png" class="credits">
-      <img src="logo-direccte.png" class="credits">
-    </footer>
 
     <!-- dialog box at bottom of page -->
     <div id="dia" role="dialog" aria-labelledby="dia-heading" style="display:none;">
@@ -242,11 +255,19 @@
 	    <input type="mail" name="Courriel" placeholder="" id="DialogMail"><br />
 	    <label>Date de l'entretien: </label>&emsp;
 	    <input type="text" name="Date de l'entretien" placeholder="JJ/MM/AAAA" id="DialogDate" class="datepicker">&emsp;
-	    <button type="button" class="focus closebutton" aria-label="Close dialog" id="DialogClose"  >Enregistrer</button>
+	    <button type="button"  class="focus closebutton" aria-label="Close dialog" id="DialogClose"  >Enregistrer</button>
 	  </p>
 	</form>
       </div>
     </div>
     <div id="company_questionnaire" title="Mise à jour fiche entreprise" ><span></span></div>
+
+
+    <div class="clear"> </div>
+
+    <footer id="bottom">
+      <img src="logo-feder.png" class="credits">
+      <img src="logo-direccte.png" class="credits">
+    </footer>
   </body>
 </html>

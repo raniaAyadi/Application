@@ -267,7 +267,7 @@ function	deletemet(tableau)
 		data: {"whatever" : '_', "qst" : qstReply},
 		success: function(body, textStatus, jqXHR)
 		{
-		    tableau.rows( { selected : true } ).remove().draw(false);
+		    tableau.rows( { selected : true } ).e().draw(false);
 		    alert("Entretien supprimé avec succès.");
 		},
 		error: function(texte, code, item)

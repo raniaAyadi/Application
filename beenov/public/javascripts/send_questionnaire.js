@@ -2,6 +2,7 @@ var is_new_entreprise = false;
 
 function	Set_plugins()
 {
+  console.log("hi");
     $('.wysiwyg').trumbowyg({
 	lang: 'fr',
 	btns: ['formatting','bold', 'italic',

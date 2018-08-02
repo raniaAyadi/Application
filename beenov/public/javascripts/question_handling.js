@@ -720,7 +720,8 @@ function        question_type_1Choice(question, toReturn, answers, type)
 
 function	question_type_textarea(question, answers, type)
 {
-    let balise = '<br /><textarea id="' + question.id + '"class="wysiwyg">';
+    let balise = '<br /><textarea id="' + question.id + '"class="wysiwyg editeur">';
+
     if (type == "quest")
 	questionnaire_data.textarea.push({id: question.id, rules: question.rules});
     else if (type == "company")

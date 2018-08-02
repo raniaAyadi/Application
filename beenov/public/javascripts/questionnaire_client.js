@@ -18,6 +18,7 @@ var	main_rules;
 var	report;
 var	newrep = 1;
 
+
 var infocomp;
 
 var div_sumup = 0;
@@ -68,7 +69,9 @@ function	printcons(index)
     let i = 0;
     let u = 0;
     let toAppend = "";
-    $('#listcons > *').remove();
+		let Ajout = "";
+		$('#ajoutCons > *').remove();
+	  $('#listcons > *').remove();
     index -= 1;
     if (advice)
     {
@@ -80,7 +83,8 @@ function	printcons(index)
 	    ++i;
 	}
 	index += 1;
-	toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkcons(' + index + ')">Ajouter au panier</button>';
+	Ajout += '<button class="btn btn-default" style="cursor: hand;margin-left:50%;background-color:#fab21a;" onclick="dunkcons(' + index + ')">Ajouter/Retirer</button>';
+	$('#ajoutCons').append(Ajout);
 	$('#listcons').append(toAppend);
     }
 }
@@ -103,8 +107,11 @@ function	loadprod(data, target)
 
 function	printprod(index)
 {
+	indexSelect = index;
     let i = 0;
     let toAppend = "";
+		let Ajout = "";
+		$('#ajoutProd > *').remove();
     $('#listprod > *').remove();
     index -= 1;
     if (product)
@@ -117,7 +124,8 @@ function	printprod(index)
 	    ++i;
 	}
 	index += 1;
-	toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkprod(' + index + ')">Ajouter au panier</button>';
+	Ajout += '<button class="btn btn-default" style="cursor: hand;margin-left:50% ;background-color:#fab21a;" onclick="dunkprod(' + index + ')">Ajouter/Retirer</button>';
+	$('#ajoutProd').append(Ajout);
 	$('#listprod').append(toAppend);
     }
 }
@@ -149,9 +157,11 @@ function	printhelp(id1, id2, index)
 	    success : (function(info)
 		       {
 			   info = JSON.parse(info);
-			   let i = 0;
-			   let toAppend = "";
-			   $('#listhelp > *').remove();
+			   	let i = 0;
+				 	let toAppend = "";
+		 			let Ajout = "";
+		 			$('#ajoutHelp > *').remove();
+			   	$('#listhelp > *').remove();
 
 			   toAppend += '<h2>' + info.resources[0].title + '</h2>';
 			   while (info.resources[0].contents[i])
@@ -161,7 +171,8 @@ function	printhelp(id1, id2, index)
 			       ++i;
 			   }
 			   var topkek = ('_' + id1 + '_' + id2);
-			   toAppend += '<button class="btn btn-default" style="cursor: hand;" onclick="dunkhelp(\'' + topkek + '\', ' + index + ')">Ajouter au panier</button>';
+				 Ajout += '<button class="btn btn-default" style="cursor:hand;margin-left:50%;background-color:#fab21a;" onclick="dunkhelp(\'' + topkek + '\', ' + index + ')">Ajouter/Retirer</button>';
+				 $('#ajoutHelp').append(Ajout);
 			   $('#listhelp').append(toAppend);
 		       }),
 	    error : (function(err)
@@ -221,10 +232,11 @@ function        parse_questionnaire(data, answers, target)
 	}
 	toAppend.push('</div>');
 	++nbrsection;
-    }
+  }
     toAppend = toAppend.join("")
     $(target).append(toAppend);
-    switchsection(0);
+		  Set_plugins();
+			switchsection(0);
 }
 
 /* Affiche les questions du questionnaire rangées par sections */
@@ -255,7 +267,7 @@ function        showquest(data)
 			"Industry": questionnaire_reply.resources[0].companyIndustry,
 		    };
 		    parse_questionnaire(data, questionnaire_reply.resources[0].questionAnswers, '#list');
-		    Set_plugins();
+		    // Set_plugins();
 		    if (json.resources[0].contactFirstName && json.resources[0].contactFirstName)
 		    {
 			let locutor = json.resources[0].contactFirstName + ' ' + json.resources[0].contactLastName;
@@ -292,10 +304,12 @@ function	switchsection(index)
 
     while (i < nbrsection)
     {
-	$('#section' + i).hide();
-	++i;
-    }
-    $('#section' + index).show();
+			$('#section' + i).hide();
+			++i;
+  	}
+
+	$('#section' + index).show();
+	$('#list').animate({scrollTop: 0}, 'auto');
 }
 
 /* Affiche l'interfce de navigation entre les sections */

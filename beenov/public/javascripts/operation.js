@@ -358,7 +358,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
     ++i;
     j = 0;
   }
-        toAppend += '</th></table>';
+        toAppend += '</th></table><br/>';
         return (toAppend);
         },
 
@@ -403,7 +403,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         ++i;
         j = 0;
       }
-            toAppend += '</th></table>';
+            toAppend += '</th></table><br/>';
             return (toAppend);
     },
 
@@ -453,7 +453,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         j = 0;
 
       }
-            toAppend += '</th></table>';
+            toAppend += '</th></table><br/>';
             return (toAppend);
     },
 

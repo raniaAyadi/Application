@@ -21,9 +21,11 @@
     <div id="item" class="col-md-12">
       <!-- item -->
     </div>
+
+
+<!--
 <div class="row">
   <div class="col-md-9" id="text" style="display:none">
-    <!-- <input type="textarea" id="text" name="text" value="" style="display:none"></input> -->
     <input type="button" value="G" style="font-weight: bold;" onclick="commande('bold');" />
     <input type="button" value="I" style="font-style: italic;" onclick="commande('italic');" />
     <input type="button" value="S" style="text-decoration: underline;" onclick="commande('underline');" />
@@ -33,7 +35,21 @@
     <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Enregistrer</button>
     <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
   </div>
+</div> -->
+<br/>
+<div class="row">
+    <div class="col-md-9" id="text" style="display:none">
+        <textarea id="editeur" class="wysiwyg"></textarea>
+    </div>
+    <br/>
+
+    <div class="col-md-3" id="buttonComments">
+      <button type="button" id="terminer" style="display:none" class="btn active btn-sm btn-block">Enregistrer</button>
+      <button type="button" id="annuler" style="display:none" class="btn active btn-sm btn-block">Annuler</button>
+    </div>
 </div>
+
+
 <div class="col-md-9" id="textcomment" > </div>
 </div>
 
@@ -50,6 +66,7 @@
 </template>
 
 <script>
+
   var ItemComponent = {};
 
   function commande(nom, argument) {
@@ -175,6 +192,8 @@
     }
 
     var commenter = function(elt){
+
+      Set_plugins();
       elt.querySelector("#text").removeAttribute("style","display:none");
       elt.querySelector("#textcomment").setAttribute("style","display:none");
       elt.querySelector("#annuler").removeAttribute("style","display:none");
@@ -209,7 +228,8 @@
        }
 
     var terminer = function(elt) {
-      var texte  = elt.querySelector("#editeur").innerHTML;
+      var texte  = elt.querySelector("#editeur").value;
+      console.log(texte);
       elt.querySelector("#text").setAttribute("style","display:none");
       elt.querySelector("#textcomment").removeAttribute("style","display:none");
       elt.querySelector("#textcomment").innerHTML = texte;
@@ -245,7 +265,9 @@
       elt.querySelector("#text").removeAttribute("style","display:none");
       if (elt.item.comment != undefined) {
 
-        elt.querySelector("#editeur").innerText = elt.item.comment;
+        elt.querySelector("#editeur").value = elt.item.comment;
+        console.log(elt.querySelector("#editeur").value);
+        console.log(elt.item.comment);
       }
       elt.querySelector("#textcomment").setAttribute("style","display:none");
       elt.querySelector("#annuler").removeAttribute("style","display:none");

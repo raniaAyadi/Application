@@ -132,6 +132,10 @@
         document.querySelector("#templateList").setAttribute("style","display:none");
         document.querySelector("#pasTemplate").removeAttribute("hidden","true");
         }
+        else if(l ==1){
+          this.setAttribute("name", ReportTemplate.allCurrent[0].name);
+          document.querySelector("#templateList").remove();
+        }
         else {
           for (var i=0; i<l; i++)
           deferred.notify(ReportTemplate.allCurrent[i].name);
