@@ -802,6 +802,8 @@ function	append_question(question, answers, type)
 	toReturn.push('<div id="display-' + question.id + '" hidden="">');
     }
     toReturn.push('<br /><label>'+ question.text + '</label>');
+		toReturn.push('<br/> <span class="title">' +question.helpText+ '</span>');
+		console.log(question);
     if (question.type == "text")
     {
 	toReturn.push(question_type_text(question, answers, type));
