@@ -188,14 +188,23 @@ function	check_input_city(e)
 		    // 	return;
 		    let list = [];
 		    if ($.isEmptyObject(json) == false)
-			$('#' + id).append('<select id="citylist-' + id + '"></select><button  id="cityclose-' + id + '" type="button" class="cityclose">&#10006</button>');
+			$('#' + id).append('<select city="true" id="citylist-' + id + '"></select><button  id="cityclose-' + id + '" type="button" class="cityclose">&#10006</button>');
 		    console.log($('#citylist-' + id));
 		    for(let i = 0; json[i] != undefined; ++i)
 		    {
 			console.log(i);
-			$('#citylist-' + id).append('<option value="' + json[i].code + ';' + value + ';' + json[i].nom + '">' + value + ' (' + json[i].nom + ')' + '</option>');
+			$('#citylist-' + id).append('<option value="' + json[i].code + ',' + value + '">' + value + ' (' + json[i].nom + ')' + '</option>');
 			$('#cityinput-' + id).prop('disabled', true);
 		    }
+
+				(function(){
+					var input = document.querySelector("input[city='true']");
+					var select = document.querySelector("select[city='true']");
+					if(input && select){
+						input.value = select.options[0].innerText
+						select.onchange = ()=>input.value = select.options[select.selectedIndex].innerText;
+					}
+				})();
 		}
 	    });
     }
@@ -349,18 +358,21 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
 	}
     }
     balise = '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
-    if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
+		console.log("offfffffff");
+		console.log(answers);
+    /*if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
     {
 	balise += 'checked></input><br /><input type="text" id="cityinput-' + question.id + '" maxlength="5" class="numeric" list="citylist-' + question.id + '" autocomplete="off"></div>';
     }
     else if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == true)
     {
-	balise += '><br /><input type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off" value="' + city_answer.split(';')[1]  + '" disabled>' + '<select id="citylist-' + question.id + '">' + '<option value="' + city_answer + '">' + city_answer.split(';')[1] + ' (' + city_answer.split(';')[2] + ')' + '</option>'  + '</select><button  id="cityclose-' + question.id + '" type="button" class="cityclose">&#10006</button>' + '</div>';
+	balise += '><br /><input type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off" value="' + city_answer.split(';')[1]  + '" disabled>' + '<select city="true" id="citylist-' + question.id + '">' + '<option value="' + city_answer + '">' + city_answer.split(';')[1] + ' (' + city_answer.split(';')[2] + ')' + '</option>'  + '</select><button  id="cityclose-' + question.id + '" type="button" class="cityclose">&#10006</button>' + '</div>';
     }
     else
-    {
-	balise += '><br /><input type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off"></div>';
-    }
+    {*/
+			console.log("undefined city");
+	balise += '><br /><input city="true" type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off"></div>';
+    //}
 
     return (balise);
 }

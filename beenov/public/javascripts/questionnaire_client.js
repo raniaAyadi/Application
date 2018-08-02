@@ -256,6 +256,7 @@ function        parse_questionnaire(data, answers, target)
 	++nbrsection;
   }
 
+
 		  Set_plugins();
 			switchsection(0);
 }

@@ -42,7 +42,18 @@ function	city_values(city)
 			  'question': {resource: 'questions/' + city[i].id}});
 	}
     }
-    console.log(answers);
+    var select = document.querySelector("select[city='true']");
+    if(select){
+      var option = select.options[select.selectedIndex];
+      var bbb = select.getAttribute("id").split("-")
+      answers = {
+        answer : option.value,
+        question : {
+          resource : 'questions/'+bbb[1]
+        }
+      }
+  }
+  console.log(answers);
     return (answers);
 }
 
@@ -114,7 +125,7 @@ function	checkboxes_values(checkboxes)
 	answers.push({ answer: val,
 		       question: { resource: "questions/" + checkboxes[i].id }
 		     });
-		    
+
     }
     return (answers);
 }
@@ -138,7 +149,7 @@ function	nTexts_values(nTexts)
 	    {
 		val.push("");
 	    }
-		
+
 	}
 	answers.push({ answer: val,
 		       question: { resource: "questions/" + nTexts[j].id }
@@ -213,7 +224,7 @@ function	n1Choice_values(n1Choice)
 	let val = [];
 	for (i = 0; i < n1Choice[j].length; ++i)
 	{
-	    val.push(parseInt($('input[name=' + i + 'n1Choice' + n1Choice[j].id + ']:checked').val()));				     
+	    val.push(parseInt($('input[name=' + i + 'n1Choice' + n1Choice[j].id + ']:checked').val()));
 	}
 	answers.push({ answer: val,
 		       question: {resource: "questions/" + n1Choice[j].id}
@@ -274,4 +285,3 @@ function	get_values(type)
      }
      return (answers);
  }
- 
