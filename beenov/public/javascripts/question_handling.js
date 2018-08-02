@@ -52,6 +52,7 @@ function	check_mandatories(e)
     is_mandatory_not_fill = 0;
     function	button_save()
     {
+			console.log("button_save");
 	let state = -1;
 	const data = ['#savequest', '#save', '#companysave'];
 	if (window.location.pathname == "/company")
@@ -644,6 +645,7 @@ function        question_type_nTexts(question, toReturn, answers, type)
 
 function        question_type_text(question, answers, type)
 {
+
     let balise;
     if (type == "quest")
 	questionnaire_data.text.push({id: question.id, rules: question.rules});
@@ -653,7 +655,39 @@ function        question_type_text(question, answers, type)
  	mandatories.texts.push(question.id);
     else if (question.mandatory == true && type == "company")
 	mandatories_company.texts.push(question.id);
-    balise = '<br /><input id ="' + question.id  + '" type="text" placeholder="' + question.helpText + '" class="' + question.typeOptions.textType + '" ';
+
+	if(question.typeOptions.textType === "numeric" || question.typeOptions.textType === "monetary"
+|| question.typeOptions.textType === "percent"){
+		balise = '<br /><input id ="' + question.id  + '" type="number" placeholder="' + question.helpText + '" class="controle" ';
+	}
+	else if (question.typeOptions.textType === "url") {
+balise = '<br /><input id ="' + question.id  + '" type="url" pattern="https://*.*" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else if(question.typeOptions.textType === "email"){
+balise = '<br /><input id ="' + question.id  + '" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else if (question.typeOptions.textType === "phone") {
+		balise = '<br /><input id ="' + question.id  + '" type="tel" pattern="[0-9]{10}" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else if(question.typeOptions.textType === "siret"){
+		balise = '<br /><input id ="' + question.id  + '" type="text" siret="true" pattern="[0-9]{14}" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else if(question.typeOptions.textType === "zipcode"){
+		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{5}" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else if(question.typeOptions.textType === "naf"){
+		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{4}[A-Z]" placeholder="' + question.helpText + '" class="controle" ';
+	}
+
+	else {
+
+	balise = '<br /><input id ="' + question.id  + '" type="text" placeholder="' + question.helpText + '" class="' + question.typeOptions.textType + '" ';
+}
     if (question.typeOptions.maxLength != undefined)
     {
 	balise += 'maxlength="' + question.typeOptions.maxLength + '" ';
@@ -673,7 +707,8 @@ function        question_type_text(question, answers, type)
     balise += '>'
     if (question.typeOptions.textType == "percent")
 	balise += ' %';
-    return (balise);
+
+		return (balise);
 }
 
 function        question_type_1Choice(question, toReturn, answers, type)
@@ -758,6 +793,7 @@ function	append_question(question, answers, type)
     if (question.type == "text")
     {
 	toReturn.push(question_type_text(question, answers, type));
+
     }
     else if (question.type == "textarea")
     {

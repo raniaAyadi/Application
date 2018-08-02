@@ -80,158 +80,180 @@ function getCookie(cname) {
 var nb_send = 0;
 var validatedP = false;
 
+function checkSiretInput(){
+  var siretInput = document.querySelector("input[siret='true']");
+  var deferred = $.Deferred();
+
+  if(siretInput && siretInput.value != ""){
+    Company.verifyByAPI(siretInput.value).done(()=>{
+      deferred.resolve();
+    }).fail(()=>{
+      siretInput.validity.valid = false;
+      alert("Vérfiez SIRET")
+      deferred.reject();
+    });
+  }
+
+  else
+    deferred.resolve();
+
+  return deferred;
+}
+
 function	send_questionnaire(reinit)
 {
+    checkSiretInput().done(()=>{
+      var isAutoDiag = window.hasOwnProperty("AutoDiag");
+      let posted;
+      let url = '/send_questionnaire';
+      globalVariables = {};
+      get_rules("quest");
+      global_rules(main_rules);
 
-    var isAutoDiag = window.hasOwnProperty("AutoDiag");
-    let posted;
-    let url = '/send_questionnaire';
-    globalVariables = {};
-    get_rules("quest");
-    global_rules(main_rules);
-
-    if (window.location.pathname == "/company")
-    {
-	posted = {
-	    globalVariableValues: globalVariables,
-	    contactFirstName: null,
-	    contactLastName: null,
-	    contactEmail: null,
-	    questionnaire: { resource: "questionnaires/" + questionnaire_id },
-	    sectionActions: [],
-	    validatedP: false,
-	    questionAnswers: get_values("quest"),
-	    comments: [],
-	    company: { resource: "companies/" + JSON.parse(getCookie("company_info")).companies },
-	    date: getCurrentDate(),
-	    owner: { resource: "users/" + getCookie("uid") }
-	};
-    }
-    else if (getParameterByName("newquest", window.location.href) == "true")
-    {
-	posted = {
-	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val() || "",
-	    contactLastName: $("#DialogNom").val() || "",
-	    contactEmail: $("#DialogMail").val() || "",
-	    questionnaire: { resource: "questionnaires/" + questionnaire_id },
-	    sectionActions: [],
-	    validatedP: validatedP,
-	    questionAnswers: get_values("quest"),
-	    comments: [],
-	    company: { resource: "companies/" + JSON.parse(getCookie("company_info")).companies },
-	    date: $("#DialogDate").val() || Operation.getDate(new Date()),
-	    owner: { resource: "users/" + getCookie("uid") }
-	};
-    }
-    else if (getParameterByName("newquest", window.location.href) == "false"|| isAutoDiag)
-    {
-      if(isAutoDiag){
-        var companyJson = JSON.parse(getCookie("company_info"));
-        var company = {
-          resource : "companies/" + companyJson.companies
-        };
-        var ownerId = AutoDiag.advisor.id;
-        var ownerAuto = {
-          resource : "users/" + ownerId
-        };
-        var  questAuto = {
-          resource : "questionnaires/" + AutoDiag.quiz.id
-        };
+      if (window.location.pathname == "/company")
+      {
+    posted = {
+        globalVariableValues: globalVariables,
+        contactFirstName: null,
+        contactLastName: null,
+        contactEmail: null,
+        questionnaire: { resource: "questionnaires/" + questionnaire_id },
+        sectionActions: [],
+        validatedP: false,
+        questionAnswers: get_values("quest"),
+        comments: [],
+        company: { resource: "companies/" + JSON.parse(getCookie("company_info")).companies },
+        date: getCurrentDate(),
+        owner: { resource: "users/" + getCookie("uid") }
+    };
       }
-
-	posted = {
-	    globalVariableValues: globalVariables,
-	    contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? User.currentUser.firstName : "unkown"),
-	    contactLastName: $("#DialogNom").val() || (isAutoDiag ? User.currentUser.lastName : "unkown"),
-	    contactEmail: $("#DialogMail").val() || (isAutoDiag ?  User.currentUser.email : "unkown"),
-	    questionnaire: isAutoDiag ? questAuto : questionnaire_reply.resources[0].questionnaire,
-	    sectionActions: [],
-	    validatedP: validatedP,
-	    questionAnswers: get_values("quest"),
-	    comments: [],
-	    company: isAutoDiag ? company : questionnaire_reply.resources[0].company,
-	    date: $("#DialogDate").val() || Operation.getDate(new Date()),
-	    owner: isAutoDiag ? ownerAuto : questionnaire_reply.resources[0].owner
-	};
-
-    }
-    if (window.location.pathname == "/company")
-	url += '?company=true';
-    else
-	url += '?company=false';
-    if (is_new_entreprise == true)
-    {
-	url += "&newent=true&siret=" + getParameterByName("siret", window.location.href);
-    }
-    url += '&newquest=' + getParameterByName("newquest", window.location.href);
-    if (getParameterByName("newquest", window.location.href) == "true")
-    {
-	url += "&nbsend=" + nb_send;
-    }
-
-    if(Meeting.instance){
-      url = CONST.url.sendQuestReply + "?company=false&newquest=false";
-      var quiz = Meeting.instance.object.quiz;
-      quiz.upadteAnswers(posted.questionAnswers);
-      quiz.appRules();
-      posted.globalVariableValues = quiz.globalVariableValues;
-    }
-
-    var deferred = $.Deferred();
-
-    $.ajax({
-  	type: 'POST',
-  	url: url,
-  	contentType: 'application/json',
-  	data: JSON.stringify(posted),
-  	success: function(body, status, jqXHR)
-  	{
-  	    if (status == "success" && reinit)
-  		alert("Enregistrement bien effectué");
-  	    if (getParameterByName("newquest", window.location.href) == "true"){
-  		nb_send++;
-  	    }
-  	    if (window.location.pathname == "/company") {
-  		document.cookie = "entreprise_siret=" + getParameterByName('siret', window.location.href);
-  		window.location.replace('/questionnaire?newquest=true');
-  	    }
-
-  	    if (reinit!= undefined){
-          var reportComponent = document.querySelector("beenov-report");
-
-          if(reportComponent)
-            reportComponent.updateItems();
+      else if (getParameterByName("newquest", window.location.href) == "true")
+      {
+    posted = {
+        globalVariableValues: globalVariables,
+        contactFirstName: $("#DialogPrenom").val() || "",
+        contactLastName: $("#DialogNom").val() || "",
+        contactEmail: $("#DialogMail").val() || "",
+        questionnaire: { resource: "questionnaires/" + questionnaire_id },
+        sectionActions: [],
+        validatedP: validatedP,
+        questionAnswers: get_values("quest"),
+        comments: [],
+        company: { resource: "companies/" + JSON.parse(getCookie("company_info")).companies },
+        date: $("#DialogDate").val() || Operation.getDate(new Date()),
+        owner: { resource: "users/" + getCookie("uid") }
+    };
+      }
+      else if (getParameterByName("newquest", window.location.href) == "false"|| isAutoDiag)
+      {
+        if(isAutoDiag){
+          var companyJson = JSON.parse(getCookie("company_info"));
+          var company = {
+            resource : "companies/" + companyJson.companies
+          };
+          var ownerId = AutoDiag.advisor.id;
+          var ownerAuto = {
+            resource : "users/" + ownerId
+          };
+          var  questAuto = {
+            resource : "questionnaires/" + AutoDiag.quiz.id
+          };
         }
 
-        deferred.resolve();
-  	},
-  	error: function(text, code, item)
-  	{
-  	    alert('error');
-        deferred.reject();
-  	}
-      });
+    posted = {
+        globalVariableValues: globalVariables,
+        contactFirstName: $("#DialogPrenom").val() || (isAutoDiag ? User.currentUser.firstName : "unkown"),
+        contactLastName: $("#DialogNom").val() || (isAutoDiag ? User.currentUser.lastName : "unkown"),
+        contactEmail: $("#DialogMail").val() || (isAutoDiag ?  User.currentUser.email : "unkown"),
+        questionnaire: isAutoDiag ? questAuto : questionnaire_reply.resources[0].questionnaire,
+        sectionActions: [],
+        validatedP: validatedP,
+        questionAnswers: get_values("quest"),
+        comments: [],
+        company: isAutoDiag ? company : questionnaire_reply.resources[0].company,
+        date: $("#DialogDate").val() || Operation.getDate(new Date()),
+        owner: isAutoDiag ? ownerAuto : questionnaire_reply.resources[0].owner
+    };
 
-
-
-    var aux = JSON.parse(Operation.getCookie(CONST.cookie.currentMeeting));
-    if(!aux.questRep){
-      deferred.resolve();
-      posted.questionAnswers = [];
-      posted.questionnaire.resource = aux.quest;
-      posted.globalVariableValues = {};
-
-      $.ajax({
-        type:"POST",
-        url : "questionnaire-replies",
-        contentType: 'application/json',
-        data : JSON.stringify(posted)
-      }).done((data)=>{
-        aux.questRep = "questionnaire-replies/"+data.id;
-        document.cookie = "infomet=" + JSON.stringify(aux);
-        });
+      }
+      if (window.location.pathname == "/company")
+    url += '?company=true';
+      else
+    url += '?company=false';
+      if (is_new_entreprise == true)
+      {
+    url += "&newent=true&siret=" + getParameterByName("siret", window.location.href);
+      }
+      url += '&newquest=' + getParameterByName("newquest", window.location.href);
+      if (getParameterByName("newquest", window.location.href) == "true")
+      {
+    url += "&nbsend=" + nb_send;
       }
 
-      return deferred;
-}
+      if(Meeting.instance){
+        url = CONST.url.sendQuestReply + "?company=false&newquest=false";
+        var quiz = Meeting.instance.object.quiz;
+        quiz.upadteAnswers(posted.questionAnswers);
+        quiz.appRules();
+        posted.globalVariableValues = quiz.globalVariableValues;
+      }
+
+      var deferred = $.Deferred();
+
+      $.ajax({
+      type: 'POST',
+      url: url,
+      contentType: 'application/json',
+      data: JSON.stringify(posted),
+      success: function(body, status, jqXHR)
+      {
+          if (status == "success" && reinit)
+        alert("Enregistrement bien effectué");
+          if (getParameterByName("newquest", window.location.href) == "true"){
+        nb_send++;
+          }
+          if (window.location.pathname == "/company") {
+        document.cookie = "entreprise_siret=" + getParameterByName('siret', window.location.href);
+        window.location.replace('/questionnaire?newquest=true');
+          }
+
+          if (reinit!= undefined){
+            var reportComponent = document.querySelector("beenov-report");
+
+            if(reportComponent)
+              reportComponent.updateItems();
+          }
+
+          deferred.resolve();
+      },
+      error: function(text, code, item)
+      {
+          alert('error');
+          deferred.reject();
+      }
+        });
+
+
+
+      var aux = JSON.parse(Operation.getCookie(CONST.cookie.currentMeeting));
+      if(!aux.questRep){
+        deferred.resolve();
+        posted.questionAnswers = [];
+        posted.questionnaire.resource = aux.quest;
+        posted.globalVariableValues = {};
+
+        $.ajax({
+          type:"POST",
+          url : "questionnaire-replies",
+          contentType: 'application/json',
+          data : JSON.stringify(posted)
+        }).done((data)=>{
+          aux.questRep = "questionnaire-replies/"+data.id;
+          document.cookie = "infomet=" + JSON.stringify(aux);
+          });
+        }
+
+        return deferred;
+
+    });
+  }

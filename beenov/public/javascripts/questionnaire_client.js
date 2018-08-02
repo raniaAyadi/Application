@@ -18,6 +18,7 @@ var	main_rules;
 var	report;
 var	newrep = 1;
 
+var allElement = [];
 
 var infocomp;
 
@@ -235,8 +236,39 @@ function        parse_questionnaire(data, answers, target)
   }
     toAppend = toAppend.join("")
     $(target).append(toAppend);
+
+
+		nbrsection = 0;
+    while (data.sections[nbrsection] != undefined)
+    {
+	j = 0;
+	while (data.sections[nbrsection].questions[j] != undefined)
+	{
+		if(data.sections[nbrsection].questions[j].type === "text"){
+		var elementId = data.sections[nbrsection].questions[j].id;
+		var element  = document.getElementById(elementId);
+		allElement.push(element);
+
+		element.onchange = checkValidity;
+	}
+	    ++j;
+	}
+	++nbrsection;
+  }
+
 		  Set_plugins();
 			switchsection(0);
+}
+
+function checkValidity(){
+	var eltSave = document.querySelector("#save");
+	var testValidity = allElement.find( x => !x.validity.valid);
+
+	if(testValidity)
+		eltSave.setAttribute("class", "btn disabled");
+
+	else
+		eltSave.setAttribute("class", "btn");
 }
 
 /* Affiche les questions du questionnaire rangées par sections */
@@ -703,7 +735,6 @@ function modifycomp()
 
 $(document).ready(function()
 		  {
-
 					var id = JSON.parse(getCookie("company_info")).companies;
 					Company.getById(id).done((company) => {
 						var coord = company.getCoord();
