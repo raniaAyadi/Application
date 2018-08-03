@@ -199,11 +199,20 @@ function	check_input_city(e)
 
 				(function(){
 					var input = document.querySelector("input[city='true']");
+					if(input) input.remove();
 					var select = document.querySelector("select[city='true']");
-					if(input && select){
-						input.value = select.options[0].innerText
-						select.onchange = ()=>input.value = select.options[select.selectedIndex].innerText;
+					var close = document.querySelector("button[class='cityclose']");
+
+					if(close && select){
+						close.onclick = ()=>{
+							var div = select.parentElement;
+							div.append(input);
+						}
 					}
+					/*if(select){
+						//input.value = select.options[0].innerText
+						select.onchange = ()=>input.value = select.options[select.selectedIndex].innerText;
+					}*/
 				})();
 		}
 	    });
@@ -802,8 +811,6 @@ function	append_question(question, answers, type)
 	toReturn.push('<div id="display-' + question.id + '" hidden="">');
     }
     toReturn.push('<br /><label>'+ question.text + '</label>');
-		toReturn.push('<br/> <span class="title">' +question.helpText+ '</span>');
-		console.log(question);
     if (question.type == "text")
     {
 	toReturn.push(question_type_text(question, answers, type));
