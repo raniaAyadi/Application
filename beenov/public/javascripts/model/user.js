@@ -41,7 +41,7 @@ User.guestLogin = function(){
 }
 
 User.prototype.isAdmin = function(){
-  return this.role === "entity-admin";
+  return this.role === "entity-admin" || this.role === "general-admin";
 }
 
 User.setCurrentUser = function(user){

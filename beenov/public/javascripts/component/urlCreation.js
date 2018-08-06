@@ -5,7 +5,7 @@ UrlCreation.prototype.checkPermission = function(userId){
   var deferred = $.Deferred();
 
   User.setCurrentUser(userId).done(()=>{
-    if(User.currentUser.role === "entity-admin")
+    if(User.currentUser.role === "entity-admin" || User.currentUser.role === "general-admin")
       deferred.resolve();
     else
       deferred.reject();
