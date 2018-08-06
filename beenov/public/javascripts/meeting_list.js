@@ -298,12 +298,19 @@ function setURLAction(){
 			elt.innerHTML += '<input id="url" class="button" type="button" name="siret"  value="Créer URL">';
 			// open dialog pour créer l'url pour l'auto diag
 			$("#url-creation" ).dialog({
+    		open: function() {
+        	$(this).closest(".ui-dialog")
+        	.find(".ui-dialog-titlebar-close")
+        	.removeClass("ui-dialog-titlebar-close")
+        	.html("<div class='ui-button-icon-primary ui-icon ui-icon-closethick'></div>");
+    		},
+
 				autoOpen: false,
 				modal: true,
 				draggable: false,
 				resizable: false,
 				width: $(window).width() * 0.45,
-				height: $(window).height() * 0.7,
+				height: $(window).height() * 0.55,
 				close: () => document.querySelector("beenov-url-creation").remove(),
 			});
 			$('#url').click(function()
