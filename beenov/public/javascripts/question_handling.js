@@ -309,13 +309,15 @@ function	question_type_porterMatrix(question, answers)
 	    if (answers[j].question.resource.split('/')[1] == question.id)
 	    {
 		matrix_answer = [answers[j].answer[0], answers[j].answer[2], answers[j].answer[4], answers[j].answer[6], answers[j].answer[8]];
+		console.log(matrix_answer);
 		break;
 	    }
 	}
 
     }
 
-    matrix_html += "<table><tr><td></td><td>Comment ressentez-vous la menace des nouveaux entrants ?</td><td></td></tr>";
+		console.log(matrix_html);
+    matrix_html = "<table><tr><td></td><td>Comment ressentez-vous la menace des nouveaux entrants ?</td><td></td></tr>";
     /* 1ere question */
     matrix_html += "<tr><td></td><td>" + create_1Choice_matrix(["Les barrières à l'entrée sont élevées (techniques ; financières ; culturelles ; juridique ; normatives)",
 								"le produit est peu différencié ou bien les techniques de fabrication sont plutôt conventionnelles",
@@ -340,7 +342,7 @@ function	question_type_porterMatrix(question, answers)
     matrix_html += "<tr><td></td><td>" + create_1Choice_matrix(["les clients sont plutôt (voir \"très\") dépendant de nos produits et savoir-faire (protégés le cas échéant)",
 								"Les clients fondent leur décision d'acaht essnetiellement sur les critères prix, délai, etc...",
 								"Certains de nos clients nous font de plus en plus d'infidélités (ou bien : deviennent des concurrents)"], matrix_answer != undefined ? matrix_answer[4] : null, 4, question.id) + "</td><td></td></tr></table>";
-    return (matrix_html);
+		return (matrix_html);
 }
 
 function	question_type_city(question, answers, type) //Pas de prise en compte de ce type de question par la BDD
@@ -840,7 +842,9 @@ function	append_question(question, answers, type)
 	display.push({'id' : question.id, 'condition': question.displayCondition.expression[1]});
 	toReturn.push('<div id="display-' + question.id + '" hidden="">');
     }
+		console.log(question.text);
     toReturn.push('<br /><label>'+ question.text + '</label>');
+		if (question.helpText)
 		toReturn.push('<br/> <span class="title">' +question.helpText+ '</span>');
     if (question.type == "text")
     {
@@ -877,7 +881,7 @@ function	append_question(question, answers, type)
     }
     else if (question.type == "porterMatrix")
     {
-	toReturn = question_type_porterMatrix(question, answers, type);
+	toReturn.push(question_type_porterMatrix(question, answers, type));
     }
 		else if (question.type == "groupableComment") {
 	toReturn.push(question_type_groupableComment(question , answers , type));
