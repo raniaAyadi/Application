@@ -490,7 +490,9 @@ app.get('/', function(req, res)
 
 app.listen(port);
 
-
+app.get("/entities", function(req, res){
+	session.getEntities(req, res, base_url);
+})
 
 app.get('/test', function(req, res)
 	{

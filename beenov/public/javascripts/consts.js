@@ -40,7 +40,7 @@ var CONST = {
       addReply : CONST.baseUrl + "questionnaire-replies",
       updateCompany : CONST.baseUrl + "updateCompany/",
       verifyByAPI : CONST.baseUrl + "verifyByAPI/",
-      getAllEntities : CONST.baseUrl + 'entity',
+      getAllEntities : CONST.baseUrl + 'entities',
       getAllUsers : CONST.baseUrl + "get_users",
       getUser : CONST.baseUrl + 'user/',
       getSubentity : CONST.baseUrl + 'getSubentity/',

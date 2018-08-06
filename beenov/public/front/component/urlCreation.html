@@ -185,6 +185,9 @@
 
     urlCreationPrototype.setSubentity = function(id){
       var select = this.querySelector("#subentity");
+      var tabOpt = select.querySelectorAll("option");
+
+      tabOpt.forEach(opt => opt.remove());
 
       this.urlCreationService.setEntity(id).done(()=>{
         deferred.resolve();

@@ -337,6 +337,14 @@ var getUser = function(req, res, base_url){
 	});
 };
 
+var getEntities = function(req, res, base_url){
+	let url = create_get_url(base_url,'/entities', {'session-key' : req.cookies.cskey});
+	request.get(url, function(err, resp, body){
+		res.send(JSON.parse(body));
+		res.status(200).end();
+	})
+}
+
 var getSubentity = function(req, res, base_url){
 	let url = create_get_url(base_url, '/subentities/' + req.params['0'], {'session-key' : req.cookies.cskey});
 	request.get(url, function(err, resp, body){
@@ -460,6 +468,7 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 }
 
 exports.login_user = login_user;
+exports.getEntities = getEntities;
 exports.mailToUser = mailToUser;
 exports.autoLogin = autoLogin;
 exports.getSubentity = getSubentity;
