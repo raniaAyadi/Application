@@ -1,5 +1,6 @@
 var AutoDiag = {
-  guestSubmit : new Event("guestSubmit")
+  guestSubmit : new Event("guestSubmit"),
+  reportSubmit : new Event("reportSubmit")
 };
 
 AutoDiag.checkUrl = function(){
@@ -24,17 +25,6 @@ AutoDiag.checkUrl = function(){
 };
 
 AutoDiag.displayQuiz = function(){
- let data = {
-      'siret': Company.currentCompany.siret,
-      'zipCode': Company.currentCompany.zipcode,
-      'nameEntreprise': Company.currentCompany.name,
-      'nameUser': User.currentUser.firstName + ' ' + User.currentUser.lastName,
-      'mailUser': User.currentUser.email,
-      'nameAdvisor': AutoDiag.advisor.lastName,
-      'theme' : AutoDiag.subTheme.name,
-    };
-  AutoDiag.advisor.receiveEmail(data);
-
   var guestFormC = document.querySelector("beenov-guest-form");
   guestFormC.remove();
 
@@ -48,10 +38,26 @@ AutoDiag.displayQuiz = function(){
 
 };
 
+AutoDiag.sendEmail = function(e){
+  console.log("send Email"+e.test);
+  let data = {
+       'siret': Company.currentCompany.siret,
+       'zipCode': Company.currentCompany.zipcode,
+       'nameEntreprise': Company.currentCompany.name,
+       'nameUser': User.currentUser.firstName + ' ' + User.currentUser.lastName,
+       'mailUser': User.currentUser.email,
+       'nameAdvisor': AutoDiag.advisor.lastName,
+       'theme' : AutoDiag.subTheme.name,
+       'pdfLink' : AutoDiag.pdfLink
+     };
+   AutoDiag.advisor.receiveEmail(data);
+}
+
 $(document).ready(function(){
   User.guestLogin().done((user)=>{
     User.setCurrentUser(user);
     AutoDiag.checkUrl();
     document.body.addEventListener("guestSubmit", AutoDiag.displayQuiz);
+    document.body.addEventListener("reportSubmit", AutoDiag.sendEmail);
   });
 });

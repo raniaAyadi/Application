@@ -773,7 +773,7 @@ $(document).ready(function()
 
 					var isAutoDiag = window.hasOwnProperty("AutoDiag");
 					if(isAutoDiag)
-						$("#save").on("click", function(){
+						$("#auto-save").on("click", function(){
 							send_questionnaire().done(() => {
 								var me = document.querySelector("beenov-report");
 								var name = me.getAttribute("name");
@@ -781,6 +781,9 @@ $(document).ready(function()
 								Report.generatePDF(report).onload = (data)=>{
 									var res = JSON.parse(data.currentTarget.response);
 									Operation.createLink(res.url);
+									AutoDiag.pdfLink = res.url;
+
+									document.body.dispatchEvent(AutoDiag.reportSubmit);
 								};
 
 							});

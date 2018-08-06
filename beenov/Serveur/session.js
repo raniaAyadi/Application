@@ -43,7 +43,8 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		  +'L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
 		  +'  '+ data.nameUser + '  a rempli le questionnaire: '
 		  + data.theme  + '.<br/> '
-		  + 'Veuillez le contacter sur son email: ' + data.mailUser
+		  + 'Veuillez le contacter sur son email: ' + data.mailUser +
+			'<br><a href="'+data.pdfLink+'">"Rapport</a>'
 	};
 
 	transporter.sendMail(mailOptions, function(error, info)
