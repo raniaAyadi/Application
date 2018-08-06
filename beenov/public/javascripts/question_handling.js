@@ -7,7 +7,8 @@ var     questionnaire_data = { text: [],
 			       nMLongTexts: [],
 			       n1Choice: [],
 			       matrix: [],
-			       city: [] };
+			       city: [],
+					 groupableComment: [] };
 
 var     company_data = { text: [],
 			 textarea: [],
@@ -18,7 +19,8 @@ var     company_data = { text: [],
 			 nMLongTexts: [],
 			 n1Choice: [],
 			 matrix: [],
-			 city: [] };
+			 city: [],
+		 groupableComment: [] };
 
 var city_state = 0;
 
@@ -774,6 +776,34 @@ function        question_type_1Choice(question, toReturn, answers, type)
 
 }
 
+function question_type_groupableComment(question, answers , type) {
+	let balise = '<br /><textarea id="' + question.id + '"class="comment">';
+
+	if (type == "quest")
+questionnaire_data.groupableComment.push({id: question.id, rules: question.rules});
+	else if (type == "company")
+company_data.groupableComment.push({id: question.id, rules: question.rules});
+	if (question.mandatory == true && type == "quest")
+mandatories.texts.push(question.id);
+	else if (question.mandatory == true && type == "company")
+mandatories_company.texts.push(question.id);
+	if (answers != undefined)
+	{
+for (let i = 0; answers[i] != undefined; ++i)
+{
+		if (answers[i].question.resource.split('/')[1] == question.id)
+		{
+	if (answers[i].answer != "null")
+			balise += answers[i].answer;
+	break;
+		}
+}
+	}
+	balise += '</textarea>';
+	return (balise);
+}
+
+
 function	question_type_textarea(question, answers, type)
 {
     let balise = '<br /><textarea id="' + question.id + '"class="wysiwyg editeur">';
@@ -849,6 +879,12 @@ function	append_question(question, answers, type)
     {
 	toReturn = question_type_porterMatrix(question, answers, type);
     }
+		else if (question.type == "groupableComment") {
+	toReturn.push(question_type_groupableComment(question , answers , type));
+		}
+		// else if (question.type == "cfa"){
+		//
+		// }
     else if (question.type == "city")
     {
 	toReturn.push(question_type_city(question, answers, type));
