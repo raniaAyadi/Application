@@ -282,17 +282,17 @@ function	question_type_porterMatrix(question, answers)
 	radios = '<br /><input type="radio" name="' + id + 'matrix' + pos + '" value="0|' + list[0] + '" ';
 	if (answer != null && answer == 0)
 	    radios += "checked";
-	radios += '>' + list[0]  + '</input>';
+	radios += '> &nbsp' + list[0]  + '</input>';
 
 	radios += '<br /><input type="radio" name="' + id + 'matrix' + pos + '" value="1|' + list[1] + '" ';
 	if (answer != null && answer == 1)
 	    radios += "checked";
-	radios += '>' + list[1] + '</input>';
+	radios += '> &nbsp' + list[1] + '</input>';
 
 	radios += '<br /><input type="radio" name="' + id + 'matrix' + pos + '" value="2|' + list[2] + '" ';
 	if (answer != null && answer == 2)
 	    radios += "checked";
-	radios += '>' + list[2] + '</input>';
+	radios += '> &nbsp' + list[2] + '</input>';
 
 	return (radios);
     }
