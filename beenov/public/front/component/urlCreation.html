@@ -2,6 +2,13 @@
     </br>
 
     <div class="row col-md-11">
+      <h4 class="" id="label"> Veuillez choisir le théme </h4>
+      <select class="form-control" style="width:300" id="themes" class="">
+        <!-- les entités -->
+        <option selected disabled hidden style="display: none" value="">
+          Choisissez un théme
+        </option>
+      </select>
 
       <h4 class="" id="label"> Veuillez choisir l'entité </h4>
         <select class="form-control" style="width:300" id="entity" class="">
@@ -11,13 +18,6 @@
           </option>
         </select>
 
-      <h4 class="" id="label"> Veuillez choisir le théme </h4>
-        <select class="form-control" style="width:300" id="themes" class="">
-          <!-- les entités -->
-          <option selected disabled hidden style="display: none" value="">
-            Choisissez un théme
-          </option>
-        </select>
 
         <h4 class="" id="label"> Veuillez choisir la sous entité </h4>
           <select class="form-control" style="width:300" id="subentity" class="">
@@ -147,7 +147,7 @@
         else {
           var select = this.querySelector("#user");
           select.removeAttribute("style","display:none");
-          select.setAttribute("style","width:300px")
+          select.setAttribute("style","width:450px")
           this.querySelector("#erreur").style="display:none"
         }
           var select = this.querySelector("#user");
