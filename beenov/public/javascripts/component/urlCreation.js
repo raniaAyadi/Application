@@ -62,15 +62,13 @@ UrlCreation.prototype.setTheme = function(id,idSelected){
 }
 
 UrlCreation.prototype.getUsers = function(){
-  if(!this.entity || !this.theme)
+  if(!this.entity)
     return [];
 
   var idE = this.subentity ? this.subentity.id : this.entity.id;
-  var idTh = this.theme.themeGroup;
   var fn = this.subentity ? User.prototype.isMySubentity : User.prototype.isMyEntity;
+  var users = this.entity.users.filter( elt => fn.call(elt, idE)) ;
 
-
-    var users = this.entity.users.filter( elt => (elt.themes.indexOf(idTh) >= 0) && (fn.call(elt, idE))) ;
   return users;
 };
 

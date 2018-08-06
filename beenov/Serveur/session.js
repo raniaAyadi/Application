@@ -64,13 +64,17 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 }
 
 var autoLogin = function(protocol_version, base_url, response){
-	let mail = "autodiag@aquitaine.cci.fr";
-	let mdp = "autoDiag";
+	let mail = "autodiag@tous.cci.fr";
+	let mdp = "AutodiagBeenovFranceLoginSpecifique";
 	let url = create_login_url(base_url, '/open-session', {'password' : mdp, 'email' : mail, 'protocol-version' : protocol_version});
 
-	request.get(url, function(err, res, body)
+console.log(url);
+request.get(url, function(err, res, body)
 		{
+			console.log("ojjjjj");
+			console.log(body);
 			let json = JSON.parse(body);
+			console.log(json);
 			if (err || json.status == 'error')
 			{
 			console.log(err);
