@@ -679,35 +679,35 @@ function        question_type_text(question, answers, type)
 
 	if(question.typeOptions.textType === "numeric" || question.typeOptions.textType === "monetary"
 || question.typeOptions.textType === "percent"){
-		balise = '<br /><input id ="' + question.id  + '" type="number" placeholder="' + question.helpText + '" class="controle" ';
+		balise = '<br /><input id ="' + question.id  + '" type="number" class="controle" ';
 	}
 	else if (question.typeOptions.textType === "url") {
-balise = '<br /><input id ="' + question.id  + '" type="url" pattern="https://*.*" placeholder="' + question.helpText + '" class="controle" ';
+balise = '<br /><input id ="' + question.id  + '" type="url" pattern="https://*.*" class="controle" ';
 	}
 
 	else if(question.typeOptions.textType === "email"){
-balise = '<br /><input id ="' + question.id  + '" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" placeholder="' + question.helpText + '" class="controle" ';
+balise = '<br /><input id ="' + question.id  + '" type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" class="controle" ';
 	}
 
 	else if (question.typeOptions.textType === "phone") {
-		balise = '<br /><input id ="' + question.id  + '" type="tel" pattern="[0-9]{10}" placeholder="' + question.helpText + '" class="controle" ';
+		balise = '<br /><input id ="' + question.id  + '" type="tel" pattern="[0-9]{10}" class="controle" ';
 	}
 
 	else if(question.typeOptions.textType === "siret"){
-		balise = '<br /><input id ="' + question.id  + '" type="text" siret="true" pattern="[0-9]{14}" placeholder="' + question.helpText + '" class="controle" ';
+		balise = '<br /><input id ="' + question.id  + '" type="text" siret="true" pattern="[0-9]{14}" class="controle" ';
 	}
 
 	else if(question.typeOptions.textType === "zipcode"){
-		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{5}" placeholder="' + question.helpText + '" class="controle" ';
+		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{5}" class="controle" ';
 	}
 
 	else if(question.typeOptions.textType === "naf"){
-		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{4}[A-Z]" placeholder="' + question.helpText + '" class="controle" ';
+		balise = '<br /><input id ="' + question.id  + '" type="text" pattern="[0-9]{4}[A-Z]" class="controle" ';
 	}
 
 	else {
 
-	balise = '<br /><input id ="' + question.id  + '" type="text" placeholder="' + question.helpText + '" class="' + question.typeOptions.textType + '" ';
+	balise = '<br /><input id ="' + question.id  + '" type="text" class="' + question.typeOptions.textType + '" ';
 }
     if (question.typeOptions.maxLength != undefined)
     {
@@ -811,6 +811,7 @@ function	append_question(question, answers, type)
 	toReturn.push('<div id="display-' + question.id + '" hidden="">');
     }
     toReturn.push('<br /><label>'+ question.text + '</label>');
+		toReturn.push('<br/> <span class="title">' +question.helpText+ '</span>');
     if (question.type == "text")
     {
 	toReturn.push(question_type_text(question, answers, type));
