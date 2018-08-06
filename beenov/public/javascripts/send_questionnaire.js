@@ -102,6 +102,8 @@ function checkSiretInput(){
 
 function	send_questionnaire(reinit)
 {
+  var deferred = $.Deferred();
+
     checkSiretInput().done(()=>{
       var isAutoDiag = window.hasOwnProperty("AutoDiag");
       let posted;
@@ -198,8 +200,6 @@ function	send_questionnaire(reinit)
         posted.globalVariableValues = quiz.globalVariableValues;
       }
 
-      var deferred = $.Deferred();
-
       $.ajax({
       type: 'POST',
       url: url,
@@ -253,7 +253,8 @@ function	send_questionnaire(reinit)
           });
         }
 
-        return deferred;
 
     });
+    return deferred;
+
   }
