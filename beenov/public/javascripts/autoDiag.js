@@ -17,6 +17,7 @@ AutoDiag.checkUrl = function(){
 
     var idQuest = theme.questionnaire;
     Quiz.getById(idQuest).done( quiz => AutoDiag.quiz = new Quiz(quiz));
+    document.querySelector("#autoTitre").innerText += AutoDiag.subTheme.name;
   }).fail(()=>{
     alert("Vérifiez l'URL");
     Operation.eraseCookie(CONST.cookie.currentUser, CONST.cookie.sessionKey);
