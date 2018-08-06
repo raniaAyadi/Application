@@ -38,7 +38,9 @@
 <br/>
 <br/>
           <button id="urlB" type="button" name="button"> créer URL</button>
-          <input style="cursor:copy; width:370px" type="text" disabled="disabled" id="lien"></input>
+          <!-- <input style="cursor:copy; width:370px" type="text" disabled="disabled" id="lien"></input> -->
+          <span style="color:#003c74;font-size:15px" id="lien"></span>
+
         </div>
 
     </br>
@@ -214,12 +216,13 @@
         this.setThemes();
         this.querySelector("#urlB").onclick = ()=>{
             var p = this.querySelector("#lien");
-            p.value = CONST.url.autoDiag;
+            p.innerText = CONST.url.autoDiag;
+            console.log(p);
             var idUser = this.urlCreationService.user.id;
             var idTheme= this.urlCreationService.theme.id;
-            p.value += idUser;
-            p.value += "/";
-            p.value += idTheme;
+            p.innerText += idUser;
+            p.innerText += "/";
+            p.innerText += idTheme;
         };
 
       }).fail(() => alert("unauthorized"));
