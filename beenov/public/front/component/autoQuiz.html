@@ -69,12 +69,6 @@
         report.setAttribute("name", name);
 
       });
-      this.querySelector("#auto-save").addEventListener('click' , () => {
-        console.log("netre");
-        document.querySelector('#quiz').setAttribute('style', 'display:none');
-        document.querySelector('#autoFin').removeAttribute('style', 'display:none');
-        document.querySelector('#autoTitre').setAttribute('style',' display:none');
-      });
     }
 
     autoQuizPrototype.createdCallback = function(){

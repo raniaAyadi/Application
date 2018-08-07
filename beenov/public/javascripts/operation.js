@@ -482,7 +482,12 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         document.body.appendChild(link);
         link.click();
         link.remove();
+        if (AutoDiag) {
+        document.querySelector('#quiz').setAttribute('style', 'display:none');
+        document.querySelector('#autoFin').removeAttribute('style', 'display:none');
+        document.querySelector('#autoTitre').setAttribute('style',' display:none');
       }
+    }
     },
 
     createCookie : function(name,value,days) {
