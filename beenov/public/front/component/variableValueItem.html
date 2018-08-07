@@ -9,7 +9,7 @@
       <span style="font-style: italic" id="variableValueLabel">
         <!-- variableValuesItem.testvaleur -->
      </span>
-     <span> / </span>
+     <span id="slach1"> / </span>
      <span style="font-style: italic" id="maxValue">
             <!-- valeur max -->
      </span>
@@ -18,7 +18,7 @@
 
    <span class="title"> Moyenne régionale: </span>
    <span id="moyReg">  </span>
-   <span id="slach"> / </span>
+   <span id="slach2"> / </span>
    <span style="font-style: italic" id="maxValueAverage"></br></br>
           <!-- valeur max -->
 
@@ -45,16 +45,27 @@
     variableValueItemPrototype.setVariableValue = function(){
       this.variableValueItem.setVariableValue().done(()=>{
         try {
-
-          this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue.toFixed(2);
           var maxValueAverage = "4.00";
-          if (parseInt(this.variableValueItem.variableValue)== 0)
-          {
+          if (this.variableValueItem.variableValue === undefined){
             this.querySelector("#moyReg").innerHTML = "N/C";
-            this.querySelector("#slach").setAttribute("style", "display:none")
+            this.querySelector("#variableValueLabel").innerHTML = "N/C";
+            this.querySelector("#slach1").setAttribute("style", "display:none")
+            this.querySelector("#slach2").setAttribute("style", "display:none")
+          }
+          else if (parseInt(this.variableValueItem.variableValue) == 0) {
+            console.log("a");
+              this.querySelector("#variableValueLabel").innerHTML = "0.00";
+              if(this.variableValueItem.maxValue)
+              this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue.toFixed(2);
+              this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage.toFixed(2);
+              this.querySelector("#maxValueAverage").innerHTML = maxValueAverage ;
+              this.querySelector("#slach1").removeAttribute("style", "display:none");
+              this.querySelector("#slach2").removeAttribute("style", "display:none")
           }
           else
           {
+            this.querySelector("#variableValueLabel").innerHTML = this.variableValueItem.variableValue.toFixed(2);
+            this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue.toFixed(2);
             this.querySelector("#moyReg").innerHTML = this.variableValueItem.variableAverage.globalAverage.toFixed(2);
             this.querySelector("#maxValueAverage").innerHTML = maxValueAverage ;
           }
@@ -70,10 +81,6 @@
 
         this.querySelector("#title").innerHTML = this.variableValueItem.name ;
         this.setVariableValue();
-        this.querySelector("#maxValue").innerHTML = this.variableValueItem.maxValue.toFixed(2);
-
-
-
       }
     }
 
