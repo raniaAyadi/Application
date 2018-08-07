@@ -134,7 +134,8 @@
         }
         else if(l ==1){
           this.setAttribute("name", ReportTemplate.allCurrent[0].name);
-          document.querySelector("#templateList").remove();
+          if(document.querySelector("#templateList"))
+            document.querySelector("#templateList").remove();
         }
         else {
           for (var i=0; i<l; i++)

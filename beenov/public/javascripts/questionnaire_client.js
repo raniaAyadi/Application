@@ -268,7 +268,7 @@ function checkValidity(){
 	if(testValidity)
 		eltSave.setAttribute("class", "btn disabled");
 
-	else
+	else if(eltSave)
 		eltSave.setAttribute("class", "btn");
 }
 
