@@ -39,12 +39,13 @@ var	mailToUser = function (req, protocol_version, base_url, response, mail, data
 		to: mail,
 		subject: 'Beenov\' - Auto Diagnostic',
 		text: '',
-		html: '<br/>Bonjour ' + data.nameAdvisor + ',<br/><br/>'
-		  +'L\'entrepneur de l\'entreprise: ' + data.nameEntreprise + ', de code postale: '+ data.zipCode + ', et de SIRET : '+ data.siret
-		  +'  '+ data.nameUser + '  a rempli le questionnaire: '
-		  + data.theme  + '.<br/> '
-		  + 'Veuillez le contacter sur son email: ' + data.mailUser +
-			'<br><a href="'+data.pdfLink+'">"Rapport</a>'
+		html: '<br/>Bonjour &nbsp' + data.nameAdvisor + ',<br/><br/>'
+		  +'L\'entrepreneur de l\'entreprise:&nbsp ' + data.nameEntreprise
+			+ ',<br/><br/> de code postale: &nbsp  '+ data.zipCode + ',<br/><br/> SIRET :&nbsp '+ data.siret+'<br/><br/>  '
+			+ data.nameUser + ' &nbsp a rempli le questionnaire:&nbsp '
+		  + data.theme  + '.<br/> <br/>'
+		  + 'Vous pouvez le contacter sur son email:&nbsp ' + data.mailUser +
+			'.<br/> <br/> Téléchargez le &nbsp <a href="'+data.pdfLink+'"> Rapport </a> &nbsp d\'autodiagnostic.'
 	};
 
 	transporter.sendMail(mailOptions, function(error, info)
