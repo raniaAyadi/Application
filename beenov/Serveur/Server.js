@@ -225,7 +225,7 @@ app.get('/login', function(req, res)
 app.get('/lostpwd', function(req, res)
 	{
 	    console.log("GET lostpwd");
-			if(req.cookies.uid == 26387){
+			if(req.cookies.uid == 26391){
 				res.redirect("/login");
 				res.clearCookie("uid");
 				res.clearCookie("cskey");
@@ -243,7 +243,7 @@ app.get("/autoLogin", function(req, res){
 app.get('/changepwd', function(req, res)
 	{
 	    console.log("GET changepwd");
-			if(req.cookies.uid == 26387){
+			if(req.cookies.uid == 26391){
 				res.redirect("/login");
 				res.clearCookie("uid");
 				res.clearCookie("cskey");
@@ -260,7 +260,7 @@ app.get("/autoDiag/[0-9]*/[0-9]*", function(req, res){
 
 app.get('/meeting_list', function(req, res)
 	{
-	    if(req.cookies.uid == 26387){
+	    if(req.cookies.uid == 26391){
 				res.clearCookie("uid");
 				res.clearCookie("cskey");
 				res.redirect("/login");
@@ -274,7 +274,7 @@ app.get('/meeting_list', function(req, res)
 app.get('/questionnaire', function(req, res)
 	{
 	    console.log("GET questionnaire")
-			if(req.cookies.uid == 26387 || req.cookies.uid == ""){
+			if(req.cookies.uid == 26391 || req.cookies.uid == ""){
 				res.clearCookie("uid");
 				res.clearCookie("cskey");
 				res.clearCookie("infomet");
@@ -288,7 +288,7 @@ app.get('/questionnaire', function(req, res)
 
 app.get('/popup', function(req, res)
 	{
-		if(req.cookies.uid == 26387){
+		if(req.cookies.uid == 26391){
 			res.clearCookie("uid");
 			res.clearCookie("cskey");
 			res.redirect("/login");
@@ -300,7 +300,7 @@ app.get('/popup', function(req, res)
 
 app.get('/company', function(req, res)
 	{
-		if(req.cookies.uid == 26387){
+		if(req.cookies.uid == 26391){
 			res.clearCookie("uid");
 			res.clearCookie("cskey");
 			res.redirect("/login");
@@ -312,7 +312,7 @@ app.get('/company', function(req, res)
 
 app.get('/prediag', function(req, res)
 	{
-		if(req.cookies.uid == 26387){
+		if(req.cookies.uid == 26391){
 			res.clearCookie("uid");
 			res.clearCookie("cskey");
 			res.redirect("/login");
@@ -386,7 +386,7 @@ app.get('/api_entreprise', function(req, res)
 
 app.get('/reinit_pwd', function(req, res)
 	{
-		if(req.cookies.uid == 26387){
+		if(req.cookies.uid == 26391){
 			res.clearCookie("uid");
 			res.clearCookie("cskey");
 			res.redirect("/login");
@@ -496,7 +496,7 @@ app.get("/entities", function(req, res){
 
 app.get('/test', function(req, res)
 	{
-		if(req.cookies.uid == 26387){
+		if(req.cookies.uid == 26391){
 			res.clearCookie("uid");
 			res.clearCookie("cskey");
 			res.redirect("/login");
