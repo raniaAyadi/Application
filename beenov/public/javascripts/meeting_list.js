@@ -127,8 +127,9 @@ function	create_button()
     let siret = $('#siret_data')[0].value;
 		var obj = {};
 
+
 		if (siret.length != 14 || check_siret(siret) != 0)
-				alert("Saisissez un SIRET");
+				alert("SIRET invalid");
 		else {
 			Company.setCompany(siret).done(()=>
 			window.location.replace('/company?' + '&questionnaire=' +  $('#diag').val().split(';')[0] + '&theme=' + $('#diag').val().split(';')[1])
