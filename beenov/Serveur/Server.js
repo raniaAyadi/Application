@@ -14,7 +14,7 @@ const	questionnaire = require("./questionnaire");
 /*
 ** Basic info
 */
-const	port = 80;
+const	port = 8080;
 const	app = express();
 const	base_url = "http://www.beenov.fr/core/v1" /* BDD beenov */
 //const	base_url = "http://beenov.ccir-aquitaine.widmee.com:8001/v1"
