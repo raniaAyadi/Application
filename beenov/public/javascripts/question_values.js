@@ -26,6 +26,7 @@ function	porterMatrix_values(matrix)
 
 function	city_values(city)
 {
+  console.log(city);
     let answers = [];
     for (let i = 0; city[i] != undefined; ++i)
     {
@@ -36,11 +37,11 @@ function	city_values(city)
 	    answers.push({'answer': value[0] + value[1] + "000;" + value,
 			  'question': {resource: 'questions/' + city[i].id}});
 	}
-	else if ($('#cityinput-' + city[i].id).val().length == 5)
-	{
-	    answers.push({'answer': $('#citylist-' + city[i].id).val(),
-			  'question': {resource: 'questions/' + city[i].id}});
-	}
+	// else if ($('#cityinput-' + city[i].id).val().length == 5)
+	// {
+	//     answers.push({'answer': $('#citylist-' + city[i].id).val(),
+	// 		  'question': {resource: 'questions/' + city[i].id}});
+	// }
     }
     var select = document.querySelector("select[city='true']");
     if(select){

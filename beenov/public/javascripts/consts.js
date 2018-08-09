@@ -69,7 +69,7 @@ var CONST = {
       recipient : '0',
       object : 'dev'
     },
-
+    
     cookie : {
       currentMeeting : 'infomet',
       currentUser : "uid",

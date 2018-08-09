@@ -347,6 +347,7 @@ function	question_type_porterMatrix(question, answers)
 
 function	question_type_city(question, answers, type) //Pas de prise en compte de ce type de question par la BDD
 {
+	var ok = false;
     if (type == "quest")
 	questionnaire_data.city.push({ id: question.id, rules: question.rules });
     else if (type == "company")
@@ -366,11 +367,15 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
 	    if (answers[j].question.resource.split('/')[1] == question.id)
 	    {
 		city_answer = answers[j].answer;
+		var ok = true;
+		console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		console.log(city_answer);
+	//	balise += '><br /><input city="true" type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off" value="' + city_answer.split(',')[1]  + '"></div>';
 		break;
 	    }
 	}
     }
-    balise = '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
+    balise += '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
 		console.log("offfffffff");
 		console.log(answers);
     /*if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
@@ -384,7 +389,12 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
     else
     {*/
 			console.log("undefined city");
-	balise += '><br /><input city="true" type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off"></div>';
+			if(ok)
+			var valueOk = city_answer.split(',')[1];
+			else {
+				var valueOk = "";
+			}
+	balise += '><br /><input city="true" type="text" value="' + valueOk +  '" id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id +  '" autocomplete="off"></div>';
     //}
 
     return (balise);

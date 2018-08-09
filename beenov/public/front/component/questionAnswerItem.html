@@ -67,6 +67,13 @@
         break;
 
 
+        case CONST.questionType.city :
+        var code = answer.split(",")[1];
+        Operation.getCity(code).done((nom)=>{
+          elt.innerHTML = nom + " : " + code;
+        }).fail( (msg) => elt.innerHTML = msg);
+          break;
+
         default:
         elt.innerHTML = answer;
       }

@@ -505,4 +505,17 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         this.createCookie(arguments[i],"",-1);
     },
 
+    getCity : function(code){
+      var deferred = $.Deferred();
+
+      $.get("https://geo.api.gouv.fr/communes?fields=code,nom&codePostal=" + code).done((data) => {
+        if(data.length == 0)
+          deferred.reject("Check your code");
+        else
+          deferred.resolve(data[0].nom);
+      })
+
+      return deferred;
+    }
+
 }

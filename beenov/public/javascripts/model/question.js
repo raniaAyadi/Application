@@ -82,7 +82,6 @@ Question.prototype.getAnswerData = function(){
     }
     break;
 
-
     default :
     answerData.answer = this.answer;
   }
