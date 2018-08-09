@@ -255,8 +255,6 @@ function        parse_questionnaire(data, answers, target)
 	}
 	++nbrsection;
   }
-
-
 		  Set_plugins();
 			switchsection(0);
 }
@@ -342,7 +340,8 @@ function	switchsection(index)
   	}
 
 	$('#section' + index).show();
-	$('#list').animate({scrollTop: 0}, 'auto');
+	$('#listcontent').animate({scrollTop: 0}, 'auto');
+		console.log("entreeeee");
 }
 
 /* Affiche l'interfce de navigation entre les sections */
