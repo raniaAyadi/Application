@@ -368,17 +368,14 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
 	    {
 		city_answer = answers[j].answer;
 		var ok = true;
-		console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-		console.log(city_answer);
-	//	balise += '><br /><input city="true" type="text" ' + 'id="cityinput-' + question.id + '" class="city numeric" maxlength="5" list="citylist-' + question.id + '" autocomplete="off" value="' + city_answer.split(',')[1]  + '"></div>';
 		break;
 	    }
 	}
     }
     balise += '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
-		console.log("offfffffff");
-		console.log(answers);
-    /*if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
+
+
+		/*if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
     {
 	balise += 'checked></input><br /><input type="text" id="cityinput-' + question.id + '" maxlength="5" class="numeric" list="citylist-' + question.id + '" autocomplete="off"></div>';
     }
