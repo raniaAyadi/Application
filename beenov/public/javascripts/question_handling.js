@@ -357,7 +357,6 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
 	    return (false)
 	return (true);
     }
-
     let balise;
     let city_answer;
     if (answers != undefined)
@@ -372,7 +371,7 @@ function	question_type_city(question, answers, type) //Pas de prise en compte de
 	    }
 	}
     }
-    balise += '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
+    balise = '<div id="' + question.id + '">CEDEX ? <input type="checkbox" id="citycheck-' + question.id + '" class="citycheck" ';
 
 
 		/*if (city_answer != undefined && is_insee(city_answer.split(',')[0]) == false)
@@ -856,7 +855,6 @@ function	append_question(question, answers, type)
     if (question.type == "text")
     {
 	toReturn.push(question_type_text(question, answers, type));
-
     }
     else if (question.type == "textarea")
     {
