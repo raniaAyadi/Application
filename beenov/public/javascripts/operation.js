@@ -470,8 +470,7 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
       return(dd + '/' + mm + '/' + yyyy);
     },
 
-    createLink : function(url, linkDownload, msg){
-      console.log(url);
+    createLink : function(url, linkDownload, msg, isEmpty){
       var link = document.createElement("a");
 
       link.href = url;
@@ -482,6 +481,9 @@ if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
         document.body.appendChild(link);
         link.click();
         link.remove();
+        if(isEmpty)
+          return;
+          
         if (AutoDiag) {
         document.querySelector('#quiz').setAttribute('style', 'display:none');
         document.querySelector('#autoFin').removeAttribute('style', 'display:none');

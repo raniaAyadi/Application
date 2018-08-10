@@ -332,6 +332,17 @@ $(document).ready(function()
 							create_button();
 					});
 
+					$('#imprimer').click(function(){
+						var select = document.getElementById("diag");
+						var opt = select.selectedOptions[0];
+						var quest = opt.value.split(";")[0];
+
+						Report.generateEmptyPDF(quest).onload = (data)=>{
+              var res = JSON.parse(data.currentTarget.response);
+              Operation.createLink(res.url, "questionnaire", "Télécharger le questionnaire", true);
+						}
+					});
+
 					$('#siret_data').keydown(function(e){
 							siret_data(e)
 					});

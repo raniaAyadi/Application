@@ -627,6 +627,31 @@ var		barchart = function(req, res, base_url, json)
 	});
 }
 
+var imprimer = function(req, res, base_url, data){
+  let url = base_url + '/generate-pdf-questionnaire'+'?session-key=' + req.cookies.cskey;
+  request.post(
+{
+    url: url,
+    "Accept-Language" : 'fr-FR,en;q=0.5',
+    "Accept-Encoding" : 'gzip,deflate',
+    "Accept" : "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    json: data,
+}, function(err, resp, body)
+{
+    if (err || body.status == 'error')
+    {
+  res.send(body);
+  res.status(204).end();
+    }
+    else
+    {
+  res.send(body);
+  res.status(200).end();
+    }
+});
+}
+
+
 var generatePDF = function(req, res, base_url, data){
   let url = base_url + '/generate-pdf-report'+'?session-key=' + req.cookies.cskey;
   request.post(
@@ -837,3 +862,4 @@ exports.firstreport = firstreport;
 exports.getCompany = getCompany;
 exports.getQuestReply = getQuestReply;
 exports.getCompanyById = getCompanyById;
+exports.imprimer = imprimer;

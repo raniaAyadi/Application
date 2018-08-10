@@ -30,6 +30,7 @@ var CONST = {
       getReports : CONST.baseUrl + 'report',
       getReportById : CONST.baseUrl + 'getReport',
       updateReport : CONST.baseUrl + 'updateReport',
+      generateEmptyPDF : CONST.baseUrl + 'imprimer',
       generatePDF : CONST.baseUrl + 'generatePDF',
       addReport : CONST.baseUrl + 'addReport',
       getAverage : CONST.baseUrl + 'getAverage',
@@ -69,7 +70,7 @@ var CONST = {
       recipient : '0',
       object : 'dev'
     },
-    
+
     cookie : {
       currentMeeting : 'infomet',
       currentUser : "uid",

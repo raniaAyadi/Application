@@ -62,6 +62,11 @@ app.post('/addReport', function(req, res){
 	questionnaire.addReport(req, res, base_url, data);
 });
 
+app.post("/imprimer", function(req, res){
+	let data = req.body;
+	questionnaire.imprimer(req, res, base_url, data);
+});
+
 app.get('/verifyByAPI/*', function(req, res){
 	meeting.verifyByAPI(req, res);
 });
