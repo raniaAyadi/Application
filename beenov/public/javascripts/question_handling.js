@@ -545,7 +545,7 @@ function        question_type_nMLongTexts(question, toReturn, answers, type)
 	    }
 	    else
 	    {
-		let balise = '<td><textarea id="' + k + 'nMLongTexts' + question.id + '" class="LTexts" rows="5">';
+		let balise = '<td><textarea style="width:100%" id="' + k + 'nMLongTexts' + question.id + '" class="LTexts" rows="5">';
 		if (nMLongTexts_answer != undefined)
 		{
 		    if(nMLongTexts_answer[k] != null)
