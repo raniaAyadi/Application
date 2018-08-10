@@ -385,6 +385,7 @@ var	request_userinfo = function(protocol_version, base_url, res, userid, cskey, 
 		else
 		{
 			console.log(json);
+			try{
 			switch(option)
 			{
 				case 0:
@@ -398,6 +399,10 @@ var	request_userinfo = function(protocol_version, base_url, res, userid, cskey, 
 				}
 					break;
 			}
+		}
+		catch( e){
+			console.log(e);
+		}
 		}
 	});
 }
