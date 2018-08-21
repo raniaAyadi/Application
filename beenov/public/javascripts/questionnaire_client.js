@@ -195,11 +195,26 @@ function	getquest(data)
 		       {
 			   questionnaire_id = info.id;
 			   main_rules = info.rules;
-				 var id = JSON.parse(getCookie("company_info")).companies;
-				 Company.getById(id).done((company) => {
-					 var coord = company.getCoord();
-					 $('#cmpn').text(coord.name);
-				 });
+
+				 if(getCookie("company_info") != ""){
+					 var id = JSON.parse(getCookie("company_info")).companies;
+					 Company.getById(id).done((company) => {
+						 var coord = company.getCoord();
+						 $('#cmpn').text(coord.name);
+					 });
+				 }
+
+				 else {
+					 var siret = getCookie("siret");
+					 Company.getBySiret(siret).done( data => {
+						 var company = new Company(data.resources[0]);
+
+						 var coord = company.getCoord();
+						 $('#cmpn').text(coord.name);
+					 });
+				 }
+
+
 			   $('#theme').val(data.theme);
 			   $('#advisor').val(data.advisor);
 			   printsect(info);
@@ -735,14 +750,26 @@ function modifycomp()
 
 $(document).ready(function()
 		  {
+
+				if(getCookie("company_info") != ""){
 					var id = JSON.parse(getCookie("company_info")).companies;
 					Company.getById(id).done((company) => {
 						var coord = company.getCoord();
+						$('#cmpn').text(coord.name);
+					});
+				}
 
+				else {
+					var siret = getCookie("siret");
+					Company.getBySiret(siret).done( data => {
+						var company = new Company(data.resources[0]);
+
+						var coord = company.getCoord();
+						console.log(coord);
 						$("#naf").text(coord.nafCode);
 						$("#dept").text(coord.postalCode);
 					});
-
+				}
 		      $("#inputfile").change(function()
 					     {
 						 readURL(this);

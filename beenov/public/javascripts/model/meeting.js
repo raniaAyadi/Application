@@ -60,7 +60,6 @@ Meeting.delete = function(qstReply){
 
 Meeting.getCurrentMeeting = function(){
   if(Meeting.instance == undefined){
-    console.log("is new meeting");
     Meeting.instance = {
       deferred : new $.Deferred(),
       object : {}

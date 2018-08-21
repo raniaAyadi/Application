@@ -129,7 +129,8 @@ var	get_list = function(req, res, base_url)
     console.log(url);
     request.get(url, function(err, response, body)
 		{
-		    let json = JSON.parse(body);
+      try{
+        let json = JSON.parse(body);
 		    if (err)
 		    {
 			console.log(err);
@@ -140,6 +141,10 @@ var	get_list = function(req, res, base_url)
 			res.status(200).end();
 			console.log("Json send");
     }
+  }
+  catch(ex){
+    res.status(500).end()
+  }
   });
     // var fs = require('fs');
     // fs.readFile('liste.json', 'utf8', function(erreur, donnees){
