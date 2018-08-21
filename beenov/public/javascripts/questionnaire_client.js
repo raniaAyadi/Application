@@ -755,7 +755,8 @@ $(document).ready(function()
 					var id = JSON.parse(getCookie("company_info")).companies;
 					Company.getById(id).done((company) => {
 						var coord = company.getCoord();
-						$('#cmpn').text(coord.name);
+						$("#naf").text(coord.nafCode);
+						$("#dept").text(coord.postalCode);
 					});
 				}
 
