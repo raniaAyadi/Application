@@ -104,11 +104,36 @@ var addMeeting = function(req, res, base_url, data){
       if(err)
       res.status(204);
       else{
+        updateMeetingFile(base_url,body.id, req.cookies.cskey);
         res.send(body);
         res.status(200).end();
       }
   });
 };
+
+var updateMeetingFile = function(base_url, id, cskey){
+  let url = base_url+"/questionnaire-replies/"+id+"?session-key="+cskey;
+
+  request.get(url, function(err, response, body)
+  {
+      let json = JSON.parse(body);
+      if(json.status === "ok") {
+        var fs = require('fs');
+
+        var chaine = fs.readFileSync("liste.json", "UTF-8");
+        var list = JSON.parse(chaine);
+
+        console.log("updateMeetingFile");
+        console.log(json.resources[0]);
+        json.resources[0].questionnaireReply = {
+          resource : "questionnaire-replies/"+id
+        };
+        
+        list.push(json.resources[0]);
+        fs.writeFileSync("liste.json", JSON.stringify(list), "UTF-8");
+      }
+  });
+}
 
 var updateMeetingReply = function(req, res, base_url, data){
   let url = create_url(base_url, '/questionnaire-replies/'+req.params['0'], {'session-key': req.cookies.cskey});
@@ -125,7 +150,7 @@ var updateMeetingReply = function(req, res, base_url, data){
 
 var	get_list = function(req, res, base_url)
 {
-    let url = create_url(base_url, '/questionnaire-replies-metadata', {'session-key': req.cookies.cskey});
+    /*let url = create_url(base_url, '/questionnaire-replies-metadata', {'session-key': req.cookies.cskey});
     console.log(url);
     request.get(url, function(err, response, body)
 		{
@@ -145,16 +170,13 @@ var	get_list = function(req, res, base_url)
   catch(ex){
     res.status(500).end()
   }
-  });
-    // var fs = require('fs');
-    // fs.readFile('liste.json', 'utf8', function(erreur, donnees){
-    //   if(erreur)
-    //     throw erreur;
-    //     let json = JSON.parse(donnees);
-    //     res.send(json.resources);
-    //     res.status(200).end();
-    //     console.log("Json send");
-    // });
+});*/
+     var fs = require('fs');
+     var chaine = fs.readFileSync("liste.json", "UTF-8");
+     var json = JSON.parse(chaine);
+
+     res.send(json);
+     res.status(200).end();
 }
 
 exports.addMeeting = addMeeting;

@@ -472,7 +472,28 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 		}
 		else
 		{
-			res.redirect('./meeting_list');
+			console.log(data.qst);
+			var fs = require('fs');
+
+			var chaine = fs.readFileSync("liste.json", "UTF-8");
+			var json = JSON.parse(chaine);
+					console.log("okkkk");
+					let l = json.length;
+					let id = data.qst.split('/')[1];
+
+					for(var i=0; i<json.length; i++){
+
+							if(json[i].id == data.qst)
+								break;
+					}
+
+					console.log(i+"**"+id);
+
+					console.log(json.pop(i));
+					fs.writeFileSync("liste.json", JSON.stringify(json), "UTF-8");
+
+					res.redirect('./meeting_list');
+
 			res.status(200).end();
 		}
 	});

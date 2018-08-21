@@ -78,6 +78,7 @@ function	invert_date(date)
 /* Rempli tableau des données */
 function	set_data(list)
 {
+	console.log(list);
 	let DataSet = [];
 	let i = 0;
 	for (; list[i] != undefined ; i++)

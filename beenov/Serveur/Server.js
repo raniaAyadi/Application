@@ -363,6 +363,7 @@ app.post('/questionnaire-replies', function(req, res){
 });
 
 app.post('/updateReply/*', function(req, res){
+	console.log("this ypdateRepkly");
 	let data = req.body;
 	meeting.updateMeetingReply(req, res, base_url, data);
 });
