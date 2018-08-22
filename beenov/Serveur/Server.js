@@ -45,7 +45,10 @@ app.use(body_parser.urlencoded({parameterLimit: 10000, extended: false, limit: 1
 app.post('/userlogin', function(req, res)
 	 {
 	     let mail = req.body.mail;
-	     let mdp = req.body.mdp
+	     let mdp = req.body.mdp;
+
+			 console.log(mail);
+			 console.log(mdp);
 
 	     session.login_user(mail, mdp, protocol_version, base_url, res);
 	 });
@@ -143,7 +146,13 @@ app.post('/delete', function(req, res)
 	 {
 	     console.log("POST deletion");
 	     let data = req.body;
-	     session.removemeeting(protocol_version, base_url, res, req.cookies.cskey, data);
+			 console.log(data);
+
+			 console.log(data.sessionKey);
+			 var cskey = data.sessionKey || req.cookies.cskey;
+
+			 console.log(cskey);
+	     session.removemeeting(protocol_version, base_url, res, cskey, data);
 	 });
 
 app.post('/getquest', function(req, res)

@@ -468,6 +468,7 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 		if (err || body.status == 'error')
 		{
 			console.log(err);
+			res.send(body);
 			res.status(204).end();
 		}
 		else
@@ -492,7 +493,12 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 					console.log(json.pop(i));
 					fs.writeFileSync("liste.json", JSON.stringify(json), "UTF-8");
 
+					if(!data.webService){
 					res.redirect('./meeting_list');
+				}
+					else {
+						res.send(body);
+					}
 
 			res.status(200).end();
 		}
