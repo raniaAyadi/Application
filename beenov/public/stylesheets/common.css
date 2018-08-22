@@ -81,7 +81,7 @@ html
 .menu li ul
 {
 	display: none;
-	min-width: 15vw;
+	min-width: 11vw;
 }
 
 .menu ul li a
@@ -139,7 +139,7 @@ html
 
 .derouleur
 {
-	width: 1.3em;
+	width: 1.0em;
 	height: auto;
 }
 

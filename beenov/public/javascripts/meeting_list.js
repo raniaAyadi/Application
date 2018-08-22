@@ -298,7 +298,7 @@ function setURLAction(){
 		var user = User.currentUser;
 		if(user.isAdmin()){
 			var elt = document.querySelector("#widget");
-			elt.innerHTML += '<input id="url" class="button" type="button" name="siret"  value="Créer URL">';
+			elt.innerHTML += '<input id="url" class="button" style="width:30%;text-align:center;" type="button" name="siret"  value="Créer URL">';
 			// open dialog pour créer l'url pour l'auto diag
 			$("#url-creation" ).dialog({
     		open: function() {
