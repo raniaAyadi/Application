@@ -171,14 +171,31 @@ var	get_list = function(req, res, base_url)
     res.status(500).end()
   }
 });*/
+
      var fs = require('fs');
      var chaine = fs.readFileSync("liste.json", "UTF-8");
      var json = JSON.parse(chaine);
 
      res.send(json);
      res.status(200).end();
+};
+
+var	webServiceGetMeetings = function(req, res, base_url)
+{
+     var fs = require('fs');
+     var chaine = fs.readFileSync("liste.json", "UTF-8");
+     var tab = JSON.parse(chaine);
+
+     var json ={
+       status : "ok",
+       resources : tab
+     };
+
+     res.send(json);
+     res.status(200).end();
 }
 
+exports.webServiceGetMeetings = webServiceGetMeetings;
 exports.addMeeting = addMeeting;
 exports.verifyByAPI = verifyByAPI;
 exports.updateCompany = updateCompany;

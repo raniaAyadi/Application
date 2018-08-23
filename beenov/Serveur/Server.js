@@ -70,6 +70,10 @@ app.post("/imprimer", function(req, res){
 	questionnaire.imprimer(req, res, base_url, data);
 });
 
+app.get("/webService/getMeetings", function(req, res){
+	meeting.webServiceGetMeetings(req, res);
+});
+
 app.get('/verifyByAPI/*', function(req, res){
 	meeting.verifyByAPI(req, res);
 });
