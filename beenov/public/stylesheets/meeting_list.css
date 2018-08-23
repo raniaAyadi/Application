@@ -23,7 +23,7 @@ body
     top: 150%;
     left: 50%;
     margin-left: -60px;
-    font-size: 11px;
+    font-size: 13px;
 }
 
 .toolip .tooliptext::after {
