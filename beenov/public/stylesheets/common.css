@@ -81,7 +81,7 @@ html
 .menu li ul
 {
 	display: none;
-	min-width: 11vw;
+	min-width: 10vw;
 }
 
 .menu ul li a
