@@ -482,16 +482,17 @@ var removemeeting = function (protocol_version, base_url, res, cskey, data)
 					let l = json.length;
 					let id = data.qst.split('/')[1];
 
-					for(var i=0; i<json.length; i++){
-
-							if(json[i].id == data.qst)
-								break;
+					for(var k=0; k<json.length; k++){
+						if(json[k].id == id)
+							break;
 					}
 
-					console.log(i+"**"+id);
+					if(k<json.length){
+						json.splice(k, 1);
+						fs.writeFileSync("liste.json", JSON.stringify(json), "UTF-8");
+					}
 
-					console.log(json.pop(i));
-					fs.writeFileSync("liste.json", JSON.stringify(json), "UTF-8");
+					console.log(k);
 
 					if(!data.webService){
 					res.redirect('./meeting_list');
